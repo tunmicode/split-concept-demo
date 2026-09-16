@@ -51,7 +51,7 @@
     flex-direction: column;
   }
 
-  .content { padding: 20px 20px 32px; flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .content { padding: 20px 20px 32px; flex: 1; display: flex; flex-direction: column; gap: 18px; }
 
   .greet-row {
     display: flex; align-items: center; justify-content: space-between;
@@ -225,6 +225,11 @@
     padding: 16px 16px 12px;
     box-shadow: 0 12px 30px rgba(34, 92, 72, 0.14), 0 0 0 1px rgba(46, 125, 91, 0.06);
   }
+  body[data-theme="dark"] .trend-wrap {
+    background: linear-gradient(180deg, rgba(26, 34, 30, 0.9), rgba(18, 24, 21, 0.96));
+    border-color: rgba(120, 224, 164, 0.14);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(120, 224, 164, 0.06);
+  }
   .trend-svg {
     display: block;
     overflow: visible;
@@ -232,7 +237,9 @@
   }
   .trend-labels {
     display: flex; justify-content: space-between;
-    font-size: 10.5px; color: var(--muted); margin-top: 8px; padding: 0 2px;
+    font-size: 10.5px; color: rgba(107, 106, 98, 0.9); margin-top: 8px; padding: 0 2px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
   }
 
   .actions-row {
@@ -289,6 +296,14 @@
     display: flex; align-items: center; gap: 12px;
     padding: 14px 0;
     border-top: 1px solid var(--line);
+    transition: transform 0.14s ease, background 0.14s ease;
+    border-radius: 10px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .bank-row:hover {
+    background: rgba(46, 125, 91, 0.03);
+    transform: translateX(1px);
   }
   .bank-mark {
     width: 42px; height: 42px; border-radius: 11px;
@@ -429,60 +444,61 @@
     z-index: 50;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 11px 14px 11px 12px;
-    border: 1px solid rgba(151, 204, 172, 0.18);
+    gap: 6px;
+    padding: 7px 9px 7px 7px;
+    border: 1px solid rgba(151, 204, 172, 0.1);
     border-radius: 999px;
-    background: linear-gradient(180deg, rgba(18, 27, 22, 0.82), rgba(12, 18, 15, 0.9));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: #F1F7F3;
-    box-shadow: 0 18px 34px rgba(14, 18, 15, 0.2), 0 0 18px rgba(88, 219, 142, 0.14);
+    background: rgba(14, 18, 15, 0.28);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: rgba(241, 247, 243, 0.9);
+    box-shadow: 0 8px 20px rgba(14, 18, 15, 0.08), 0 0 12px rgba(88, 219, 142, 0.06);
     text-decoration: none;
     font: inherit;
-    font-size: 12px;
+    font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 0.02em;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
   }
   .support-fab:hover {
     transform: translateY(-1px);
-    box-shadow: 0 22px 36px rgba(14, 18, 15, 0.22), 0 0 22px rgba(88, 219, 142, 0.16);
-    border-color: rgba(151, 204, 172, 0.26);
+    box-shadow: 0 12px 24px rgba(14, 18, 15, 0.1), 0 0 14px rgba(88, 219, 142, 0.08);
+    border-color: rgba(151, 204, 172, 0.14);
+    background: rgba(14, 18, 15, 0.34);
   }
   .support-fab .support-icon {
     position: relative;
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(146, 245, 180, 0.12);
-    border: 1px solid rgba(146, 245, 180, 0.18);
-    color: #9EE8B3;
+    background: rgba(146, 245, 180, 0.06);
+    border: 1px solid rgba(146, 245, 180, 0.1);
+    color: rgba(158, 232, 179, 0.9);
     flex-shrink: 0;
   }
   .support-fab .support-icon::after {
     content: "";
     position: absolute;
-    width: 8px;
-    height: 8px;
-    right: 2px;
-    top: 2px;
+    width: 6px;
+    height: 6px;
+    right: 1px;
+    top: 1px;
     border-radius: 50%;
     background: #7CE8A4;
-    box-shadow: 0 0 0 3px rgba(124, 232, 164, 0.18);
+    box-shadow: 0 0 0 2px rgba(124, 232, 164, 0.1);
     animation: supportPulse 1.8s ease-out infinite;
   }
   @keyframes supportPulse {
     0% { transform: scale(0.9); opacity: 1; }
-    70% { transform: scale(1.6); opacity: 0.35; }
-    100% { transform: scale(1.9); opacity: 0; }
+    70% { transform: scale(1.4); opacity: 0.3; }
+    100% { transform: scale(1.7); opacity: 0; }
   }
   .support-fab svg {
-    width: 14px;
-    height: 14px;
+    width: 11px;
+    height: 11px;
     stroke: currentColor;
     fill: none;
     stroke-width: 2;
