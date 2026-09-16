@@ -39,7 +39,7 @@
     flex-direction: column;
   }
 
-  .content { padding: 20px 20px 32px; flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  .content { padding: 20px 20px 32px; flex: 1; display: flex; flex-direction: column; gap: 16px; }
 
   .greet-row {
     display: flex; align-items: center; justify-content: space-between;
@@ -171,9 +171,15 @@
     display: flex; flex-direction: column; align-items: center; gap: 4px;
     font-size: 10.5px; font-weight: 600; color: #ADA99A;
     background: none; border: none; cursor: pointer; font-family: inherit;
-    padding: 4px 8px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    transition: background 0.15s ease, color 0.15s ease;
   }
-  .tab-item.on { color: var(--ink); }
+  .tab-item.on {
+    color: var(--ink);
+    background: var(--green-tint);
+  }
+  .tab-item.on .tab-icon { color: var(--green); }
   .tab-icon { font-size: 18px; }
 
   /* On wider screens (tablet/desktop), give the page some breathing room
@@ -267,7 +273,7 @@
             <div class="bank-name">GTBank</div>
             <div class="bank-acct">•••• 2458</div>
           </div>
-          <div class="bank-bal">₦55,000</div>
+          <div class="bank-bal">₦46,500</div>
         </div>
 
         <div class="bank-row">
@@ -276,7 +282,7 @@
             <div class="bank-name">Kuda</div>
             <div class="bank-acct">•••• 2458</div>
           </div>
-          <div class="bank-bal">₦55,000</div>
+          <div class="bank-bal">₦28,750</div>
         </div>
 
         <div class="bank-row">
@@ -285,7 +291,7 @@
             <div class="bank-name">FCMB</div>
             <div class="bank-acct">•••• 2458</div>
           </div>
-          <div class="bank-bal">₦55,000</div>
+          <div class="bank-bal">₦24,750</div>
         </div>
       </div>
     </div>
