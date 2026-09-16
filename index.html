@@ -77,10 +77,17 @@
   }
 
   .total-card {
-    background: var(--ink);
-    color: var(--paper);
+    background: linear-gradient(180deg, #F6F8F4 0%, #EAEDE6 100%);
+    color: var(--ink);
     border-radius: 20px;
     padding: 22px 20px;
+    border: 1px solid rgba(19, 26, 22, 0.08);
+    box-shadow: 0 18px 40px rgba(31, 107, 75, 0.16), 0 0 0 1px rgba(56, 154, 108, 0.08);
+  }
+  body[data-theme="dark"] .total-card {
+    background: linear-gradient(180deg, rgba(225,233,228,0.96) 0%, rgba(192,205,197,0.94) 100%);
+    border-color: rgba(154, 233, 187, 0.26);
+    box-shadow: 0 18px 44px rgba(83, 220, 140, 0.26), 0 0 0 1px rgba(137, 222, 170, 0.16);
   }
   .total-top {
     display: flex; align-items: center; justify-content: space-between;
@@ -101,8 +108,8 @@
     font-weight: 600;
     margin-top: 10px;
     white-space: nowrap;
-    color: #0C1110;
-    text-shadow: 0 0 18px rgba(93, 231, 158, 0.48), 0 0 32px rgba(93, 231, 158, 0.22);
+    color: var(--ink);
+    text-shadow: none;
   }
   .total-sub {
     font-size: 12.5px; color: #A9AEA3; margin-top: 6px;
@@ -196,10 +203,15 @@
   .action-icon {
     width: 46px; height: 46px; border-radius: 14px;
     background: linear-gradient(180deg, rgba(17,24,19,0.96), rgba(17,24,19,0.9));
-    color: var(--paper);
+    color: #EEF3EE;
     display: flex; align-items: center; justify-content: center;
     transition: transform 0.12s ease, box-shadow 0.2s ease;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 18px rgba(15,18,16,0.12);
+  }
+  body[data-theme="dark"] .action-icon {
+    background: linear-gradient(180deg, rgba(203,220,209,0.2), rgba(20,28,24,0.96));
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #EEF3EE;
   }
   .action-icon svg {
     width: 18px;
@@ -477,18 +489,6 @@
         </button>
       </div>
 
-      <div class="invite-card">
-        <div class="invite-head">
-          <div class="invite-kicker">Refer friends</div>
-          <div class="invite-badge">+ ₦15,000</div>
-        </div>
-        <div class="invite-copy"><span class="mini">Invite &amp; earn</span>Get rewarded for every referral.</div>
-        <div class="invite-row">
-          <div class="invite-meta">Your invite link is live</div>
-          <button class="invite-cta">Invite</button>
-        </div>
-      </div>
-
       <div class="banks-section">
         <div class="banks-head">
           <div class="banks-title">Connected Banks</div>
@@ -520,6 +520,18 @@
             <div class="bank-acct">•••• 2458</div>
           </div>
           <div class="bank-bal">₦24,750</div>
+        </div>
+      </div>
+
+      <div class="invite-card">
+        <div class="invite-head">
+          <div class="invite-kicker">Refer friends</div>
+          <div class="invite-badge">+ ₦15,000</div>
+        </div>
+        <div class="invite-copy"><span class="mini">Invite &amp; earn</span>Get rewarded for every referral.</div>
+        <div class="invite-row">
+          <div class="invite-meta">Your invite link is live</div>
+          <button class="invite-cta">Invite</button>
         </div>
       </div>
     </div>
