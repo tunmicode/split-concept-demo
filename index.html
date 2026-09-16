@@ -101,6 +101,8 @@
     font-weight: 600;
     margin-top: 10px;
     white-space: nowrap;
+    color: #0C1110;
+    text-shadow: 0 0 18px rgba(93, 231, 158, 0.48), 0 0 32px rgba(93, 231, 158, 0.22);
   }
   .total-sub {
     font-size: 12.5px; color: #A9AEA3; margin-top: 6px;
@@ -110,59 +112,58 @@
   .invite-card {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(circle at 10% 20%, rgba(124, 232, 170, 0.35), transparent 28%),
-                linear-gradient(135deg, #111813 0%, #173729 100%);
-    border: 1px solid rgba(120, 224, 164, 0.18);
-    border-radius: 18px;
-    padding: 18px 18px 16px;
-    box-shadow: 0 0 0 1px rgba(116, 222, 170, 0.08), 0 0 28px rgba(46, 125, 91, 0.28);
+    background: linear-gradient(135deg, rgba(17,24,19,0.92), rgba(24,43,35,0.94));
+    border: 1px solid rgba(120, 224, 164, 0.12);
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
   }
   .invite-card::before {
     content: "";
     position: absolute;
-    inset: -28% auto auto -12%;
-    width: 180px; height: 180px;
-    background: rgba(108, 230, 156, 0.18);
+    right: -18px; top: -22px;
+    width: 120px; height: 120px;
+    background: rgba(108, 230, 156, 0.12);
     border-radius: 50%;
-    filter: blur(22px);
+    filter: blur(18px);
     pointer-events: none;
   }
   .invite-head {
     position: relative; z-index: 1;
     display: flex; align-items: center; justify-content: space-between;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
   .invite-kicker {
-    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
     color: rgba(220, 245, 228, 0.8); font-weight: 700;
   }
   .invite-badge {
-    font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    font-size: 8.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
     color: #DBF7E7; background: rgba(139, 226, 173, 0.12);
-    border: 1px solid rgba(139, 226, 173, 0.18); border-radius: 999px; padding: 6px 8px;
+    border: 1px solid rgba(139, 226, 173, 0.18); border-radius: 999px; padding: 5px 7px;
   }
   .invite-copy {
     position: relative; z-index: 1;
-    font-family: 'Fraunces', serif; font-size: 28px; line-height: 1.04; color: #F2F9F4;
-    letter-spacing: -0.04em;
-    margin-bottom: 10px;
+    font-family: 'Fraunces', serif; font-size: 18px; line-height: 1.12; color: #F2F9F4;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
   }
   .invite-copy .mini {
-    display: block; font-size: 12px; font-family: 'Manrope', sans-serif; letter-spacing: 0.04em;
-    text-transform: uppercase; margin-bottom: 6px; color: rgba(215, 232, 221, 0.8);
+    display: block; font-size: 10px; font-family: 'Manrope', sans-serif; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 4px; color: rgba(215, 232, 221, 0.8);
   }
   .invite-row {
     position: relative; z-index: 1;
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
   }
   .invite-meta {
-    font-size: 12px; color: rgba(230, 241, 232, 0.8);
+    font-size: 11px; color: rgba(230, 241, 232, 0.8);
   }
   .invite-cta {
     background: #F2F9F4; color: #0F1210; border: none; border-radius: 999px;
-    padding: 10px 14px; font: inherit; font-size: 12px; font-weight: 800;
-    letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 8px 12px; font: inherit; font-size: 10px; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase;
   }
   .trend-wrap {
     background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%);
@@ -404,18 +405,6 @@
         <div class="total-sub"><span class="up">▲ 10.2%</span> this month, across 3 banks</div>
       </div>
 
-      <div class="invite-card">
-        <div class="invite-head">
-          <div class="invite-kicker">Refer friends</div>
-          <div class="invite-badge">+ ₦15,000</div>
-        </div>
-        <div class="invite-copy"><span class="mini">Invite &amp; earn</span>Get rewarded for every successful referral.</div>
-        <div class="invite-row">
-          <div class="invite-meta">Your invite link is live</div>
-          <button class="invite-cta">Invite</button>
-        </div>
-      </div>
-
       <div class="trend-wrap">
         <svg class="trend-svg" viewBox="0 0 350 90" width="100%" height="90" preserveAspectRatio="none" aria-label="Growth chart">
           <defs>
@@ -486,6 +475,18 @@
           </div>
           <div class="action-label">Sync all</div>
         </button>
+      </div>
+
+      <div class="invite-card">
+        <div class="invite-head">
+          <div class="invite-kicker">Refer friends</div>
+          <div class="invite-badge">+ ₦15,000</div>
+        </div>
+        <div class="invite-copy"><span class="mini">Invite &amp; earn</span>Get rewarded for every referral.</div>
+        <div class="invite-row">
+          <div class="invite-meta">Your invite link is live</div>
+          <button class="invite-cta">Invite</button>
+        </div>
       </div>
 
       <div class="banks-section">
