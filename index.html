@@ -280,16 +280,16 @@
 </head>
 <body>
 
-  <div class="page app-screen active" data-screen="home">
+  <div class="page">
     <div class="content">
       <div class="greet-row">
-        <button class="greet-trigger" type="button" data-target="profile" data-return="home">
+        <a class="greet-trigger" href="profile.html" aria-label="Open profile details">
           <div class="greet-avatar">T</div>
           <div class="greet-text">
             <div class="hi">Good afternoon</div>
             <div class="name">Tunmi</div>
           </div>
-        </button>
+        </a>
         <button class="bell" aria-label="Notifications">🔔</button>
       </div>
 
@@ -376,167 +376,13 @@
     </div>
 
     <div class="tabbar">
-      <button class="tab-item on" data-screen="home" type="button"><div class="tab-icon">⌂</div>Home</button>
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🏦</div>Banks</button>
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">📈</div>Insights</button>
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🔗</div>Links</button>
-      <button class="tab-item" data-screen="account" type="button"><div class="tab-icon">👤</div>Account</button>
+      <a class="tab-item on" href="index.html"><div class="tab-icon">⌂</div>Home</a>
+      <a class="tab-item" href="index.html"><div class="tab-icon">🏦</div>Banks</a>
+      <a class="tab-item" href="index.html"><div class="tab-icon">📈</div>Insights</a>
+      <a class="tab-item" href="index.html"><div class="tab-icon">🔗</div>Links</a>
+      <a class="tab-item" href="account.html"><div class="tab-icon">👤</div>Account</a>
     </div>
   </div>
-
-  <div class="page app-screen" data-screen="account">
-    <div class="content">
-      <div class="screen-header">
-        <button class="nav-back" type="button" data-back="home" aria-label="Back to home">←</button>
-        <div class="screen-title">Account</div>
-        <div style="width: 36px;"></div>
-      </div>
-
-      <div class="profile-card">
-        <div class="profile-avatar">T</div>
-        <div class="profile-copy">
-          <div class="profile-name">Tunmi</div>
-          <div class="profile-meta">Premium member</div>
-        </div>
-        <div class="profile-badge">2022</div>
-      </div>
-
-      <div class="list-card">
-        <button class="list-row" type="button" data-target="profile" data-return="account">
-          <div class="row-copy">
-            <div class="row-label">Profile</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </button>
-        <button class="list-row" type="button">
-          <div class="row-copy">
-            <div class="row-label">Security</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </button>
-        <button class="list-row" type="button">
-          <div class="row-copy">
-            <div class="row-label">Notifications</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </button>
-        <button class="list-row" type="button">
-          <div class="row-copy">
-            <div class="row-label">Linked banks</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </button>
-        <button class="list-row" type="button">
-          <div class="row-copy">
-            <div class="row-label">Help and support</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </button>
-      </div>
-
-      <div class="list-card">
-        <button class="list-row danger-row" type="button">
-          <div class="row-copy">
-            <div class="row-label">Log out</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </button>
-      </div>
-    </div>
-
-    <div class="tabbar">
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">⌂</div>Home</button>
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🏦</div>Banks</button>
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">📈</div>Insights</button>
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🔗</div>Links</button>
-      <button class="tab-item on" data-screen="account" type="button"><div class="tab-icon">👤</div>Account</button>
-    </div>
-  </div>
-
-  <div class="page app-screen" data-screen="profile">
-    <div class="content">
-      <div class="screen-header">
-        <button class="nav-back" type="button" data-back="home" aria-label="Back">←</button>
-        <div class="screen-title">Profile</div>
-        <div style="width: 36px;"></div>
-      </div>
-
-      <div class="profile-card" style="justify-content: center;">
-        <div class="profile-avatar" style="width: 64px; height: 64px; font-size: 22px;">T</div>
-      </div>
-
-      <div class="detail-list">
-        <div class="detail-row">
-          <div class="detail-label">Full name</div>
-          <div class="detail-value">Tunmi Adeyemi</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-label">Email</div>
-          <div class="detail-value">tunmi@split.app</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-label">Phone</div>
-          <div class="detail-value">+234 803 123 4567</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-label">Location</div>
-          <div class="detail-value">Lagos</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-label">Member since</div>
-          <div class="detail-value">Apr 2022</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tabbar">
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">⌂</div>Home</button>
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🏦</div>Banks</button>
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">📈</div>Insights</button>
-      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🔗</div>Links</button>
-      <button class="tab-item" data-screen="account" type="button"><div class="tab-icon">👤</div>Account</button>
-    </div>
-  </div>
-
-  <script>
-    const screens = document.querySelectorAll('.app-screen');
-    const screenButtons = document.querySelectorAll('[data-screen]');
-    const targetButtons = document.querySelectorAll('[data-target]');
-    const backButtons = document.querySelectorAll('[data-back]');
-
-    function showScreen(name, fallback) {
-      screens.forEach((screen) => {
-        screen.classList.toggle('active', screen.dataset.screen === name);
-      });
-
-      const activeTarget = fallback || name;
-      screenButtons.forEach((button) => {
-        button.classList.toggle('on', button.dataset.screen === activeTarget);
-      });
-    }
-
-    screenButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const target = button.dataset.screen;
-        if (target) showScreen(target, target);
-      });
-    });
-
-    targetButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const target = button.dataset.target;
-        const fallback = button.dataset.return || 'home';
-        showScreen(target, fallback);
-      });
-    });
-
-    backButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const target = button.dataset.back || 'home';
-        showScreen(target, target);
-      });
-    });
-  </script>
 
 </body>
 </html>
