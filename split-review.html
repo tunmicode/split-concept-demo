@@ -74,6 +74,26 @@
   .summary-sub {
     font-size: 12px; color: var(--muted);
   }
+  .settle-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 18px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .settle-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .settle-title {
+    font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-weight: 700;
+  }
+  .settle-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 6px;
+    border-top: 1px solid var(--line);
+  }
+  .settle-row:first-of-type { border-top: none; padding-top: 0; }
+  .settle-name { font-size: 14px; font-weight: 700; }
+  .settle-meta { font-size: 11px; color: var(--muted); }
+  .settle-amount {
+    font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; text-align: right;
+  }
   .list-card {
     background: var(--white); border: 1px solid var(--line); border-radius: 18px;
     padding: 0 18px;
@@ -158,7 +178,28 @@
       <div class="summary-card">
         <div class="summary-label">Project</div>
         <div class="summary-total">Brand campaign</div>
-        <div class="summary-sub">Total value ₦240,000</div>
+        <div class="summary-sub">Total value ₦240,000 • 3 participants</div>
+      </div>
+
+      <div class="settle-card">
+        <div class="settle-head">
+          <div class="settle-title">Settlement flow</div>
+          <span class="status confirmed">Live</span>
+        </div>
+        <div class="settle-row">
+          <div>
+            <div class="settle-name">Ada</div>
+            <div class="settle-meta">Waiting on bank sync</div>
+          </div>
+          <div class="settle-amount">₦84,000</div>
+        </div>
+        <div class="settle-row">
+          <div>
+            <div class="settle-name">Kelechi</div>
+            <div class="settle-meta">Instant settlement</div>
+          </div>
+          <div class="settle-amount">₦48,000</div>
+        </div>
       </div>
 
       <div class="list-card">

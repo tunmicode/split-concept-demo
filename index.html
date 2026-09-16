@@ -107,6 +107,43 @@
   }
   .total-sub .up { color: #6FCF97; font-weight: 700; }
 
+  .money-stack {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px 18px 8px;
+  }
+  .stack-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .stack-title {
+    font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600;
+  }
+  .stack-tag {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--green); background: var(--green-tint);
+    padding: 6px 8px; border-radius: 999px;
+  }
+  .stack-item {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 10px 0; border-top: 1px solid var(--line);
+  }
+  .stack-person { font-size: 14.5px; font-weight: 700; }
+  .stack-micro {
+    display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--muted);
+  }
+  .status-pill {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 999px; padding: 6px 8px; font-size: 9.5px; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .status-pill.ok { background: var(--green-tint); color: var(--green); }
+  .status-pill.wait { background: #F3E6D3; color: var(--amber); }
+  .stack-amount {
+    font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; text-align: right;
+  }
+
   .trend-wrap {
     background: var(--white);
     border: 1px solid var(--line);
@@ -314,6 +351,46 @@
         <div class="total-sub"><span class="up">▲ 10.2%</span> this month, across 3 banks</div>
       </div>
 
+      <div class="money-stack">
+        <div class="stack-head">
+          <div class="stack-title">Settlement status</div>
+          <div class="stack-tag">Live</div>
+        </div>
+
+        <div class="stack-item">
+          <div>
+            <div class="stack-person">Tola</div>
+            <div class="stack-micro"><span>Paid</span><span>•</span><span>Brand campaign</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="status-pill ok">Settled</span>
+            <div class="stack-amount">₦54,000</div>
+          </div>
+        </div>
+
+        <div class="stack-item">
+          <div>
+            <div class="stack-person">Ada</div>
+            <div class="stack-micro"><span>Pending</span><span>•</span><span>Awaiting bank</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="status-pill wait">Waiting</span>
+            <div class="stack-amount">₦42,000</div>
+          </div>
+        </div>
+
+        <div class="stack-item">
+          <div>
+            <div class="stack-person">Kelechi</div>
+            <div class="stack-micro"><span>Settled</span><span>•</span><span>Instant</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="status-pill ok">Ready</span>
+            <div class="stack-amount">₦24,000</div>
+          </div>
+        </div>
+      </div>
+
       <div class="trend-wrap">
         <svg viewBox="0 0 350 90" width="100%" height="90" preserveAspectRatio="none">
           <polyline
@@ -348,7 +425,7 @@
         </button>
         <button class="action-item">
           <div class="action-icon">↻</div>
-          <div class="action-label">Sync all</div>
+          <div class="action-label">Settle up</div>
         </button>
       </div>
 

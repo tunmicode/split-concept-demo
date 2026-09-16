@@ -84,6 +84,25 @@
     background: var(--green-tint); color: var(--green); border-radius: 999px;
     padding: 7px 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
   }
+  .tracking-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 18px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .tracking-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .tracking-title {
+    font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-weight: 700;
+  }
+  .tracking-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 10px;
+  }
+  .tracking-row:first-of-type { border-top: none; padding-top: 0; }
+  .tracking-name { font-size: 14px; font-weight: 700; }
+  .tracking-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .tracking-amount {
+    font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; text-align: right;
+  }
   .list-card {
     background: var(--white); border: 1px solid var(--line); border-radius: 18px;
     padding: 0 18px;
@@ -165,6 +184,27 @@
       <div class="status-row">
         <div class="status-text">Split is ready to receive</div>
         <div class="status-pill">Ready</div>
+      </div>
+
+      <div class="tracking-card">
+        <div class="tracking-head">
+          <div class="tracking-title">Settlement tracking</div>
+          <span class="status-pill">3/3</span>
+        </div>
+        <div class="tracking-row">
+          <div>
+            <div class="tracking-name">Tola</div>
+            <div class="tracking-meta">Funded</div>
+          </div>
+          <div class="tracking-amount">₦108,000</div>
+        </div>
+        <div class="tracking-row">
+          <div>
+            <div class="tracking-name">Ada</div>
+            <div class="tracking-meta">Awaiting transfer</div>
+          </div>
+          <div class="tracking-amount">₦84,000</div>
+        </div>
       </div>
 
       <div class="list-card">

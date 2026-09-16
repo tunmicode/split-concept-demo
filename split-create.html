@@ -76,21 +76,50 @@
     padding: 14px 12px; font: inherit; color: var(--ink); outline: none;
   }
   .input:focus { border-color: var(--green); }
+  .smart-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 16px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .smart-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+  }
+  .smart-title {
+    font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted);
+    font-weight: 700;
+  }
+  .chip-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .chip {
+    border: 1px solid var(--line); background: var(--paper); border-radius: 999px;
+    padding: 8px 10px; font: inherit; font-size: 11px; font-weight: 700; color: var(--ink);
+  }
+  .chip.active {
+    background: var(--green-tint); border-color: transparent; color: var(--green);
+  }
   .participant-card {
     background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 16px 16px 12px;
     display: flex; flex-direction: column; gap: 14px;
   }
   .participant-row {
-    display: grid; grid-template-columns: 1fr 90px; gap: 12px; align-items: center;
+    display: grid; grid-template-columns: 1fr 110px; gap: 12px; align-items: center;
   }
   .participant-name {
-    font-size: 14px; font-weight: 600;
+    font-size: 14px; font-weight: 700;
   }
   .participant-meta {
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
   }
+  .participant-status {
+    font-size: 9.5px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 700;
+    color: var(--green); background: var(--green-tint); border-radius: 999px; padding: 5px 6px;
+  }
   .participant-share {
     font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; text-align: right;
+  }
+  .participant-amount {
+    font-size: 10.5px; color: var(--muted); text-align: right; margin-top: 3px;
   }
   .amount-row {
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -163,26 +192,56 @@
         </div>
       </div>
 
+      <div class="smart-card">
+        <div class="smart-head">
+          <div class="smart-title">Smart split</div>
+          <div class="status-pill ok" style="font-size:9px; padding:6px 8px;">Auto</div>
+        </div>
+        <div class="chip-row">
+          <button class="chip active" type="button">Even split</button>
+          <button class="chip" type="button">Custom rules</button>
+          <button class="chip" type="button">By balance</button>
+        </div>
+      </div>
+
       <div class="participant-card">
         <div class="participant-row">
           <div class="participant-meta">
-            <div class="participant-name">Tola</div>
+            <div>
+              <div class="participant-name">Tola</div>
+              <div class="participant-status">Paid</div>
+            </div>
           </div>
-          <div class="participant-share">45%</div>
+          <div>
+            <div class="participant-share">45%</div>
+            <div class="participant-amount">₦108,000</div>
+          </div>
         </div>
 
         <div class="participant-row">
           <div class="participant-meta">
-            <div class="participant-name">Ada</div>
+            <div>
+              <div class="participant-name">Ada</div>
+              <div class="participant-status" style="background:#f3e6d3;color:var(--amber);">Pending</div>
+            </div>
           </div>
-          <div class="participant-share">35%</div>
+          <div>
+            <div class="participant-share">35%</div>
+            <div class="participant-amount">₦84,000</div>
+          </div>
         </div>
 
         <div class="participant-row">
           <div class="participant-meta">
-            <div class="participant-name">Kelechi</div>
+            <div>
+              <div class="participant-name">Kelechi</div>
+              <div class="participant-status">Ready</div>
+            </div>
           </div>
-          <div class="participant-share">20%</div>
+          <div>
+            <div class="participant-share">20%</div>
+            <div class="participant-amount">₦48,000</div>
+          </div>
         </div>
       </div>
 
