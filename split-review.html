@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Split — Review</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #0F1210;
@@ -17,11 +17,23 @@
     --amber: #C77B3D;
     --muted: #6B6A62;
     --white: #FFFFFF;
+    --font-ui: 'Manrope', 'Inter', sans-serif;
+  }
+  body[data-theme="dark"] {
+    --ink: #EEF3EE;
+    --paper: #111813;
+    --paper-dim: #181F1B;
+    --line: rgba(238, 243, 238, 0.12);
+    --green: #2E7D5B;
+    --green-tint: rgba(46, 125, 91, 0.18);
+    --amber: #C77B3D;
+    --muted: #AAB5AD;
+    --white: #1A221E;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
     background: var(--paper);
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-ui);
     color: var(--ink);
   }
   body {
@@ -192,5 +204,10 @@
       <a class="tab-item" href="account.html"><div class="tab-icon">👤</div>Account</a>
     </div>
   </div>
+
+  <script>
+    const savedTheme = localStorage.getItem('split-theme') || 'light';
+    document.body.setAttribute('data-theme', savedTheme);
+  </script>
 </body>
 </html>
