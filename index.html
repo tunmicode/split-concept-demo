@@ -182,6 +182,85 @@
   .tab-item.on .tab-icon { color: var(--green); }
   .tab-icon { font-size: 18px; }
 
+  .greet-trigger {
+    background: none; border: none; padding: 0; margin: 0; cursor: pointer;
+    display: flex; align-items: center; gap: 12px; font: inherit; color: inherit;
+    text-align: left;
+  }
+  .app-screen { display: none; }
+  .app-screen.active { display: flex; }
+
+  .screen-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 4px;
+  }
+  .nav-back {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line);
+    background: var(--white); color: var(--ink); font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .screen-title {
+    font-family: 'Fraunces', serif; font-size: 21px; font-weight: 600;
+    flex: 1; text-align: center; margin-right: 36px;
+  }
+  .profile-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+    padding: 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .profile-avatar {
+    width: 48px; height: 48px; border-radius: 50%; background: var(--green);
+    color: var(--white); display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px;
+    flex-shrink: 0;
+  }
+  .profile-copy { flex: 1; min-width: 0; }
+  .profile-name {
+    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;
+    line-height: 1.1;
+  }
+  .profile-meta {
+    font-size: 12px; color: var(--muted); margin-top: 3px;
+  }
+  .profile-badge {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--green); background: var(--green-tint);
+    padding: 7px 8px; border-radius: 999px;
+  }
+  .list-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+    padding: 0 18px;
+  }
+  .list-row {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; background: none; border: none; border-top: 1px solid var(--line);
+    padding: 15px 0; text-align: left; color: var(--ink); font: inherit; cursor: pointer;
+  }
+  .list-row:first-child { border-top: none; }
+  .row-copy { flex: 1; min-width: 0; }
+  .row-label { font-size: 14px; font-weight: 600; }
+  .row-value {
+    font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600;
+    color: var(--ink);
+  }
+  .row-arrow {
+    font-size: 22px; color: var(--muted); line-height: 1; margin-left: 8px;
+  }
+  .danger-row .row-label { color: var(--ink); }
+  .detail-list {
+    background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+    padding: 0 18px;
+  }
+  .detail-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 0; border-top: 1px solid var(--line);
+  }
+  .detail-row:first-child { border-top: none; }
+  .detail-label { font-size: 12px; color: var(--muted); }
+  .detail-value {
+    font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; text-align: right;
+  }
+
   /* On wider screens (tablet/desktop), give the page some breathing room
      either side instead of stretching content edge to edge, but keep the
      layout itself identical — this is still one page, not a phone mockup. */
@@ -201,16 +280,16 @@
 </head>
 <body>
 
-  <div class="page">
+  <div class="page app-screen active" data-screen="home">
     <div class="content">
       <div class="greet-row">
-        <div class="greet-left">
+        <button class="greet-trigger" type="button" data-target="profile" data-return="home">
           <div class="greet-avatar">T</div>
           <div class="greet-text">
             <div class="hi">Good afternoon</div>
             <div class="name">Tunmi</div>
           </div>
-        </div>
+        </button>
         <button class="bell" aria-label="Notifications">🔔</button>
       </div>
 
@@ -297,13 +376,167 @@
     </div>
 
     <div class="tabbar">
-      <button class="tab-item on"><div class="tab-icon">⌂</div>Home</button>
-      <button class="tab-item"><div class="tab-icon">🏦</div>Banks</button>
-      <button class="tab-item"><div class="tab-icon">📈</div>Insights</button>
-      <button class="tab-item"><div class="tab-icon">🔗</div>Links</button>
-      <button class="tab-item"><div class="tab-icon">👤</div>Account</button>
+      <button class="tab-item on" data-screen="home" type="button"><div class="tab-icon">⌂</div>Home</button>
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🏦</div>Banks</button>
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">📈</div>Insights</button>
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🔗</div>Links</button>
+      <button class="tab-item" data-screen="account" type="button"><div class="tab-icon">👤</div>Account</button>
     </div>
   </div>
+
+  <div class="page app-screen" data-screen="account">
+    <div class="content">
+      <div class="screen-header">
+        <button class="nav-back" type="button" data-back="home" aria-label="Back to home">←</button>
+        <div class="screen-title">Account</div>
+        <div style="width: 36px;"></div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar">T</div>
+        <div class="profile-copy">
+          <div class="profile-name">Tunmi</div>
+          <div class="profile-meta">Premium member</div>
+        </div>
+        <div class="profile-badge">2022</div>
+      </div>
+
+      <div class="list-card">
+        <button class="list-row" type="button" data-target="profile" data-return="account">
+          <div class="row-copy">
+            <div class="row-label">Profile</div>
+          </div>
+          <div class="row-arrow">›</div>
+        </button>
+        <button class="list-row" type="button">
+          <div class="row-copy">
+            <div class="row-label">Security</div>
+          </div>
+          <div class="row-arrow">›</div>
+        </button>
+        <button class="list-row" type="button">
+          <div class="row-copy">
+            <div class="row-label">Notifications</div>
+          </div>
+          <div class="row-arrow">›</div>
+        </button>
+        <button class="list-row" type="button">
+          <div class="row-copy">
+            <div class="row-label">Linked banks</div>
+          </div>
+          <div class="row-arrow">›</div>
+        </button>
+        <button class="list-row" type="button">
+          <div class="row-copy">
+            <div class="row-label">Help and support</div>
+          </div>
+          <div class="row-arrow">›</div>
+        </button>
+      </div>
+
+      <div class="list-card">
+        <button class="list-row danger-row" type="button">
+          <div class="row-copy">
+            <div class="row-label">Log out</div>
+          </div>
+          <div class="row-arrow">›</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="tabbar">
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">⌂</div>Home</button>
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🏦</div>Banks</button>
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">📈</div>Insights</button>
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🔗</div>Links</button>
+      <button class="tab-item on" data-screen="account" type="button"><div class="tab-icon">👤</div>Account</button>
+    </div>
+  </div>
+
+  <div class="page app-screen" data-screen="profile">
+    <div class="content">
+      <div class="screen-header">
+        <button class="nav-back" type="button" data-back="home" aria-label="Back">←</button>
+        <div class="screen-title">Profile</div>
+        <div style="width: 36px;"></div>
+      </div>
+
+      <div class="profile-card" style="justify-content: center;">
+        <div class="profile-avatar" style="width: 64px; height: 64px; font-size: 22px;">T</div>
+      </div>
+
+      <div class="detail-list">
+        <div class="detail-row">
+          <div class="detail-label">Full name</div>
+          <div class="detail-value">Tunmi Adeyemi</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Email</div>
+          <div class="detail-value">tunmi@split.app</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Phone</div>
+          <div class="detail-value">+234 803 123 4567</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Location</div>
+          <div class="detail-value">Lagos</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Member since</div>
+          <div class="detail-value">Apr 2022</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabbar">
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">⌂</div>Home</button>
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🏦</div>Banks</button>
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">📈</div>Insights</button>
+      <button class="tab-item" data-screen="home" type="button"><div class="tab-icon">🔗</div>Links</button>
+      <button class="tab-item" data-screen="account" type="button"><div class="tab-icon">👤</div>Account</button>
+    </div>
+  </div>
+
+  <script>
+    const screens = document.querySelectorAll('.app-screen');
+    const screenButtons = document.querySelectorAll('[data-screen]');
+    const targetButtons = document.querySelectorAll('[data-target]');
+    const backButtons = document.querySelectorAll('[data-back]');
+
+    function showScreen(name, fallback) {
+      screens.forEach((screen) => {
+        screen.classList.toggle('active', screen.dataset.screen === name);
+      });
+
+      const activeTarget = fallback || name;
+      screenButtons.forEach((button) => {
+        button.classList.toggle('on', button.dataset.screen === activeTarget);
+      });
+    }
+
+    screenButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.screen;
+        if (target) showScreen(target, target);
+      });
+    });
+
+    targetButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.target;
+        const fallback = button.dataset.return || 'home';
+        showScreen(target, fallback);
+      });
+    });
+
+    backButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.back || 'home';
+        showScreen(target, target);
+      });
+    });
+  </script>
 
 </body>
 </html>
