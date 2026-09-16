@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Split — Accounts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0F1210;
+    --paper: #F7F5F0;
+    --paper-dim: #EFEBE1;
+    --line: #DCD7C9;
+    --green: #2E7D5B;
+    --green-tint: #E4EFE8;
+    --amber: #C77B3D;
+    --muted: #6B6A62;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1A1D19;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .demo-tag {
+    position: fixed;
+    top: 20px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--amber);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 6px 14px;
+    border-radius: 100px;
+    z-index: 100;
+    white-space: nowrap;
+  }
+  .phone {
+    width: 390px;
+    max-height: 844px;
+    background: var(--paper);
+    border-radius: 44px;
+    border: 10px solid #12140F;
+    box-shadow: 0 50px 100px -20px rgba(0,0,0,0.6);
+    overflow-y: auto;
+    position: relative;
+  }
+  .notch {
+    position: sticky; top: 0; left: 0; right: 0;
+    height: 0;
+  }
+  .notch::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 24px;
+    background: #12140F;
+    border-radius: 0 0 16px 16px;
+    z-index: 50;
+  }
+
+  .content { padding: 20px 20px 100px; display: flex; flex-direction: column; gap: 20px; }
+
+  .greet-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 8px;
+  }
+  .greet-left { display: flex; align-items: center; gap: 12px; }
+  .greet-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--green); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px;
+  }
+  .greet-text .hi { font-size: 12.5px; color: var(--muted); }
+  .greet-text .name { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin-top: 1px; }
+  .bell {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  .total-card {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 20px;
+    padding: 22px 20px;
+  }
+  .total-top {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .total-label { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: #A9AEA3; font-weight: 500; }
+  .total-label .eye { opacity: 0.7; font-size: 13px; }
+  .more-dots {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; letter-spacing: 1px; color: #C9CDC3;
+  }
+  .total-amount {
+    font-family: 'Fraunces', serif; font-size: 38px; font-weight: 600;
+    margin-top: 10px;
+  }
+  .total-sub {
+    font-size: 12.5px; color: #A9AEA3; margin-top: 6px;
+  }
+  .total-sub .up { color: #6FCF97; font-weight: 700; }
+
+  .trend-wrap {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 16px 16px 10px;
+  }
+  .trend-labels {
+    display: flex; justify-content: space-between;
+    font-size: 10.5px; color: var(--muted); margin-top: 6px; padding: 0 2px;
+  }
+
+  .actions-row {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px 8px;
+    display: flex; justify-content: space-between;
+  }
+  .action-item {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    flex: 1; background: none; border: none; cursor: pointer; font-family: inherit;
+  }
+  .action-icon {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .action-label { font-size: 11.5px; font-weight: 600; color: var(--ink); }
+
+  .banks-section {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px 18px 6px;
+  }
+  .banks-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .banks-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; }
+  .manage-link { font-size: 12.5px; color: var(--green); font-weight: 600; }
+
+  .bank-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .bank-mark {
+    width: 42px; height: 42px; border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-family: 'Fraunces', serif; font-weight: 700; font-size: 13px;
+    flex-shrink: 0;
+  }
+  .bank-who { flex: 1; min-width: 0; }
+  .bank-name { font-size: 14.5px; font-weight: 700; }
+  .bank-acct { font-size: 12px; color: var(--muted); margin-top: 1px; }
+  .bank-bal { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; text-align: right; }
+
+  .tabbar {
+    position: sticky; bottom: 0;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 12px 0 18px;
+  }
+  .tab-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 600; color: #ADA99A; }
+  .tab-item.on { color: var(--ink); }
+  .tab-icon { font-size: 18px; }
+
+  /* On an actual phone, drop the "phone mockup" chrome (frame, dark
+     backdrop, floating notch) and let the page fill the real viewport —
+     the device itself is the frame now. Above this width, keep the
+     phone-mockup presentation, since that's meant for viewing on a
+     laptop/desktop screen (e.g. sharing this link in a pitch). */
+  @media (max-width: 480px) {
+    body {
+      padding: 0;
+      align-items: stretch;
+      background: var(--paper);
+    }
+    .demo-tag {
+      position: sticky;
+      top: 0;
+      left: 0;
+      transform: none;
+      width: 100%;
+      border-radius: 0;
+      text-align: center;
+      padding: 8px 14px;
+    }
+    .phone {
+      width: 100%;
+      max-height: none;
+      min-height: 100vh;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .notch { display: none; }
+    .notch::before { display: none; }
+    .tabbar {
+      padding-bottom: max(18px, env(safe-area-inset-bottom));
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="demo-tag">Concept demo — sample data</div>
+
+  <div class="phone">
+    <div class="notch"></div>
+
+    <div class="content">
+      <div class="greet-row">
+        <div class="greet-left">
+          <div class="greet-avatar">T</div>
+          <div class="greet-text">
+            <div class="hi">Good afternoon</div>
+            <div class="name">Tunmi</div>
+          </div>
+        </div>
+        <div class="bell">🔔</div>
+      </div>
+
+      <div class="total-card">
+        <div class="total-top">
+          <div class="total-label"><span class="eye">◉</span> Total across banks</div>
+          <div class="more-dots">•••</div>
+        </div>
+        <div class="total-amount">₦100,000</div>
+        <div class="total-sub"><span class="up">▲ 10.2%</span> this month, across 3 banks</div>
+      </div>
+
+      <div class="trend-wrap">
+        <svg viewBox="0 0 350 90" width="100%" height="90" preserveAspectRatio="none">
+          <polyline
+            points="5,70 55,55 105,60 155,45 205,38 255,28 345,10"
+            fill="none" stroke="#2E7D5B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+          />
+          <circle cx="5" cy="70" r="3.5" fill="#2E7D5B"/>
+          <circle cx="55" cy="55" r="3.5" fill="#2E7D5B"/>
+          <circle cx="105" cy="60" r="3.5" fill="#2E7D5B"/>
+          <circle cx="155" cy="45" r="3.5" fill="#2E7D5B"/>
+          <circle cx="205" cy="38" r="3.5" fill="#2E7D5B"/>
+          <circle cx="255" cy="28" r="3.5" fill="#2E7D5B"/>
+          <circle cx="345" cy="10" r="4.5" fill="#2E7D5B"/>
+        </svg>
+        <div class="trend-labels">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+      </div>
+
+      <div class="actions-row">
+        <button class="action-item">
+          <div class="action-icon">🏦</div>
+          <div class="action-label">Add Bank</div>
+        </button>
+        <button class="action-item">
+          <div class="action-icon">🔗</div>
+          <div class="action-label">Payment Link</div>
+        </button>
+        <button class="action-item">
+          <div class="action-icon">📊</div>
+          <div class="action-label">Insights</div>
+        </button>
+        <button class="action-item">
+          <div class="action-icon">↻</div>
+          <div class="action-label">Sync all</div>
+        </button>
+      </div>
+
+      <div class="banks-section">
+        <div class="banks-head">
+          <div class="banks-title">Connected Banks</div>
+          <div class="manage-link">Manage ›</div>
+        </div>
+
+        <div class="bank-row">
+          <div class="bank-mark" style="background:#F26522;">GT</div>
+          <div class="bank-who">
+            <div class="bank-name">GTBank</div>
+            <div class="bank-acct">•••• 2458</div>
+          </div>
+          <div class="bank-bal">₦55,000</div>
+        </div>
+
+        <div class="bank-row">
+          <div class="bank-mark" style="background:#5B21B6;">K</div>
+          <div class="bank-who">
+            <div class="bank-name">Kuda</div>
+            <div class="bank-acct">•••• 2458</div>
+          </div>
+          <div class="bank-bal">₦55,000</div>
+        </div>
+
+        <div class="bank-row">
+          <div class="bank-mark" style="background:#5B2A86;">FC</div>
+          <div class="bank-who">
+            <div class="bank-name">FCMB</div>
+            <div class="bank-acct">•••• 2458</div>
+          </div>
+          <div class="bank-bal">₦55,000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabbar">
+      <div class="tab-item on"><div class="tab-icon">⌂</div>Home</div>
+      <div class="tab-item"><div class="tab-icon">🏦</div>Banks</div>
+      <div class="tab-item"><div class="tab-icon">📈</div>Insights</div>
+      <div class="tab-item"><div class="tab-icon">🔗</div>Links</div>
+      <div class="tab-item"><div class="tab-icon">👤</div>Account</div>
+    </div>
+  </div>
+
+</body>
+</html>
