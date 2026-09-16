@@ -107,46 +107,63 @@
   }
   .total-sub .up { color: #6FCF97; font-weight: 700; }
 
-  .money-stack {
-    background: rgba(255,255,255,0.55);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 12px 14px 8px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+  .invite-card {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 10% 20%, rgba(124, 232, 170, 0.35), transparent 28%),
+                linear-gradient(135deg, #111813 0%, #173729 100%);
+    border: 1px solid rgba(120, 224, 164, 0.18);
+    border-radius: 18px;
+    padding: 18px 18px 16px;
+    box-shadow: 0 0 0 1px rgba(116, 222, 170, 0.08), 0 0 28px rgba(46, 125, 91, 0.28);
   }
-  .stack-head {
+  .invite-card::before {
+    content: "";
+    position: absolute;
+    inset: -28% auto auto -12%;
+    width: 180px; height: 180px;
+    background: rgba(108, 230, 156, 0.18);
+    border-radius: 50%;
+    filter: blur(22px);
+    pointer-events: none;
+  }
+  .invite-head {
+    position: relative; z-index: 1;
     display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 8px;
+    gap: 10px;
+    margin-bottom: 10px;
   }
-  .stack-title {
-    font-family: 'Fraunces', serif; font-size: 14px; font-weight: 600;
-    letter-spacing: 0.02em;
+  .invite-kicker {
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(220, 245, 228, 0.8); font-weight: 700;
   }
-  .stack-tag {
-    font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--green); background: var(--green-tint);
-    padding: 5px 7px; border-radius: 999px;
+  .invite-badge {
+    font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    color: #DBF7E7; background: rgba(139, 226, 173, 0.12);
+    border: 1px solid rgba(139, 226, 173, 0.18); border-radius: 999px; padding: 6px 8px;
   }
-  .stack-item {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 10px; padding: 8px 0; border-top: 1px solid var(--line);
+  .invite-copy {
+    position: relative; z-index: 1;
+    font-family: 'Fraunces', serif; font-size: 28px; line-height: 1.04; color: #F2F9F4;
+    letter-spacing: -0.04em;
+    margin-bottom: 10px;
   }
-  .stack-person { font-size: 13px; font-weight: 700; }
-  .stack-micro {
-    display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: var(--muted);
+  .invite-copy .mini {
+    display: block; font-size: 12px; font-family: 'Manrope', sans-serif; letter-spacing: 0.04em;
+    text-transform: uppercase; margin-bottom: 6px; color: rgba(215, 232, 221, 0.8);
   }
-  .status-pill {
-    display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 999px; padding: 5px 7px; font-size: 8.5px; font-weight: 800;
-    letter-spacing: 0.05em; text-transform: uppercase;
-    white-space: nowrap;
+  .invite-row {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
   }
-  .status-pill.ok { background: var(--green-tint); color: var(--green); }
-  .status-pill.wait { background: #F3E6D3; color: var(--amber); }
-  .stack-amount {
-    font-family: 'Fraunces', serif; font-size: 13px; font-weight: 600; text-align: right;
+  .invite-meta {
+    font-size: 12px; color: rgba(230, 241, 232, 0.8);
   }
-
+  .invite-cta {
+    background: #F2F9F4; color: #0F1210; border: none; border-radius: 999px;
+    padding: 10px 14px; font: inherit; font-size: 12px; font-weight: 800;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
   .trend-wrap {
     background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%);
     border: 1px solid rgba(46, 125, 91, 0.18);
@@ -387,43 +404,15 @@
         <div class="total-sub"><span class="up">▲ 10.2%</span> this month, across 3 banks</div>
       </div>
 
-      <div class="money-stack">
-        <div class="stack-head">
-          <div class="stack-title">Settlement status</div>
-          <div class="stack-tag">Live</div>
+      <div class="invite-card">
+        <div class="invite-head">
+          <div class="invite-kicker">Refer friends</div>
+          <div class="invite-badge">+ ₦15,000</div>
         </div>
-
-        <div class="stack-item">
-          <div>
-            <div class="stack-person">Tola</div>
-            <div class="stack-micro"><span>Paid</span><span>•</span><span>Brand campaign</span></div>
-          </div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <span class="status-pill ok">Settled</span>
-            <div class="stack-amount">₦54,000</div>
-          </div>
-        </div>
-
-        <div class="stack-item">
-          <div>
-            <div class="stack-person">Ada</div>
-            <div class="stack-micro"><span>Pending</span><span>•</span><span>Awaiting bank</span></div>
-          </div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <span class="status-pill wait">Waiting</span>
-            <div class="stack-amount">₦42,000</div>
-          </div>
-        </div>
-
-        <div class="stack-item">
-          <div>
-            <div class="stack-person">Kelechi</div>
-            <div class="stack-micro"><span>Settled</span><span>•</span><span>Instant</span></div>
-          </div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <span class="status-pill ok">Ready</span>
-            <div class="stack-amount">₦24,000</div>
-          </div>
+        <div class="invite-copy"><span class="mini">Invite &amp; earn</span>Get rewarded for every successful referral.</div>
+        <div class="invite-row">
+          <div class="invite-meta">Your invite link is live</div>
+          <button class="invite-cta">Invite</button>
         </div>
       </div>
 
@@ -486,16 +475,16 @@
           </div>
           <div class="action-label">Insights</div>
         </button>
-        <button class="action-item" aria-label="Settle up">
+        <button class="action-item" aria-label="Sync all banks">
           <div class="action-icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 12h16"/>
-              <path d="M12 4v16"/>
-              <path d="m7 7 10 10"/>
-              <path d="m17 7-10 10"/>
+              <path d="M20 12a8 8 0 0 0-13.66-5.66"/>
+              <path d="M4 12a8 8 0 0 0 13.66 5.66"/>
+              <path d="M18 4v5h-5"/>
+              <path d="M6 20v-5h5"/>
             </svg>
           </div>
-          <div class="action-label">Settle up</div>
+          <div class="action-label">Sync all</div>
         </button>
       </div>
 
