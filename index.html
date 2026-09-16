@@ -79,25 +79,36 @@
   .total-card {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, rgba(12, 16, 14, 0.98), rgba(17, 21, 18, 0.96));
+    background: linear-gradient(180deg, #0b0f0d 0%, #0f1512 100%);
     color: var(--paper);
     border-radius: 20px;
     padding: 22px 20px;
-    border: 1px solid rgba(147, 164, 153, 0.12);
-    box-shadow: 0 12px 24px rgba(15, 18, 16, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 12px 28px rgba(0, 0, 0, 0.18);
   }
   .total-card::before {
     content: "";
     position: absolute;
-    left: 8%; right: 8%; top: 10%;
-    height: 72px;
-    background: radial-gradient(circle at 50% 0%, rgba(131, 205, 161, 0.14), rgba(131, 205, 161, 0.03) 38%, transparent 72%);
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01) 30%, rgba(255,255,255,0) 55%, rgba(121, 221, 165, 0.04) 75%, rgba(121, 221, 165, 0.01) 100%);
+    pointer-events: none;
+  }
+  .total-card::after {
+    content: "";
+    position: absolute;
+    left: 8%; right: 8%; top: 8%;
+    height: 60px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.04);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     pointer-events: none;
   }
   body[data-theme="dark"] .total-card {
-    background: linear-gradient(180deg, rgba(13, 18, 15, 0.98), rgba(18, 22, 19, 0.98));
-    border-color: rgba(147, 164, 153, 0.12);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+    background: linear-gradient(180deg, #0b0f0d 0%, #0f1512 100%);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 12px 28px rgba(0, 0, 0, 0.18);
   }
   .total-top {
     display: flex; align-items: center; justify-content: space-between;
@@ -163,19 +174,29 @@
   .invite-card {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(18, 24, 21, 0.9), rgba(21, 29, 25, 0.94));
-    border: 1px solid rgba(147, 164, 153, 0.10);
+    background: linear-gradient(180deg, #0c100e 0%, #111713 100%);
+    border: 1px solid rgba(255,255,255,0.08);
     border-radius: 14px;
     padding: 12px 14px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 10px 22px rgba(0, 0, 0, 0.12);
   }
   .invite-card::before {
     content: "";
     position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01) 30%, rgba(255,255,255,0) 65%, rgba(131, 205, 161, 0.03) 100%);
+    pointer-events: none;
+  }
+  .invite-card::after {
+    content: "";
+    position: absolute;
     right: 8%; top: 8%;
-    width: 110px; height: 72px;
-    background: radial-gradient(circle at 50% 0%, rgba(131, 205, 161, 0.12), rgba(131, 205, 161, 0.02) 42%, transparent 74%);
-    border-radius: 14px;
+    width: 104px; height: 56px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.03);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     pointer-events: none;
   }
   .invite-head {
