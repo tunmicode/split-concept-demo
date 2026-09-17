@@ -1,10 +1,12 @@
 const { Resend } = require('resend');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const apiKey = process.env.RESEND_API_KEY;
+const hasRealApiKey = Boolean(apiKey && apiKey.trim() && apiKey !== 'your_resend_api_key' && apiKey !== 'demo-key');
+const resend = hasRealApiKey ? new Resend(apiKey) : null;
 
 async function sendVerificationCode({ email, code }) {
-  if (!process.env.RESEND_API_KEY || process.env.RESEND_API_KEY === 'your_resend_api_key') {
-    console.warn('RESEND_API_KEY missing; skipping email send. Verification code:', code);
+  if (!hasRealApiKey) {
+    console.warn(`RESEND_API_KEY missing or demo mode. Verification code for ${email}: ${code}`);
     return { skipped: true };
   }
 
