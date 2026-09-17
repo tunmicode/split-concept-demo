@@ -1485,6 +1485,11 @@
     const API_BASE_URL = 'https://split-concept-demo.onrender.com';
 
     async function requireAuth() {
+      const demoMode = localStorage.getItem('split-demo-mode') === 'true';
+      if (demoMode) {
+        return true;
+      }
+
       try {
         const response = await fetch(`${API_BASE_URL}/api/auth/me`, { credentials: 'include' });
         if (!response.ok) {
