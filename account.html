@@ -8,17 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #EEF3EE;
-    --paper: #0D120F;
-    --paper-dim: #121A16;
-    --line: rgba(238, 243, 238, 0.12);
-    --green: #66D99D;
-    --green-tint: rgba(102, 217, 157, 0.12);
+    --ink: #0F1210;
+    --paper: #F7F5F0;
+    --paper-dim: #EFEBE1;
+    --line: #DCD7C9;
+    --green: #2E7D5B;
+    --green-tint: #E4EFE8;
     --amber: #C77B3D;
-    --muted: #9AA7A0;
-    --white: #151D1A;
+    --muted: #6B6A62;
+    --white: #FFFFFF;
+    --card-bg: #FFFDF9;
+    --card-bg-strong: #F4EFE5;
+    --card-border: rgba(15, 18, 16, 0.08);
+    --card-shadow: rgba(15, 18, 16, 0.12);
     --font-ui: 'Manrope', 'Inter', sans-serif;
-    --hero-glow: rgba(102, 217, 157, 0.16);
+    --hero-glow: rgba(46, 125, 91, 0.12);
   }
   body[data-theme="dark"] {
     --ink: #EEF3EE;
@@ -28,9 +32,13 @@
     --green: #66D99D;
     --green-tint: rgba(102, 217, 157, 0.12);
     --amber: #C77B3D;
-    --muted: #9AA7A0;
+    --muted: #AAB5AD;
     --white: #151D1A;
-    --hero-glow: rgba(102, 217, 157, 0.16);
+    --card-bg: #1A241F;
+    --card-bg-strong: #121B18;
+    --card-border: rgba(255, 255, 255, 0.11);
+    --card-shadow: rgba(2, 6, 4, 0.38);
+    --hero-glow: rgba(124, 232, 164, 0.16);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -77,13 +85,17 @@
     width: 56px; height: 56px; display: inline-flex; align-items: center; justify-content: center;
     border-radius: 16px; background: linear-gradient(180deg, rgba(13,18,15,1), rgba(21,29,26,1));
     border: 1px solid rgba(255,255,255,0.08); box-shadow: inset 0 0 0 1px rgba(102,217,157,0.13);
-    font-family: 'Manrope', 'Inter', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.1em;
-    color: #F3F7F4; margin-bottom: 10px; position: relative;
+    color: #F3F7F4; margin-bottom: 10px; position: relative; overflow: hidden;
   }
-  .brand-mark::after {
-    content: "";
-    position: absolute; right: 8px; bottom: 8px; width: 8px; height: 8px; border-radius: 50%;
-    background: #7AE0A9; box-shadow: 0 0 12px rgba(122,224,169,0.72);
+  .brand-mark svg {
+    width: 100%; height: 100%; display: block;
+  }
+  .brand-mark .mark-stroke {
+    fill: none; stroke: currentColor; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .brand-mark .mark-node {
+    fill: #7AE0A9;
+    filter: drop-shadow(0 0 8px rgba(122,224,169,0.7));
   }
   .brand-wordmark {
     font-family: 'Fraunces', serif; font-size: clamp(32px, 9vw, 44px);
@@ -94,13 +106,13 @@
     margin-top: 8px; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
   }
   .auth-card {
-    background: linear-gradient(180deg, rgba(21,29,26,0.98), rgba(14,18,16,0.96));
-    border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
+    background: linear-gradient(180deg, var(--card-bg), var(--card-bg-strong));
+    border: 1px solid var(--card-border); border-radius: 20px;
     padding: 18px 18px 16px;
     display: flex; flex-direction: column; gap: 12px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 18px 32px rgba(1,6,4,0.32), inset 0 1px 0 rgba(255,255,255,0.04);
+    box-shadow: 0 18px 36px var(--card-shadow), 0 2px 10px rgba(17,24,19,0.08), inset 0 1px 0 rgba(255,255,255,0.05);
   }
   .auth-card h3 {
     font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600;
@@ -115,8 +127,9 @@
   .support-cta {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     border: none; background: transparent; color: var(--muted); padding: 4px 2px; font-size: 12px; font-weight: 700;
-    cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+    cursor: pointer; text-decoration: none; text-underline-offset: 0; 
   }
+  .support-cta:hover, .support-cta:focus-visible { text-decoration: none; }
   .support-shell {
     display: none;
     margin-top: 8px;
@@ -297,18 +310,25 @@
       </div>
 
       <div class="brand-top" aria-label="Split brand">
-        <div class="brand-mark">S</div>
+        <div class="brand-mark" aria-label="Split logo mark">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <g class="mark-group">
+              <path class="mark-stroke" d="M20 18c5-5 11-7 18-5 8 2 13 7 13 13 0 4-2 7-8 9l-10 4c-5 2-8 5-8 9 0 6 5 10 12 12 7 2 15 1 22-4"/>
+              <path class="mark-stroke" d="M44 18c-5-5-11-7-18-5-8 2-13 7-13 13 0 4 2 7 8 9l10 4c5 2 8 5 8 9 0 6-5 10-12 12-7 2-15 1-22-4"/>
+              <circle class="mark-node" cx="32" cy="32" r="4.8"/>
+            </g>
+          </svg>
+        </div>
         <div class="brand-wordmark">Split</div>
         <div class="brand-subtle">Secure access</div>
       </div>
 
       <div class="auth-card" id="authCard">
         <h3 id="authTitle">Create your account</h3>
-        <div class="auth-sub" id="authSubtitle">Start managing shared spending with a clearer way to split costs.</div>
+        <div class="auth-sub" id="authSubtitle">One payment in, everyone gets their agreed share.</div>
         <form class="auth-form" id="authForm">
           <input id="authFullName" name="fullName" type="text" placeholder="Full name" />
           <input id="authLogin" name="login" type="text" placeholder="Email or phone or username" />
-          <input id="authVerification" name="verificationCode" type="text" inputmode="numeric" maxlength="6" placeholder="Verification code" hidden />
           <input id="authPassword" name="password" type="password" placeholder="Password" />
           <button id="authSubmitBtn" type="submit">Create account</button>
           <button class="inline-btn" type="button" id="toggleAuthMode">Switch to login</button>
@@ -361,7 +381,7 @@
     const authSubtitle = document.getElementById('authSubtitle');
     const authFullName = document.getElementById('authFullName');
     const authLogin = document.getElementById('authLogin');
-    const authVerification = document.getElementById('authVerification');
+    let authVerification = document.getElementById('authVerification');
     const authPassword = document.getElementById('authPassword');
     const helpSigninBtn = document.getElementById('helpSigninBtn');
     const supportShell = document.getElementById('supportShell');
@@ -572,13 +592,38 @@
       return cleaned || `user${Date.now().toString().slice(-6)}`;
     }
 
+    function ensureVerificationInput() {
+      if (authVerification || !authForm) return;
+
+      const verificationInput = document.createElement('input');
+      verificationInput.id = 'authVerification';
+      verificationInput.name = 'verificationCode';
+      verificationInput.type = 'text';
+      verificationInput.inputMode = 'numeric';
+      verificationInput.maxLength = 6;
+      verificationInput.placeholder = 'Verification code';
+      verificationInput.setAttribute('aria-label', 'Verification code');
+
+      authForm.insertBefore(verificationInput, authPassword?.nextSibling || null);
+      authVerification = verificationInput;
+    }
+
     function setAuthMode(mode) {
       authMode = mode;
       const isSignup = mode === 'signup';
       const isVerify = mode === 'verify';
       const isLogin = mode === 'login';
-      authFullName.hidden = !isSignup;
-      authVerification.hidden = !isVerify;
+
+      if (authFullName) {
+        authFullName.hidden = !isSignup;
+      }
+      if (isVerify) {
+        ensureVerificationInput();
+      }
+      if (authVerification) {
+        authVerification.hidden = !isVerify;
+      }
+
       authSubmitBtn.textContent = isSignup ? 'Create account' : isVerify ? 'Verify code' : 'Log in';
       toggleAuthModeBtn.textContent = isSignup ? 'Switch to login' : isVerify ? 'Switch to login' : 'Switch to sign up';
       if (authTitle) {
@@ -586,7 +631,7 @@
       }
       if (authSubtitle) {
         authSubtitle.textContent = isSignup
-          ? 'Start managing shared spending with a clearer way to split costs.'
+          ? 'One payment in, everyone gets their agreed share.'
           : isVerify
             ? 'Enter the 6 digit code we sent to continue.'
             : 'Sign in to view balances and manage your splits.';
@@ -594,7 +639,7 @@
       if (!isSignup) {
         authFullName.value = '';
       }
-      if (!isVerify) {
+      if (!isVerify && authVerification) {
         authVerification.value = '';
       }
       if (!isLogin && !isVerify) {
