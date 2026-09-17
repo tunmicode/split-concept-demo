@@ -8,29 +8,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #0F1210;
-    --paper: #F7F5F0;
-    --paper-dim: #EFEBE1;
-    --line: #DCD7C9;
-    --green: #2E7D5B;
-    --green-tint: #E4EFE8;
+    --ink: #EEF3EE;
+    --paper: #0D120F;
+    --paper-dim: #121A16;
+    --line: rgba(238, 243, 238, 0.12);
+    --green: #66D99D;
+    --green-tint: rgba(102, 217, 157, 0.12);
     --amber: #C77B3D;
-    --muted: #6B6A62;
-    --white: #FFFFFF;
+    --muted: #9AA7A0;
+    --white: #151D1A;
     --font-ui: 'Manrope', 'Inter', sans-serif;
-    --hero-glow: rgba(46, 125, 91, 0.12);
+    --hero-glow: rgba(102, 217, 157, 0.16);
   }
   body[data-theme="dark"] {
     --ink: #EEF3EE;
-    --paper: #111813;
-    --paper-dim: #181F1B;
+    --paper: #0D120F;
+    --paper-dim: #121A16;
     --line: rgba(238, 243, 238, 0.12);
-    --green: #2E7D5B;
-    --green-tint: rgba(46, 125, 91, 0.18);
+    --green: #66D99D;
+    --green-tint: rgba(102, 217, 157, 0.12);
     --amber: #C77B3D;
-    --muted: #AAB5AD;
-    --white: #1A221E;
-    --hero-glow: rgba(124, 232, 164, 0.16);
+    --muted: #9AA7A0;
+    --white: #151D1A;
+    --hero-glow: rgba(102, 217, 157, 0.16);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -74,26 +74,33 @@
     padding-bottom: 2px;
   }
   .brand-mark {
-    width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 14px; background: rgba(17,24,19,0.04); border: 1px solid var(--line);
-    font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--ink);
-    margin-bottom: 10px;
+    width: 56px; height: 56px; display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 16px; background: linear-gradient(180deg, rgba(13,18,15,1), rgba(21,29,26,1));
+    border: 1px solid rgba(255,255,255,0.08); box-shadow: inset 0 0 0 1px rgba(102,217,157,0.13);
+    font-family: 'Manrope', 'Inter', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.1em;
+    color: #F3F7F4; margin-bottom: 10px; position: relative;
+  }
+  .brand-mark::after {
+    content: "";
+    position: absolute; right: 8px; bottom: 8px; width: 8px; height: 8px; border-radius: 50%;
+    background: #7AE0A9; box-shadow: 0 0 12px rgba(122,224,169,0.72);
   }
   .brand-wordmark {
     font-family: 'Fraunces', serif; font-size: clamp(32px, 9vw, 44px);
     letter-spacing: -0.06em; line-height: 0.96; font-weight: 600; color: var(--ink);
+    text-shadow: 0 1px 0 rgba(17,24,19,0.08);
   }
   .brand-subtle {
-    margin-top: 8px; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+    margin-top: 8px; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
   }
   .auth-card {
-    background: rgba(255,255,255,0.74);
-    border: 1px solid var(--line); border-radius: 20px;
+    background: linear-gradient(180deg, rgba(21,29,26,0.98), rgba(14,18,16,0.96));
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
     padding: 18px 18px 16px;
     display: flex; flex-direction: column; gap: 12px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 18px 32px rgba(17,24,19,0.04);
+    box-shadow: 0 18px 32px rgba(1,6,4,0.32), inset 0 1px 0 rgba(255,255,255,0.04);
   }
   .auth-card h3 {
     font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600;
@@ -169,22 +176,23 @@
     margin-top: 2px;
   }
   .auth-form input {
-    width: 100%; border: 1px solid var(--line); border-radius: 12px; background: rgba(247,245,240,0.92);
+    width: 100%; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(10,14,12,0.8);
     padding: 13px 14px; font: inherit; color: var(--ink); outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
   .auth-form input:focus {
-    border-color: var(--green);
-    box-shadow: 0 0 0 3px rgba(46,125,91,0.08);
+    border-color: rgba(122,224,169,0.8);
+    box-shadow: 0 0 0 3px rgba(122,224,169,0.12);
   }
   .auth-form button, .inline-btn {
-    border: none; border-radius: 12px; background: var(--ink); color: var(--white);
+    border: none; border-radius: 12px; background: linear-gradient(180deg, #1c221f, #111813); color: var(--white);
     padding: 14px 14px; font: inherit; font-weight: 700; cursor: pointer;
-    transition: transform 0.14s ease, opacity 0.14s ease;
+    transition: transform 0.14s ease, opacity 0.14s ease, box-shadow 0.15s ease;
+    box-shadow: 0 10px 18px rgba(17,24,19,0.12);
   }
   .auth-form button:hover, .inline-btn:hover { transform: translateY(-1px); }
   .inline-btn {
-    background: transparent; border: 1px solid var(--line); color: var(--ink); margin-top: 2px; font-weight: 600;
+    background: rgba(46,125,91,0.05); border: 1px solid rgba(46,125,91,0.18); color: var(--ink); margin-top: 2px; font-weight: 600; box-shadow: none;
   }
   .auth-status {
     min-height: 18px; font-size: 12px; color: var(--green);
