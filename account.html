@@ -68,86 +68,47 @@
     font-family: 'Fraunces', serif; font-size: 21px; font-weight: 600;
     flex: 1; text-align: center; margin-right: 36px;
   }
-  .brand-hero {
-    background: linear-gradient(180deg, rgba(17,24,19,0.96), rgba(17,24,19,0.9));
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 22px;
-    padding: 20px 18px 18px;
-    box-shadow: 0 18px 40px rgba(17,24,19,0.12);
+  .brand-top {
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 2px;
   }
-  .brand-head {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    margin-bottom: 18px;
-  }
-  .brand-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.9);
-    border-radius: 999px;
-    padding: 7px 10px;
-    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
-  }
-  .brand-pill::before {
-    content: "";
-    width: 8px; height: 8px; border-radius: 50%; background: #7FE0A9; box-shadow: 0 0 18px rgba(127,224,169,0.8);
-  }
-  .brand-logo {
-    color: rgba(255,255,255,0.96);
-    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800;
-  }
-  .brand-hero h2 {
-    color: #F4F7F3;
-    font-family: 'Fraunces', serif; font-size: clamp(28px, 8vw, 38px);
-    line-height: 1.05;
-    letter-spacing: -0.05em;
+  .brand-mark {
+    width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 14px; background: rgba(17,24,19,0.04); border: 1px solid var(--line);
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--ink);
     margin-bottom: 10px;
   }
-  .brand-hero p {
-    color: rgba(255,255,255,0.72);
-    line-height: 1.6;
-    font-size: 13px;
+  .brand-wordmark {
+    font-family: 'Fraunces', serif; font-size: clamp(32px, 9vw, 44px);
+    letter-spacing: -0.06em; line-height: 0.96; font-weight: 600; color: var(--ink);
   }
-  .brand-features {
-    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
-  }
-  .feature-pill {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.8);
-    border-radius: 999px;
-    padding: 7px 10px;
-    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+  .brand-subtle {
+    margin-top: 8px; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
   }
   .auth-card {
-    background: rgba(255,255,255,0.78);
-    border: 1px solid var(--line); border-radius: 22px;
-    padding: 18px;
-    display: flex; flex-direction: column; gap: 14px;
+    background: rgba(255,255,255,0.74);
+    border: 1px solid var(--line); border-radius: 20px;
+    padding: 18px 18px 16px;
+    display: flex; flex-direction: column; gap: 12px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 18px 32px rgba(17,24,19,0.05);
+    box-shadow: 0 18px 32px rgba(17,24,19,0.04);
   }
   .auth-card h3 {
-    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;
-    letter-spacing: -0.03em;
-  }
-  .secure-note {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 7px 10px; border-radius: 999px;
-    background: rgba(46, 125, 91, 0.08); color: var(--green);
-    border: 1px solid rgba(46, 125, 91, 0.14);
-    font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600;
+    letter-spacing: -0.04em;
+    margin-top: 2px;
   }
   .auth-card .auth-sub {
-    font-size: 12px; color: var(--muted);
+    font-size: 13px; color: var(--muted);
     line-height: 1.5;
+    margin-top: -2px;
   }
   .support-cta {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    border: 1px solid var(--line); border-radius: 999px; background: rgba(46,125,91,0.05);
-    color: var(--green); padding: 10px 14px; font-size: 11px; font-weight: 800;
-    letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+    border: none; background: transparent; color: var(--muted); padding: 4px 2px; font-size: 12px; font-weight: 700;
+    cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
   }
   .support-shell {
     display: none;
@@ -205,6 +166,7 @@
   }
   .auth-form {
     display: flex; flex-direction: column; gap: 10px;
+    margin-top: 2px;
   }
   .auth-form input {
     width: 100%; border: 1px solid var(--line); border-radius: 12px; background: rgba(247,245,240,0.92);
@@ -217,12 +179,12 @@
   }
   .auth-form button, .inline-btn {
     border: none; border-radius: 12px; background: var(--ink); color: var(--white);
-    padding: 13px 14px; font: inherit; font-weight: 700; cursor: pointer;
+    padding: 14px 14px; font: inherit; font-weight: 700; cursor: pointer;
     transition: transform 0.14s ease, opacity 0.14s ease;
   }
   .auth-form button:hover, .inline-btn:hover { transform: translateY(-1px); }
   .inline-btn {
-    background: linear-gradient(180deg, #2d815f, #246d51); margin-top: 6px;
+    background: transparent; border: 1px solid var(--line); color: var(--ink); margin-top: 2px; font-weight: 600;
   }
   .auth-status {
     min-height: 18px; font-size: 12px; color: var(--green);
@@ -326,27 +288,17 @@
         <div style="width: 36px;"></div>
       </div>
 
-      <div class="brand-hero">
-        <div class="brand-head">
-          <span class="brand-pill">Secure</span>
-          <div class="brand-logo">Split</div>
-        </div>
-        <h2>Make money moves together.</h2>
-        <p>Track balances, split costs in seconds, and keep every payment aligned across your team.</p>
-        <div class="brand-features">
-          <span class="feature-pill">Bank sync</span>
-          <span class="feature-pill">Smart splits</span>
-          <span class="feature-pill">Real-time payouts</span>
-        </div>
+      <div class="brand-top" aria-label="Split brand">
+        <div class="brand-mark">S</div>
+        <div class="brand-wordmark">Split</div>
+        <div class="brand-subtle">Secure access</div>
       </div>
 
       <div class="auth-card" id="authCard">
-        <div class="secure-note">🔒 Protected access</div>
-        <h3>Account access</h3>
-        <div class="auth-sub">Create your account to see the full Split experience and unlock your dashboard.</div>
+        <h3 id="authTitle">Create your account</h3>
+        <div class="auth-sub" id="authSubtitle">Start managing shared spending with a clearer way to split costs.</div>
         <form class="auth-form" id="authForm">
           <input id="authFullName" name="fullName" type="text" placeholder="Full name" />
-          <input id="authUsername" name="username" type="text" placeholder="Username" />
           <input id="authLogin" name="login" type="text" placeholder="Email or phone or username" />
           <input id="authVerification" name="verificationCode" type="text" inputmode="numeric" maxlength="6" placeholder="Verification code" hidden />
           <input id="authPassword" name="password" type="password" placeholder="Password" />
@@ -397,8 +349,9 @@
     const authStatus = document.getElementById('authStatus');
     const authSubmitBtn = document.getElementById('authSubmitBtn');
     const toggleAuthModeBtn = document.getElementById('toggleAuthMode');
+    const authTitle = document.getElementById('authTitle');
+    const authSubtitle = document.getElementById('authSubtitle');
     const authFullName = document.getElementById('authFullName');
-    const authUsername = document.getElementById('authUsername');
     const authLogin = document.getElementById('authLogin');
     const authVerification = document.getElementById('authVerification');
     const authPassword = document.getElementById('authPassword');
@@ -604,19 +557,34 @@
       });
     }
 
+    function generateUsernameFromLogin(value) {
+      const base = (value || '').trim().toLowerCase();
+      if (!base) return `user${Date.now().toString().slice(-6)}`;
+      const cleaned = base.replace(/[^a-z0-9]+/g, '').slice(0, 18) || `user${Date.now().toString().slice(-6)}`;
+      return cleaned || `user${Date.now().toString().slice(-6)}`;
+    }
+
     function setAuthMode(mode) {
       authMode = mode;
       const isSignup = mode === 'signup';
       const isVerify = mode === 'verify';
       const isLogin = mode === 'login';
       authFullName.hidden = !isSignup;
-      authUsername.hidden = !isSignup;
       authVerification.hidden = !isVerify;
       authSubmitBtn.textContent = isSignup ? 'Create account' : isVerify ? 'Verify code' : 'Log in';
       toggleAuthModeBtn.textContent = isSignup ? 'Switch to login' : isVerify ? 'Switch to login' : 'Switch to sign up';
+      if (authTitle) {
+        authTitle.textContent = isSignup ? 'Create your account' : isVerify ? 'Check your email' : 'Welcome back';
+      }
+      if (authSubtitle) {
+        authSubtitle.textContent = isSignup
+          ? 'Start managing shared spending with a clearer way to split costs.'
+          : isVerify
+            ? 'Enter the 6 digit code we sent to continue.'
+            : 'Sign in to view balances and manage your splits.';
+      }
       if (!isSignup) {
         authFullName.value = '';
-        authUsername.value = '';
       }
       if (!isVerify) {
         authVerification.value = '';
@@ -689,7 +657,6 @@
       try {
         const payload = {
           fullName: authFullName?.value?.trim(),
-          username: authUsername?.value?.trim(),
           login: authLogin?.value?.trim(),
           password: authPassword?.value,
         };
@@ -719,7 +686,7 @@
             method: 'POST',
             body: JSON.stringify({
               fullName: payload.fullName,
-              username: payload.username,
+              username: generateUsernameFromLogin(loginValue),
               email: isEmail ? loginValue : undefined,
               phone: isEmail ? undefined : loginValue,
               password: payload.password,
