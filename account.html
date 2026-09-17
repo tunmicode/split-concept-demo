@@ -27,17 +27,17 @@
   body[data-theme="dark"] {
     --ink: #F5F0E7;
     --paper: #0B0B09;
-    --paper-dim: #1A1816;
+    --paper-dim: #171512;
     --line: rgba(255, 247, 232, 0.14);
     --green: #D9C39A;
     --green-tint: rgba(217, 195, 154, 0.14);
     --amber: #C77B3D;
-    --muted: #B0A597;
+    --muted: #C7BBA9;
     --white: #F5F0E7;
     --card-bg: #171512;
     --card-bg-strong: #201D1A;
     --card-border: rgba(255, 247, 232, 0.12);
-    --card-shadow: rgba(0, 0, 0, 0.42);
+    --card-shadow: rgba(0, 0, 0, 0.52);
     --hero-glow: rgba(217, 195, 154, 0.12);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -288,9 +288,11 @@
   }
   .auth-status.error { color: #b94a48; }
   .profile-card {
-    background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+    background: linear-gradient(180deg, rgba(23,21,18,0.98), rgba(25,23,20,0.96));
+    border: 1px solid var(--line); border-radius: 18px;
     padding: 18px;
     display: flex; align-items: center; gap: 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 14px 26px rgba(0,0,0,0.18);
   }
   .profile-avatar {
     width: 48px; height: 48px; border-radius: 50%; background: var(--green);
@@ -318,12 +320,14 @@
     padding: 7px 8px; border-radius: 999px;
   }
   .list-card {
-    background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+    background: linear-gradient(180deg, rgba(23,21,18,0.98), rgba(25,23,20,0.96));
+    border: 1px solid var(--line); border-radius: 18px;
     padding: 0 18px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 14px 26px rgba(0,0,0,0.14);
   }
   .list-row {
     width: 100%; display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; background: none; border: none; border-top: 1px solid var(--line);
+    gap: 12px; background: transparent; border: none; border-top: 1px solid var(--line);
     padding: 15px 0; text-align: left; color: var(--ink); font: inherit; cursor: pointer;
     text-decoration: none;
   }
@@ -335,7 +339,7 @@
   }
   .list-row:first-child { border-top: none; }
   .row-copy { flex: 1; min-width: 0; }
-  .row-label { font-size: 14px; font-weight: 600; }
+  .row-label { font-size: 14px; font-weight: 600; color: var(--ink); }
   .row-arrow {
     font-size: 22px; color: var(--muted); line-height: 1; margin-left: 8px;
   }
