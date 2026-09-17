@@ -120,6 +120,29 @@
     background: linear-gradient(180deg, rgba(17,17,17,0.02), rgba(17,17,17,0.06));
     border-radius: 14px;
   }
+  .auth-footer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    color: var(--muted);
+    padding-bottom: 10px;
+  }
+  .coming-soon {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .rights-line {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.82;
+  }
   .slogan-track {
     display: flex; align-items: center; gap: 20px;
     white-space: nowrap;
@@ -374,6 +397,7 @@
           <input id="authVerification" name="verificationCode" type="text" inputmode="numeric" maxlength="6" placeholder="Verification code" aria-label="Verification code" hidden />
           <button id="authSubmitBtn" type="submit">Create account</button>
           <button class="inline-btn" type="button" id="toggleAuthMode">Switch to login</button>
+          <button class="inline-btn" type="button" id="demoAccessBtn">Access demo</button>
           <button class="inline-btn" type="button" id="resendCodeBtn" hidden>Resend verification code</button>
         </form>
         <div class="auth-status" id="authStatus"></div>
@@ -394,6 +418,11 @@
             <span>Split smarter</span>
             <span>Less chaos</span>
           </div>
+        </div>
+
+        <div class="auth-footer" aria-label="Coming soon footer">
+          <div class="coming-soon">Coming soon</div>
+          <div class="rights-line">© 2026 Rights reserved by NextGenDevs</div>
         </div>
 
         <div class="support-shell" id="supportShell" aria-live="polite">
@@ -446,6 +475,7 @@
     let authVerification = document.getElementById('authVerification');
     const authPassword = document.getElementById('authPassword');
     const resendCodeBtn = document.getElementById('resendCodeBtn');
+    const demoAccessBtn = document.getElementById('demoAccessBtn');
     const helpSigninBtn = document.getElementById('helpSigninBtn');
     const supportShell = document.getElementById('supportShell');
     const supportMessages = document.querySelector('#supportShell .support-messages');
@@ -688,6 +718,9 @@
       if (resendCodeBtn) {
         resendCodeBtn.hidden = !isLogin;
       }
+      if (demoAccessBtn) {
+        demoAccessBtn.hidden = !isLogin;
+      }
 
       authSubmitBtn.textContent = isSignup ? 'Create account' : isVerify ? 'Verify code' : 'Log in';
       toggleAuthModeBtn.textContent = isSignup ? 'Switch to login' : isVerify ? 'Switch to login' : 'Switch to sign up';
@@ -770,6 +803,30 @@
         storeSessionUser(null);
       }
     }
+
+    demoAccessBtn?.addEventListener('click', () => {
+      const loginValue = authLogin?.value?.trim();
+      const passwordValue = authPassword?.value?.trim();
+
+      if (!loginValue || !passwordValue) {
+        setAuthStatus('Enter your demo email and password to continue.', true);
+        return;
+      }
+
+      const fullName = loginValue.includes('@') ? loginValue.split('@')[0].replace(/[._-]+/g, ' ') : loginValue;
+      storeSessionUser({
+        id: 'demo-user',
+        fullName: fullName || 'Demo User',
+        username: (loginValue || 'demo-user').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12) || 'demo-user',
+        email: loginValue.includes('@') ? loginValue : 'demo@nextgendevs.dev',
+        phone: null,
+      });
+
+      setAuthStatus('Accessing demo...');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 250);
+    });
 
     resendCodeBtn?.addEventListener('click', async () => {
       const loginValue = authLogin?.value?.trim();
