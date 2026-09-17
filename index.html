@@ -469,12 +469,12 @@
     -webkit-backdrop-filter: blur(8px);
     color: rgba(241, 247, 243, 0.9);
     box-shadow: 0 8px 20px rgba(14, 18, 15, 0.08), 0 0 12px rgba(88, 219, 142, 0.06);
-    text-decoration: none;
     font: inherit;
     font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 0.02em;
     transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    cursor: pointer;
   }
   .support-fab:hover {
     transform: translateY(-1px);
@@ -522,6 +522,159 @@
     stroke-linejoin: round;
   }
 
+  .support-drawer {
+    position: fixed;
+    right: 16px;
+    bottom: 120px;
+    z-index: 49;
+    width: min(320px, calc(100vw - 28px));
+    border-radius: 24px;
+    background: rgba(9, 12, 11, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 18px 36px rgba(8, 12, 10, 0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    color: rgba(238, 243, 238, 0.96);
+    overflow: hidden;
+    transform: translateY(10px) scale(0.98);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.18s ease, opacity 0.18s ease, visibility 0.18s ease;
+  }
+  .support-drawer.open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .support-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .support-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .support-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7CE8A4;
+    box-shadow: 0 0 0 4px rgba(124,232,164,0.12);
+  }
+  .support-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(124, 232, 164, 0.96);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .support-header h3 {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(238,243,238,0.9);
+  }
+  .support-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: rgba(238,243,238,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  .support-quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 14px 8px;
+  }
+  .quick-pill {
+    border: 1px solid rgba(255,255,255,0.09);
+    background: rgba(255,255,255,0.04);
+    color: rgba(238,243,238,0.9);
+    border-radius: 999px;
+    padding: 7px 10px;
+    font: inherit;
+    font-size: 10.5px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .support-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 8px 14px 12px;
+    max-height: 220px;
+    overflow: auto;
+  }
+  .msg {
+    max-width: 78%;
+    padding: 9px 10px;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .msg-incoming {
+    align-self: flex-start;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: rgba(238,243,238,0.92);
+    border-bottom-left-radius: 6px;
+  }
+  .msg-outgoing {
+    align-self: flex-end;
+    background: rgba(124,232,164,0.18);
+    border: 1px solid rgba(124,232,164,0.18);
+    color: rgba(238,243,238,0.96);
+    border-bottom-right-radius: 6px;
+  }
+  .support-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px 12px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(8,11,10,0.18);
+  }
+  .support-input {
+    flex: 1;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    color: rgba(238,243,238,0.96);
+    border-radius: 999px;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 12px;
+    outline: none;
+  }
+  .support-send {
+    border: none;
+    border-radius: 999px;
+    background: #EAF7F0;
+    color: #0F1210;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
   /* On wider screens (tablet/desktop), give the page some breathing room
      either side instead of stretching content edge to edge, but keep the
      layout itself identical — this is still one page, not a phone mockup. */
@@ -536,7 +689,8 @@
       overflow: hidden;
       min-height: calc(100vh - 48px);
     }
-    .support-fab {
+    .support-fab,
+    .support-drawer {
       right: calc((100vw - 480px) / 2 + 18px);
     }
   }
@@ -717,7 +871,7 @@
     </div>
   </div>
 
-  <a class="support-fab" href="mailto:support@split.app" aria-label="Chat with us">
+  <button class="support-fab" type="button" aria-expanded="false" aria-controls="supportDrawer" aria-label="Chat with us">
     <span class="support-icon">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M7 10.5h10"/>
@@ -726,7 +880,35 @@
       </svg>
     </span>
     Chat with us
-  </a>
+  </button>
+
+  <div class="support-drawer" id="supportDrawer" role="dialog" aria-label="Support chat" aria-hidden="true">
+    <div class="support-header">
+      <div class="support-title-wrap">
+        <span class="support-dot"></span>
+        <h3>Support</h3>
+      </div>
+      <div class="support-status">Online</div>
+      <button class="support-close" type="button" aria-label="Close chat">×</button>
+    </div>
+
+    <div class="support-quick-actions">
+      <button class="quick-pill" type="button">Track payment</button>
+      <button class="quick-pill" type="button">New split</button>
+      <button class="quick-pill" type="button">Account help</button>
+    </div>
+
+    <div class="support-messages">
+      <div class="msg msg-incoming">Hi Tunmi — we’re online and ready to help with your split today.</div>
+      <div class="msg msg-outgoing">I need help with a pending transfer.</div>
+      <div class="msg msg-incoming">No problem. I can check the payout status and next steps for you.</div>
+    </div>
+
+    <div class="support-input-row">
+      <input class="support-input" type="text" placeholder="Ask a question" aria-label="Ask a question" />
+      <button class="support-send" type="button">Send</button>
+    </div>
+  </div>
 
   <script>
     const savedTheme = localStorage.getItem('split-theme') || 'light';
@@ -750,6 +932,93 @@
         setBalanceVisible(!isVisible);
       });
     }
+
+    const supportFab = document.querySelector('.support-fab');
+    const supportDrawer = document.getElementById('supportDrawer');
+    const supportClose = document.querySelector('.support-close');
+    const supportInput = document.querySelector('.support-input');
+    const supportSend = document.querySelector('.support-send');
+    const supportMessages = document.querySelector('.support-messages');
+    const quickPills = document.querySelectorAll('.quick-pill');
+
+    const getSupportReply = (text) => {
+      const normalized = text.toLowerCase();
+      if (normalized.includes('payment') || normalized.includes('transfer') || normalized.includes('payout')) {
+        return 'I can trace that transfer. Please share the beneficiary name or reference, and I’ll check the payout status.';
+      }
+      if (normalized.includes('split') || normalized.includes('invite') || normalized.includes('link')) {
+        return 'Your split is active. I can help you review the members, amount splits, or payment link status.';
+      }
+      if (normalized.includes('account') || normalized.includes('login') || normalized.includes('security') || normalized.includes('password')) {
+        return 'I can help secure your account and review any sign-in issues. Let’s verify the account email first.';
+      }
+      if (normalized.includes('charge') || normalized.includes('fee') || normalized.includes('card')) {
+        return 'I can review the card or fee details. Tell me which transaction or charge you’re seeing.';
+      }
+      return 'I can help with that. A specialist is ready to review the issue and guide you to the next step.';
+    };
+
+    const setSupportOpen = (isOpen) => {
+      if (!supportFab || !supportDrawer) return;
+      supportDrawer.classList.toggle('open', isOpen);
+      supportFab.setAttribute('aria-expanded', String(isOpen));
+      supportDrawer.setAttribute('aria-hidden', String(!isOpen));
+    };
+
+    supportFab?.addEventListener('click', () => {
+      const isOpen = supportDrawer.classList.contains('open');
+      setSupportOpen(!isOpen);
+      if (!isOpen) {
+        requestAnimationFrame(() => supportInput?.focus());
+      }
+    });
+
+    supportClose?.addEventListener('click', () => setSupportOpen(false));
+
+    document.addEventListener('click', (event) => {
+      const clickedInsideDrawer = supportDrawer?.contains(event.target);
+      const clickedFab = supportFab?.contains(event.target);
+      if (!clickedInsideDrawer && !clickedFab && supportDrawer?.classList.contains('open')) {
+        setSupportOpen(false);
+      }
+    });
+
+    const addMessage = (text, outgoing = false) => {
+      if (!supportMessages) return;
+      const msg = document.createElement('div');
+      msg.className = `msg ${outgoing ? 'msg-outgoing' : 'msg-incoming'}`;
+      msg.textContent = text;
+      supportMessages.appendChild(msg);
+      supportMessages.scrollTop = supportMessages.scrollHeight;
+    };
+
+    const sendCurrentInput = () => {
+      const value = supportInput?.value.trim();
+      if (!value) return;
+      addMessage(value, true);
+      supportInput.value = '';
+      setTimeout(() => {
+        addMessage(getSupportReply(value), false);
+      }, 350);
+    };
+
+    supportSend?.addEventListener('click', sendCurrentInput);
+    supportInput?.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        sendCurrentInput();
+      }
+    });
+
+    quickPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const value = pill.textContent.trim();
+        addMessage(value, true);
+        setTimeout(() => {
+          addMessage(getSupportReply(value), false);
+        }, 300);
+      });
+    });
   </script>
 
 </body>
