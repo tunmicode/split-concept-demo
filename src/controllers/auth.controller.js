@@ -159,7 +159,10 @@ async function login(req, res) {
     }
 
     if (!user.is_active) {
-      return res.status(403).json({ error: 'Account is not active. Please verify your email first.' });
+      return res.status(403).json({
+        error: 'Account is not active. Please verify your email first.',
+        userId: user.id,
+      });
     }
 
     const token = signToken({ userId: user.id, username: user.username });
@@ -185,6 +188,53 @@ async function login(req, res) {
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ error: 'Unable to log in.' });
+  }
+}
+
+async function resendVerificationCode(req, res) {
+  try {
+    const { login } = req.body || {};
+
+    if (!login) {
+      return res.status(400).json({ error: 'Email, phone, or username is required.' });
+    }
+
+    const identifier = String(login).trim();
+    const result = await db.query(
+      `SELECT * FROM split_demo.users
+       WHERE LOWER(username) = LOWER($1)
+          OR (email IS NOT NULL AND LOWER(email) = LOWER($1))
+          OR (phone IS NOT NULL AND phone = $1)
+       LIMIT 1`,
+      [identifier]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'No account found for that email, phone, or username.' });
+    }
+
+    const user = result.rows[0];
+    const code = generateCode();
+    const codeHash = crypto.createHash('sha256').update(code).digest('hex');
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
+    await db.query(
+      `INSERT INTO split_demo.email_verification_codes (user_id, code_hash, expires_at)
+       VALUES ($1, $2, $3)`,
+      [user.id, codeHash, expiresAt]
+    );
+
+    if (user.email) {
+      await sendVerificationCode({ email: user.email, code });
+    }
+
+    res.json({
+      message: 'A new verification code has been sent to your email.',
+      userId: user.id,
+    });
+  } catch (error) {
+    console.error('Resend verification code error:', error);
+    res.status(500).json({ error: 'Unable to resend verification code.' });
   }
 }
 
