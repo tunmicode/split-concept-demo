@@ -442,6 +442,7 @@
     const accountPanelContainer = document.getElementById('accountPanelContainer');
     const accountHeader = document.getElementById('accountHeader');
     const accountTabbar = document.getElementById('accountTabbar');
+    const authCard = document.getElementById('authCard');
     const authForm = document.getElementById('authForm');
     const authStatus = document.getElementById('authStatus');
     const authSubmitBtn = document.getElementById('authSubmitBtn');
@@ -470,6 +471,10 @@
         if (!section) return;
         section.classList.toggle('hidden', !visible);
       });
+
+      if (authCard) {
+        authCard.classList.toggle('hidden', visible);
+      }
 
       if (!visible) {
         if (accountPanelContainer) {
@@ -639,6 +644,35 @@
     }
 
     async function loadSessionUser() {
+      const demoMode = localStorage.getItem('split-demo-mode') === 'true';
+      const savedUser = (() => {
+        try {
+          return JSON.parse(localStorage.getItem('split-demo-user') || 'null');
+        } catch (_error) {
+          return null;
+        }
+      })();
+
+      if (demoMode && savedUser) {
+        setAccountSectionsVisible(true);
+        const fullName = savedUser.fullName || savedUser.username || 'User';
+        const firstName = fullName.split(' ')[0];
+        const greetName = document.querySelector('.greet-text .name');
+        if (greetName) greetName.textContent = firstName;
+        const profileName = document.querySelector('.profile-name');
+        if (profileName) profileName.textContent = fullName;
+        const avatarText = firstName.charAt(0).toUpperCase();
+        const renderedAccountAvatar = document.getElementById('accountAvatar');
+        if (renderedAccountAvatar && !renderedAccountAvatar.style.backgroundImage) {
+          renderedAccountAvatar.textContent = avatarText;
+        }
+        if (document.querySelector('.greet-avatar')) {
+          const avatarEl = document.querySelector('.greet-avatar');
+          avatarEl.textContent = avatarText;
+        }
+        return;
+      }
+
       try {
         const data = await requestJson('/api/auth/me');
         if (data.user) {
