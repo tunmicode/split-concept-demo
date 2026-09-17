@@ -9,20 +9,20 @@
 <style>
   :root {
     --ink: #111111;
-    --paper: #0B0B09;
-    --paper-dim: #1A1816;
-    --line: rgba(255, 247, 232, 0.14);
-    --green: #D9C39A;
-    --green-tint: rgba(217, 195, 154, 0.14);
+    --paper: #F8F2E8;
+    --paper-dim: #F0E7D3;
+    --line: rgba(17, 17, 17, 0.08);
+    --green: #C9B596;
+    --green-tint: rgba(201, 181, 150, 0.12);
     --amber: #C77B3D;
-    --muted: #B0A597;
-    --white: #F5F0E7;
-    --card-bg: #F4EEDC;
-    --card-bg-strong: #E6DDC7;
-    --card-border: rgba(17, 17, 17, 0.14);
-    --card-shadow: rgba(0, 0, 0, 0.2);
+    --muted: #6E6458;
+    --white: #FFFFFF;
+    --card-bg: #FFFDF9;
+    --card-bg-strong: #F3EDE0;
+    --card-border: rgba(17, 17, 17, 0.09);
+    --card-shadow: rgba(17, 17, 17, 0.12);
     --font-ui: 'Manrope', 'Inter', sans-serif;
-    --hero-glow: rgba(217, 195, 154, 0.12);
+    --hero-glow: rgba(201, 181, 150, 0.14);
   }
   body[data-theme="dark"] {
     --ink: #F5F0E7;
@@ -176,7 +176,7 @@
     margin-top: 2px;
   }
   .auth-form input {
-    width: 100%; border: 1px solid rgba(17,17,17,0.12); border-radius: 12px; background: rgba(255,255,255,0.38);
+    width: 100%; border: 1px solid rgba(17,17,17,0.12); border-radius: 12px; background: rgba(255,255,255,0.8);
     padding: 13px 14px; font: inherit; color: var(--ink); outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
@@ -185,8 +185,8 @@
     border-color: rgba(255,247,232,0.12);
   }
   .auth-form input:focus {
-    border-color: rgba(217,195,154,0.8);
-    box-shadow: 0 0 0 3px rgba(217,195,154,0.12);
+    border-color: rgba(201,181,150,0.8);
+    box-shadow: 0 0 0 3px rgba(201,181,150,0.12);
   }
   .auth-form button, .inline-btn {
     border: none; border-radius: 12px; background: linear-gradient(180deg, #171512, #0D0C0A); color: #F7F2E7;
@@ -197,17 +197,6 @@
   .auth-form button:hover, .inline-btn:hover { transform: translateY(-1px); }
   .inline-btn {
     background: rgba(201,181,150,0.12); border: 1px solid rgba(201,181,150,0.24); color: var(--ink); margin-top: 2px; font-weight: 600; box-shadow: none;
-  }
-  .face-id-btn {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    border-radius: 12px; border: 1px solid rgba(17,17,17,0.12); background: rgba(17,17,17,0.04);
-    color: var(--ink); padding: 12px 14px; font: inherit; font-weight: 700; cursor: pointer;
-    transition: all 0.14s ease;
-  }
-  .face-id-btn:hover { background: rgba(17,17,17,0.06); }
-  .face-id-icon {
-    width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%;
-    background: rgba(17,17,17,0.08); font-size: 13px;
   }
   .auth-status {
     min-height: 18px; font-size: 12px; color: var(--green);
@@ -323,10 +312,6 @@
           <input id="authFullName" name="fullName" type="text" placeholder="Full name" />
           <input id="authLogin" name="login" type="text" placeholder="Email or phone or username" />
           <input id="authPassword" name="password" type="password" placeholder="Password" />
-          <button class="face-id-btn" type="button" id="faceIdBtn" hidden>
-            <span class="face-id-icon">◌</span>
-            Use Face ID
-          </button>
           <button id="authSubmitBtn" type="submit">Create account</button>
           <button class="inline-btn" type="button" id="toggleAuthMode">Switch to login</button>
         </form>
@@ -380,7 +365,6 @@
     const authLogin = document.getElementById('authLogin');
     let authVerification = document.getElementById('authVerification');
     const authPassword = document.getElementById('authPassword');
-    const faceIdBtn = document.getElementById('faceIdBtn');
     const helpSigninBtn = document.getElementById('helpSigninBtn');
     const supportShell = document.getElementById('supportShell');
     const supportMessages = document.querySelector('#supportShell .support-messages');
@@ -612,10 +596,6 @@
       const isVerify = mode === 'verify';
       const isLogin = mode === 'login';
 
-      if (faceIdBtn) {
-        faceIdBtn.hidden = !isLogin;
-      }
-
       if (authFullName) {
         authFullName.hidden = !isSignup;
       }
@@ -704,14 +684,6 @@
         storeSessionUser(null);
       }
     }
-
-    faceIdBtn?.addEventListener('click', () => {
-      if (!window.PublicKeyCredential) {
-        setAuthStatus('Face ID-style biometric sign-in is available on supported devices and passkey-enabled browsers.', false);
-        return;
-      }
-      setAuthStatus('Biometric sign-in is ready on supported devices through WebAuthn/passkeys.', false);
-    });
 
     authForm?.addEventListener('submit', async (event) => {
       event.preventDefault();
