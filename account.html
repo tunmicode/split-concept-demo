@@ -368,7 +368,8 @@
         <div class="auth-sub" id="authSubtitle">One payment in, everyone gets their agreed share.</div>
         <form class="auth-form" id="authForm">
           <input id="authFullName" name="fullName" type="text" placeholder="Full name" />
-          <input id="authLogin" name="login" type="text" placeholder="Email or phone or username" />
+          <input id="authUsername" name="username" type="text" placeholder="Username" />
+          <input id="authLogin" name="login" type="text" placeholder="Email or phone" />
           <input id="authPassword" name="password" type="password" placeholder="Password" />
           <button id="authSubmitBtn" type="submit">Create account</button>
           <button class="inline-btn" type="button" id="toggleAuthMode">Switch to login</button>
@@ -437,6 +438,7 @@
     const authTitle = document.getElementById('authTitle');
     const authSubtitle = document.getElementById('authSubtitle');
     const authFullName = document.getElementById('authFullName');
+    const authUsername = document.getElementById('authUsername');
     const authLogin = document.getElementById('authLogin');
     let authVerification = document.getElementById('authVerification');
     const authPassword = document.getElementById('authPassword');
@@ -642,13 +644,6 @@
       });
     }
 
-    function generateUsernameFromLogin(value) {
-      const base = (value || '').trim().toLowerCase();
-      if (!base) return `user${Date.now().toString().slice(-6)}`;
-      const cleaned = base.replace(/[^a-z0-9]+/g, '').slice(0, 18) || `user${Date.now().toString().slice(-6)}`;
-      return cleaned || `user${Date.now().toString().slice(-6)}`;
-    }
-
     function ensureVerificationInput() {
       if (authVerification || !authForm) return;
 
@@ -674,6 +669,12 @@
       if (authFullName) {
         authFullName.hidden = !isSignup;
       }
+      if (authUsername) {
+        authUsername.hidden = !isSignup;
+      }
+      if (authLogin) {
+        authLogin.placeholder = isSignup ? 'Email or phone' : 'Email or phone or username';
+      }
       if (isVerify) {
         ensureVerificationInput();
       }
@@ -695,6 +696,7 @@
       }
       if (!isSignup) {
         authFullName.value = '';
+        authUsername.value = '';
       }
       if (!isVerify && authVerification) {
         authVerification.value = '';
@@ -767,6 +769,7 @@
       try {
         const payload = {
           fullName: authFullName?.value?.trim(),
+          username: authUsername?.value?.trim(),
           login: authLogin?.value?.trim(),
           password: authPassword?.value,
         };
@@ -796,7 +799,7 @@
             method: 'POST',
             body: JSON.stringify({
               fullName: payload.fullName,
-              username: generateUsernameFromLogin(loginValue),
+              username: payload.username,
               email: isEmail ? loginValue : undefined,
               phone: isEmail ? undefined : loginValue,
               password: payload.password,
