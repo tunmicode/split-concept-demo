@@ -63,6 +63,37 @@
     font-family: 'Fraunces', serif; font-size: 21px; font-weight: 600;
     flex: 1; text-align: center; margin-right: 36px;
   }
+  .auth-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+    padding: 18px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .auth-card h3 {
+    font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600;
+  }
+  .auth-card .auth-sub {
+    font-size: 12px; color: var(--muted);
+    line-height: 1.5;
+  }
+  .auth-form {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .auth-form input {
+    width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--paper);
+    padding: 12px 14px; font: inherit; color: var(--ink); outline: none;
+  }
+  .auth-form input:focus { border-color: var(--green); }
+  .auth-form button, .inline-btn {
+    border: none; border-radius: 12px; background: var(--ink); color: var(--white);
+    padding: 12px 14px; font: inherit; font-weight: 700; cursor: pointer;
+  }
+  .inline-btn {
+    background: var(--green); margin-top: 6px;
+  }
+  .auth-status {
+    min-height: 18px; font-size: 12px; color: var(--green);
+  }
+  .auth-status.error { color: #b94a48; }
   .profile-card {
     background: var(--white); border: 1px solid var(--line); border-radius: 18px;
     padding: 18px;
@@ -160,6 +191,21 @@
         <div style="width: 36px;"></div>
       </div>
 
+      <div class="auth-card" id="authCard">
+        <h3>Account access</h3>
+        <div class="auth-sub">Sign up for a real account or log in to continue using the app.</div>
+        <form class="auth-form" id="authForm">
+          <input id="authFullName" name="fullName" type="text" placeholder="Full name" />
+          <input id="authUsername" name="username" type="text" placeholder="Username" />
+          <input id="authLogin" name="login" type="text" placeholder="Email or phone or username" />
+          <input id="authVerification" name="verificationCode" type="text" inputmode="numeric" maxlength="6" placeholder="Verification code" hidden />
+          <input id="authPassword" name="password" type="password" placeholder="Password" />
+          <button id="authSubmitBtn" type="submit">Create account</button>
+          <button class="inline-btn" type="button" id="toggleAuthMode">Switch to login</button>
+        </form>
+        <div class="auth-status" id="authStatus"></div>
+      </div>
+
       <div class="profile-card">
         <div class="profile-avatar" id="accountAvatar">T</div>
         <div class="profile-copy">
@@ -216,12 +262,12 @@
       </div>
 
       <div class="list-card">
-        <a class="list-row" href="index.html">
+        <button class="list-row" id="logoutBtn" type="button">
           <div class="row-copy">
             <div class="row-label">Log out</div>
           </div>
           <div class="row-arrow">›</div>
-        </a>
+        </button>
       </div>
     </div>
 
@@ -243,6 +289,194 @@
     const avatarPreview = document.getElementById('avatarPreview');
     const accountAvatar = document.getElementById('accountAvatar');
     const homeAvatar = document.querySelector('.greet-avatar');
+    const authForm = document.getElementById('authForm');
+    const authStatus = document.getElementById('authStatus');
+    const authSubmitBtn = document.getElementById('authSubmitBtn');
+    const toggleAuthModeBtn = document.getElementById('toggleAuthMode');
+    const authFullName = document.getElementById('authFullName');
+    const authUsername = document.getElementById('authUsername');
+    const authLogin = document.getElementById('authLogin');
+    const authVerification = document.getElementById('authVerification');
+    const authPassword = document.getElementById('authPassword');
+    const logoutBtn = document.getElementById('logoutBtn');
+    let authMode = 'signup';
+    let pendingUserId = null;
+
+    function setAuthStatus(message, isError = false) {
+      if (!authStatus) return;
+      authStatus.textContent = message || '';
+      authStatus.classList.toggle('error', isError);
+    }
+
+    function setAuthMode(mode) {
+      authMode = mode;
+      const isSignup = mode === 'signup';
+      const isVerify = mode === 'verify';
+      const isLogin = mode === 'login';
+      authFullName.hidden = !isSignup;
+      authUsername.hidden = !isSignup;
+      authVerification.hidden = !isVerify;
+      authSubmitBtn.textContent = isSignup ? 'Create account' : isVerify ? 'Verify code' : 'Log in';
+      toggleAuthModeBtn.textContent = isSignup ? 'Switch to login' : isVerify ? 'Switch to login' : 'Switch to sign up';
+      if (!isSignup) {
+        authFullName.value = '';
+        authUsername.value = '';
+      }
+      if (!isVerify) {
+        authVerification.value = '';
+      }
+      if (!isLogin && !isVerify) {
+        authPassword.value = '';
+      }
+    }
+
+    async function requestJson(url, options = {}) {
+      const response = await fetch(url, {
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
+        ...options,
+      });
+
+      const text = await response.text();
+      let data = {};
+      try { data = text ? JSON.parse(text) : {}; } catch (_error) { data = { message: text }; }
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || 'Request failed.');
+      }
+
+      return data;
+    }
+
+    function storeSessionUser(user) {
+      if (!user) {
+        localStorage.removeItem('split-demo-user');
+        return;
+      }
+      localStorage.setItem('split-demo-user', JSON.stringify(user));
+    }
+
+    async function loadSessionUser() {
+      try {
+        const data = await requestJson('/api/auth/me');
+        if (data.user) {
+          storeSessionUser(data.user);
+          const firstName = (data.user.fullName || data.user.username || 'User').split(' ')[0];
+          const greetName = document.querySelector('.greet-text .name');
+          if (greetName) greetName.textContent = firstName;
+          const profileName = document.querySelector('.profile-name');
+          if (profileName) profileName.textContent = data.user.fullName || data.user.username || 'User';
+          const avatarText = firstName.charAt(0).toUpperCase();
+          if (accountAvatar) {
+            if (!accountAvatar.style.backgroundImage) {
+              accountAvatar.textContent = avatarText;
+            }
+          }
+          if (document.querySelector('.greet-avatar')) {
+            const avatarEl = document.querySelector('.greet-avatar');
+            avatarEl.textContent = avatarText;
+          }
+        }
+      } catch (_error) {
+        storeSessionUser(null);
+      }
+    }
+
+    authForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      setAuthStatus('');
+
+      try {
+        const payload = {
+          fullName: authFullName?.value?.trim(),
+          username: authUsername?.value?.trim(),
+          login: authLogin?.value?.trim(),
+          password: authPassword?.value,
+        };
+
+        if (authMode === 'verify') {
+          if (!pendingUserId || !authVerification?.value?.trim()) {
+            throw new Error('Enter the 6-digit verification code sent to your email.');
+          }
+          await requestJson('/api/auth/verify-email', {
+            method: 'POST',
+            body: JSON.stringify({ userId: pendingUserId, code: authVerification.value.trim() }),
+          });
+          setAuthStatus('Email verified successfully. You can now log in.');
+          pendingUserId = null;
+          setAuthMode('login');
+          return;
+        }
+
+        if (authMode === 'signup') {
+          if (!payload.fullName || !payload.username || !payload.password || !payload.login) {
+            throw new Error('Full name, username, password, and email/phone are required.');
+          }
+
+          const loginValue = payload.login;
+          const isEmail = loginValue.includes('@');
+          const signupResponse = await requestJson('/api/auth/signup', {
+            method: 'POST',
+            body: JSON.stringify({
+              fullName: payload.fullName,
+              username: payload.username,
+              email: isEmail ? loginValue : undefined,
+              phone: isEmail ? undefined : loginValue,
+              password: payload.password,
+            }),
+          });
+
+          pendingUserId = signupResponse.user?.id || null;
+          setAuthStatus('Account created. Enter the 6-digit code we sent to your email to verify your account.');
+          authPassword.value = '';
+          authVerification.hidden = false;
+          setAuthMode('verify');
+          return;
+        }
+
+        if (!payload.login || !payload.password) {
+          throw new Error('Email/phone/username and password are required.');
+        }
+
+        const loginResponse = await requestJson('/api/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            login: payload.login,
+            password: payload.password,
+          }),
+        });
+
+        storeSessionUser(loginResponse.user);
+        setAuthStatus('Logged in successfully. Redirecting...');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 600);
+      } catch (error) {
+        setAuthStatus(error.message, true);
+      }
+    });
+
+    toggleAuthModeBtn?.addEventListener('click', () => {
+      if (authMode === 'verify') {
+        setAuthMode('login');
+      } else {
+        setAuthMode(authMode === 'signup' ? 'login' : 'signup');
+      }
+      setAuthStatus('');
+    });
+
+    logoutBtn?.addEventListener('click', async () => {
+      try {
+        await requestJson('/api/auth/logout', { method: 'POST' });
+      } catch (_error) {
+        // ignore server-side logout errors and continue to the landing page
+      } finally {
+        localStorage.removeItem('split-demo-user');
+        window.location.href = 'index.html';
+      }
+    });
+
+    setAuthMode('signup');
 
     function applyTheme(theme) {
       body.setAttribute('data-theme', theme);
@@ -275,6 +509,7 @@
     const savedAvatar = localStorage.getItem('split-profile-image');
     applyTheme(savedTheme);
     updateAvatarDisplay(savedAvatar);
+    loadSessionUser();
 
     themeToggle.addEventListener('click', () => {
       const nextTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -286,10 +521,7 @@
       const file = event.target.files && event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = () => {
-        updateAvatarDisplay(reader.result);
-        profileImageInput.value = '';
-      };
+      reader.onload = () => updateAvatarDisplay(reader.result);
       reader.readAsDataURL(file);
     });
   </script>

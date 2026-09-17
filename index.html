@@ -1546,12 +1546,32 @@
 
     let splitStepIndex = 0;
     const splitSteps = ['create', 'confirm', 'link', 'distribute'];
+    let activeSplitId = null;
 
     const showToast = (message) => {
       if (!shareToast) return;
       shareToast.textContent = message;
       shareToast.classList.add('visible');
       setTimeout(() => shareToast.classList.remove('visible'), 1800);
+    };
+
+    const getCurrentUser = () => {
+      try {
+        return JSON.parse(localStorage.getItem('split-demo-user') || 'null');
+      } catch (_error) {
+        return null;
+      }
+    };
+
+    const updateGreeting = () => {
+      const currentUser = getCurrentUser();
+      const greetName = document.querySelector('.greet-text .name');
+      if (!greetName) return;
+      if (currentUser?.fullName) {
+        greetName.textContent = currentUser.fullName.split(' ')[0];
+      } else if (currentUser?.username) {
+        greetName.textContent = currentUser.username;
+      }
     };
 
     const renderSplitSummary = () => {
@@ -1562,7 +1582,7 @@
       if (summaryAmount) summaryAmount.textContent = `₦${total.toLocaleString()}`;
       if (createSummaryAmount) createSummaryAmount.textContent = `₦${total.toLocaleString()}`;
       if (projectNamePreview) projectNamePreview.textContent = project;
-      if (shareLinkInput) {
+      if (shareLinkInput && !activeSplitId) {
         const hash = Math.random().toString(36).slice(2, 7).toUpperCase();
         shareLinkInput.value = `https://split.app/pay/${hash}?project=${encodeURIComponent(project)}&amount=${total}`;
       }
@@ -1582,8 +1602,8 @@
         step.classList.toggle('active', stepIndex === splitStepIndex);
       });
 
-      splitBackBtn.style.visibility = splitStepIndex === 0 ? 'hidden' : 'visible';
-      splitNextBtn.textContent = splitStepIndex === splitSteps.length - 1 ? 'Close' : 'Continue';
+      if (splitBackBtn) splitBackBtn.style.visibility = splitStepIndex === 0 ? 'hidden' : 'visible';
+      if (splitNextBtn) splitNextBtn.textContent = splitStepIndex === splitSteps.length - 1 ? 'Close' : 'Continue';
     };
 
     const validateSplit = () => {
@@ -1596,11 +1616,76 @@
       return true;
     };
 
-    const handleNext = () => {
+    const getParticipantRows = () => {
+      return [...document.querySelectorAll('.participant-row')].map((row) => {
+        const nameEl = row.querySelector('strong');
+        const percentEl = row.querySelector('.split-percent');
+        return {
+          name: nameEl ? nameEl.textContent.trim() : 'Participant',
+          percentage: Number(percentEl?.value || 0),
+        };
+      });
+    };
+
+    const createSplit = async () => {
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        window.location.href = 'account.html';
+        return null;
+      }
+
+      const projectName = splitProjectName?.value?.trim() || 'Summer launch campaign';
+      const totalAmount = Number(splitTotalAmount?.value || 46500);
+      const participants = getParticipantRows().map((participant) => ({
+        name: participant.name,
+        percentage: Number(participant.percentage),
+      }));
+
+      const response = await fetch('/api/splits', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          projectName,
+          totalAmount,
+          currency: 'NGN',
+          participants,
+        }),
+      });
+
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(payload.error || 'Unable to create split.');
+      }
+
+      const linkResponse = await fetch(`/api/splits/${payload.split.id}/share-link`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const linkPayload = await linkResponse.json().catch(() => ({}));
+      if (!linkResponse.ok) {
+        throw new Error(linkPayload.error || 'Unable to generate share link.');
+      }
+
+      activeSplitId = payload.split.id;
+      if (shareLinkInput) {
+        shareLinkInput.value = `${window.location.origin}${linkPayload.link}`;
+      }
+      return payload.split;
+    };
+
+    const handleNext = async () => {
       if (splitStepIndex === 0) {
         if (!validateSplit()) return;
-        renderSplitSummary();
-        setSplitStep(1);
+        try {
+          renderSplitSummary();
+          await createSplit();
+          setSplitStep(1);
+        } catch (error) {
+          showToast(error.message || 'Unable to create split.');
+        }
         return;
       }
       if (splitStepIndex === 1) {
@@ -1638,7 +1723,14 @@
       }
     };
 
-    paymentLinkTrigger?.addEventListener('click', () => setShareOpen(true));
+    paymentLinkTrigger?.addEventListener('click', async () => {
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        window.location.href = 'account.html';
+        return;
+      }
+      setShareOpen(true);
+    });
     shareClose?.addEventListener('click', () => setShareOpen(false));
     shareModal?.addEventListener('click', (event) => {
       if (event.target === shareModal) setShareOpen(false);
@@ -1650,6 +1742,7 @@
     splitPercentEls.forEach((percent) => percent.addEventListener('input', renderSplitSummary));
     shareLinkInput?.addEventListener('click', copyLink);
 
+    updateGreeting();
     setSplitStep(0);
 
     const balanceToggle = document.querySelector('.balance-toggle');
