@@ -18,6 +18,17 @@
     --muted: #6B6A62;
     --white: #FFFFFF;
     --font-ui: 'Manrope', 'Inter', sans-serif;
+    --support-fab-bg: rgba(255, 255, 255, 0.7);
+    --support-fab-text: #111812;
+    --support-fab-border: rgba(16, 20, 18, 0.08);
+    --support-fab-shadow: 0 12px 24px rgba(17, 24, 18, 0.08);
+    --support-drawer-bg: rgba(255, 255, 255, 0.8);
+    --support-drawer-text: #111812;
+    --support-drawer-border: rgba(17, 24, 18, 0.08);
+    --support-drawer-input: rgba(17, 24, 18, 0.03);
+    --support-message-in: rgba(17, 24, 18, 0.04);
+    --support-message-out: rgba(46, 125, 91, 0.12);
+    --support-pill-bg: rgba(17, 24, 18, 0.03);
   }
   body[data-theme="dark"] {
     --ink: #EEF3EE;
@@ -29,6 +40,17 @@
     --amber: #C77B3D;
     --muted: #AAB5AD;
     --white: #1A221E;
+    --support-fab-bg: rgba(14, 18, 15, 0.45);
+    --support-fab-text: rgba(241, 247, 243, 0.9);
+    --support-fab-border: rgba(151, 204, 172, 0.1);
+    --support-fab-shadow: 0 8px 20px rgba(14, 18, 15, 0.08), 0 0 12px rgba(88, 219, 142, 0.06);
+    --support-drawer-bg: rgba(9, 12, 11, 0.8);
+    --support-drawer-text: rgba(238, 243, 238, 0.96);
+    --support-drawer-border: rgba(255, 255, 255, 0.08);
+    --support-drawer-input: rgba(255,255,255,0.02);
+    --support-message-in: rgba(255,255,255,0.06);
+    --support-message-out: rgba(124,232,164,0.18);
+    --support-pill-bg: rgba(255,255,255,0.04);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -462,13 +484,13 @@
     align-items: center;
     gap: 6px;
     padding: 7px 9px 7px 7px;
-    border: 1px solid rgba(151, 204, 172, 0.1);
+    border: 1px solid var(--support-fab-border);
     border-radius: 999px;
-    background: rgba(14, 18, 15, 0.28);
+    background: var(--support-fab-bg);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    color: rgba(241, 247, 243, 0.9);
-    box-shadow: 0 8px 20px rgba(14, 18, 15, 0.08), 0 0 12px rgba(88, 219, 142, 0.06);
+    color: var(--support-fab-text);
+    box-shadow: var(--support-fab-shadow);
     font: inherit;
     font-size: 10.5px;
     font-weight: 700;
@@ -480,7 +502,7 @@
     transform: translateY(-1px);
     box-shadow: 0 12px 24px rgba(14, 18, 15, 0.1), 0 0 14px rgba(88, 219, 142, 0.08);
     border-color: rgba(151, 204, 172, 0.14);
-    background: rgba(14, 18, 15, 0.34);
+    background: var(--support-fab-bg);
   }
   .support-fab .support-icon {
     position: relative;
@@ -492,8 +514,11 @@
     justify-content: center;
     background: rgba(146, 245, 180, 0.06);
     border: 1px solid rgba(146, 245, 180, 0.1);
-    color: rgba(158, 232, 179, 0.9);
+    color: rgba(49, 125, 93, 0.9);
     flex-shrink: 0;
+  }
+  body[data-theme="dark"] .support-fab .support-icon {
+    color: rgba(158, 232, 179, 0.9);
   }
   .support-fab .support-icon::after {
     content: "";
@@ -529,12 +554,12 @@
     z-index: 49;
     width: min(320px, calc(100vw - 28px));
     border-radius: 24px;
-    background: rgba(9, 12, 11, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 18px 36px rgba(8, 12, 10, 0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+    background: var(--support-drawer-bg);
+    border: 1px solid var(--support-drawer-border);
+    box-shadow: 0 18px 36px rgba(8, 12, 10, 0.12), inset 0 1px 0 rgba(255,255,255,0.06);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    color: rgba(238, 243, 238, 0.96);
+    color: var(--support-drawer-text);
     overflow: hidden;
     transform: translateY(10px) scale(0.98);
     opacity: 0;
@@ -574,24 +599,27 @@
     gap: 6px;
     font-size: 10px;
     font-weight: 700;
-    color: rgba(124, 232, 164, 0.96);
+    color: rgba(46, 125, 91, 0.96);
     letter-spacing: 0.04em;
     text-transform: uppercase;
+  }
+  body[data-theme="dark"] .support-status {
+    color: rgba(124, 232, 164, 0.96);
   }
   .support-header h3 {
     font-size: 12px;
     font-weight: 800;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: rgba(238,243,238,0.9);
+    color: var(--support-drawer-text);
   }
   .support-close {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid var(--support-drawer-border);
     background: rgba(255,255,255,0.04);
-    color: rgba(238,243,238,0.8);
+    color: var(--support-drawer-text);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -605,9 +633,9 @@
     padding: 12px 14px 8px;
   }
   .quick-pill {
-    border: 1px solid rgba(255,255,255,0.09);
-    background: rgba(255,255,255,0.04);
-    color: rgba(238,243,238,0.9);
+    border: 1px solid var(--support-drawer-border);
+    background: var(--support-pill-bg);
+    color: var(--support-drawer-text);
     border-radius: 999px;
     padding: 7px 10px;
     font: inherit;
@@ -632,16 +660,19 @@
   }
   .msg-incoming {
     align-self: flex-start;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.06);
-    color: rgba(238,243,238,0.92);
+    background: var(--support-message-in);
+    border: 1px solid rgba(17, 24, 18, 0.04);
+    color: var(--support-drawer-text);
     border-bottom-left-radius: 6px;
+  }
+  body[data-theme="dark"] .msg-incoming {
+    border-color: rgba(255,255,255,0.06);
   }
   .msg-outgoing {
     align-self: flex-end;
-    background: rgba(124,232,164,0.18);
-    border: 1px solid rgba(124,232,164,0.18);
-    color: rgba(238,243,238,0.96);
+    background: var(--support-message-out);
+    border: 1px solid rgba(46,125,91,0.18);
+    color: var(--support-drawer-text);
     border-bottom-right-radius: 6px;
   }
   .support-input-row {
@@ -650,13 +681,16 @@
     gap: 8px;
     padding: 10px 12px 12px;
     border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(8,11,10,0.06);
+  }
+  body[data-theme="dark"] .support-input-row {
     background: rgba(8,11,10,0.18);
   }
   .support-input {
     flex: 1;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.02);
-    color: rgba(238,243,238,0.96);
+    border: 1px solid var(--support-drawer-border);
+    background: var(--support-drawer-input);
+    color: var(--support-drawer-text);
     border-radius: 999px;
     padding: 10px 12px;
     font: inherit;
