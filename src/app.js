@@ -9,9 +9,22 @@ const { verifyToken } = require('./utils/jwt');
 
 const app = express();
 const rootDir = path.resolve(__dirname, '..');
+const allowedOrigins = [
+  'https://split-concept-demo.vercel.app',
+  'http://localhost:3000',
+  'http://localhost:8000',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:8000',
+];
 
 app.use(cors({
-  origin: true,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+      return;
+    }
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '2mb' }));

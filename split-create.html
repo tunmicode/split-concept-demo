@@ -265,9 +265,11 @@
   </div>
 
   <script>
+    const API_BASE_URL = 'https://split-concept-demo.onrender.com';
+
     async function requireAuth() {
       try {
-        const response = await fetch('/api/auth/me', { credentials: 'include' });
+        const response = await fetch(`${API_BASE_URL}/api/auth/me`, { credentials: 'include' });
         if (!response.ok) {
           throw new Error('Not authenticated');
         }
