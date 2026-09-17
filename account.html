@@ -132,9 +132,76 @@
     font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;
     letter-spacing: -0.03em;
   }
+  .secure-note {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 10px; border-radius: 999px;
+    background: rgba(46, 125, 91, 0.08); color: var(--green);
+    border: 1px solid rgba(46, 125, 91, 0.14);
+    font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  }
   .auth-card .auth-sub {
     font-size: 12px; color: var(--muted);
     line-height: 1.5;
+  }
+  .support-cta {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border: 1px solid var(--line); border-radius: 999px; background: rgba(46,125,91,0.05);
+    color: var(--green); padding: 10px 14px; font-size: 11px; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+  }
+  .support-shell {
+    display: none;
+    margin-top: 8px;
+    background: rgba(255,255,255,0.8); border: 1px solid var(--line);
+    border-radius: 18px; overflow: hidden; box-shadow: 0 12px 24px rgba(17,24,19,0.06);
+  }
+  .support-shell.open {
+    display: block;
+  }
+  .support-header {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 16px; border-bottom: 1px solid var(--line);
+  }
+  .support-title-wrap {
+    display: flex; align-items: center; gap: 8px; font-weight: 700;
+  }
+  .support-dot {
+    width: 9px; height: 9px; border-radius: 50%; background: #45c379; box-shadow: 0 0 12px rgba(69,195,121,0.7);
+  }
+  .support-close {
+    appearance: none; border: 1px solid var(--line); background: transparent; width: 30px; height: 30px;
+    border-radius: 50%; font-size: 18px; color: var(--ink); cursor: pointer;
+  }
+  .support-quick-actions {
+    display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line);
+  }
+  .quick-pill {
+    border: 1px solid var(--line); background: rgba(17,24,19,0.03); color: var(--ink);
+    border-radius: 999px; padding: 7px 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; cursor: pointer;
+  }
+  .support-messages {
+    max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px;
+    background: rgba(17,24,19,0.01);
+  }
+  .msg {
+    max-width: 82%; padding: 10px 12px; border-radius: 14px; font-size: 12px; line-height: 1.5;
+  }
+  .msg-incoming {
+    background: rgba(17,24,19,0.04); color: var(--ink); align-self: flex-start;
+  }
+  .msg-outgoing {
+    background: rgba(46,125,91,0.12); color: var(--ink); align-self: flex-end;
+  }
+  .support-input-row {
+    display: flex; gap: 8px; padding: 12px 16px 16px; border-top: 1px solid var(--line);
+  }
+  .support-input {
+    flex: 1; border: 1px solid var(--line); border-radius: 12px; background: rgba(17,24,19,0.02); color: var(--ink);
+    padding: 10px 12px; font: inherit; outline: none;
+  }
+  .support-send {
+    border: none; border-radius: 12px; background: var(--ink); color: var(--white); padding: 10px 14px; font: inherit; font-weight: 700; cursor: pointer;
   }
   .auth-form {
     display: flex; flex-direction: column; gap: 10px;
@@ -235,6 +302,7 @@
   }
   .tab-item.on .tab-icon { color: var(--green); }
   .tab-icon { font-size: 18px; }
+  .hidden { display: none !important; }
   @media (min-width: 481px) {
     body { background: var(--paper-dim); }
     .page {
@@ -252,7 +320,7 @@
 <body>
   <div class="page">
     <div class="content">
-      <div class="screen-header">
+      <div class="screen-header hidden" id="accountHeader">
         <a class="nav-back" href="index.html" aria-label="Back to home">←</a>
         <div class="screen-title">Account</div>
         <div style="width: 36px;"></div>
@@ -273,6 +341,7 @@
       </div>
 
       <div class="auth-card" id="authCard">
+        <div class="secure-note">🔒 Protected access</div>
         <h3>Account access</h3>
         <div class="auth-sub">Create your account to see the full Split experience and unlock your dashboard.</div>
         <form class="auth-form" id="authForm">
@@ -285,74 +354,32 @@
           <button class="inline-btn" type="button" id="toggleAuthMode">Switch to login</button>
         </form>
         <div class="auth-status" id="authStatus"></div>
-      </div>
+        <button class="support-cta" id="helpSigninBtn" type="button">Need help signing in?</button>
 
-      <div class="profile-card">
-        <div class="profile-avatar" id="accountAvatar">T</div>
-        <div class="profile-copy">
-          <div class="profile-name">Tunmi</div>
-          <div class="profile-meta">Premium member</div>
+        <div class="support-shell" id="supportShell" aria-live="polite">
+          <div class="support-header">
+            <div class="support-title-wrap"><span class="support-dot"></span> Support</div>
+            <button class="support-close" type="button" aria-label="Close support">×</button>
+          </div>
+          <div class="support-quick-actions">
+            <button class="quick-pill" type="button">Password reset</button>
+            <button class="quick-pill" type="button">Verify email</button>
+            <button class="quick-pill" type="button">Account access</button>
+          </div>
+          <div class="support-messages">
+            <div class="msg msg-incoming">Hi — we can help with sign-in issues, verification, and account access.</div>
+          </div>
+          <div class="support-input-row">
+            <input class="support-input" type="text" placeholder="Tell us what’s going wrong" aria-label="Tell us what’s going wrong" />
+            <button class="support-send" type="button">Send</button>
+          </div>
         </div>
-        <div class="profile-badge">2022</div>
       </div>
 
-      <div class="list-card">
-        <button class="list-row" id="profilePicturePicker" type="button" aria-label="Add profile picture">
-          <div class="row-copy">
-            <div class="row-label">Profile picture</div>
-          </div>
-          <div class="avatar-preview" id="avatarPreview">T</div>
-        </button>
-        <input id="profileImageInput" type="file" accept="image/*" hidden />
-        <a class="list-row" href="profile.html">
-          <div class="row-copy">
-            <div class="row-label">Profile</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </a>
-        <a class="list-row" href="account.html">
-          <div class="row-copy">
-            <div class="row-label">Security</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </a>
-        <a class="list-row" href="account.html">
-          <div class="row-copy">
-            <div class="row-label">Notifications</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </a>
-        <button class="list-row" id="themeToggle" type="button" aria-label="Toggle dark mode">
-          <div class="row-copy">
-            <div class="row-label">Appearance</div>
-          </div>
-          <div class="row-arrow" id="themeLabel">Light</div>
-        </button>
-        <a class="list-row" href="account.html">
-          <div class="row-copy">
-            <div class="row-label">Linked banks</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </a>
-        <a class="list-row" href="account.html">
-          <div class="row-copy">
-            <div class="row-label">Help and support</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </a>
-      </div>
-
-      <div class="list-card">
-        <button class="list-row" id="logoutBtn" type="button">
-          <div class="row-copy">
-            <div class="row-label">Log out</div>
-          </div>
-          <div class="row-arrow">›</div>
-        </button>
-      </div>
+      <div id="accountPanelContainer"></div>
     </div>
 
-    <div class="tabbar">
+    <div class="tabbar hidden" id="accountTabbar">
       <a class="tab-item" href="index.html"><div class="tab-icon">⌂</div>Home</a>
       <a class="tab-item" href="index.html"><div class="tab-icon">🏦</div>Banks</a>
       <a class="tab-item" href="index.html"><div class="tab-icon">📈</div>Insights</a>
@@ -363,13 +390,9 @@
 
   <script>
     const body = document.body;
-    const themeToggle = document.getElementById('themeToggle');
-    const themeLabel = document.getElementById('themeLabel');
-    const profileImageInput = document.getElementById('profileImageInput');
-    const profilePicturePicker = document.getElementById('profilePicturePicker');
-    const avatarPreview = document.getElementById('avatarPreview');
-    const accountAvatar = document.getElementById('accountAvatar');
-    const homeAvatar = document.querySelector('.greet-avatar');
+    const accountPanelContainer = document.getElementById('accountPanelContainer');
+    const accountHeader = document.getElementById('accountHeader');
+    const accountTabbar = document.getElementById('accountTabbar');
     const authForm = document.getElementById('authForm');
     const authStatus = document.getElementById('authStatus');
     const authSubmitBtn = document.getElementById('authSubmitBtn');
@@ -379,7 +402,21 @@
     const authLogin = document.getElementById('authLogin');
     const authVerification = document.getElementById('authVerification');
     const authPassword = document.getElementById('authPassword');
-    const logoutBtn = document.getElementById('logoutBtn');
+    const helpSigninBtn = document.getElementById('helpSigninBtn');
+    const supportShell = document.getElementById('supportShell');
+    const supportMessages = document.querySelector('#supportShell .support-messages');
+    const supportInput = document.querySelector('#supportShell .support-input');
+    const supportSend = document.querySelector('#supportShell .support-send');
+    const supportClose = document.querySelector('#supportShell .support-close');
+    const quickPills = document.querySelectorAll('#supportShell .quick-pill');
+    let themeToggle = null;
+    let themeLabel = null;
+    let profileImageInput = null;
+    let profilePicturePicker = null;
+    let avatarPreview = null;
+    let accountAvatar = null;
+    let logoutBtn = null;
+    let homeAvatar = document.querySelector('.greet-avatar');
     let authMode = 'signup';
     let pendingUserId = null;
 
@@ -387,6 +424,184 @@
       if (!authStatus) return;
       authStatus.textContent = message || '';
       authStatus.classList.toggle('error', isError);
+    }
+
+    function getSupportReply(value) {
+      const text = (value || '').toLowerCase();
+      if (text.includes('password') || text.includes('reset')) return 'You can reset your password from the login screen, or contact us and we’ll help you verify the account email before reset.';
+      if (text.includes('verify') || text.includes('code') || text.includes('email')) return 'If you were sent a verification code, enter it on the form before attempting a full login. We can also help you resend it.';
+      if (text.includes('login') || text.includes('sign')) return 'We can help confirm whether the account exists, the email is verified, and whether the password is correct.';
+      return 'I can help troubleshoot your sign-in issue. Share the email or username you’re using and I’ll guide the next step.';
+    }
+
+    function setSupportOpen(isOpen) {
+      if (!supportShell) return;
+      supportShell.classList.toggle('open', isOpen);
+    }
+
+    function addSupportMessage(text, outgoing = false) {
+      if (!supportMessages) return;
+      const message = document.createElement('div');
+      message.className = `msg ${outgoing ? 'msg-outgoing' : 'msg-incoming'}`;
+      message.textContent = text;
+      supportMessages.appendChild(message);
+      supportMessages.scrollTop = supportMessages.scrollHeight;
+    }
+
+    function sendSupportMessage() {
+      const value = supportInput?.value.trim();
+      if (!value) return;
+      addSupportMessage(value, true);
+      supportInput.value = '';
+      setTimeout(() => addSupportMessage(getSupportReply(value), false), 250);
+    }
+
+    helpSigninBtn?.addEventListener('click', () => {
+      setSupportOpen(true);
+      requestAnimationFrame(() => supportInput?.focus());
+    });
+    supportClose?.addEventListener('click', () => setSupportOpen(false));
+    supportSend?.addEventListener('click', sendSupportMessage);
+    supportInput?.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        sendSupportMessage();
+      }
+    });
+    quickPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const value = pill.textContent.trim();
+        addSupportMessage(value, true);
+        setTimeout(() => addSupportMessage(getSupportReply(value), false), 250);
+      });
+    });
+
+    function setAccountSectionsVisible(visible) {
+      [accountHeader, accountTabbar].forEach((section) => {
+        if (!section) return;
+        section.classList.toggle('hidden', !visible);
+      });
+
+      if (!visible) {
+        if (accountPanelContainer) {
+          accountPanelContainer.innerHTML = '';
+        }
+        themeToggle = null;
+        themeLabel = null;
+        profileImageInput = null;
+        profilePicturePicker = null;
+        avatarPreview = null;
+        accountAvatar = null;
+        logoutBtn = null;
+        return;
+      }
+
+      if (accountPanelContainer && !accountPanelContainer.innerHTML.trim()) {
+        accountPanelContainer.innerHTML = `
+          <div class="profile-card">
+            <div class="profile-avatar" id="accountAvatar">T</div>
+            <div class="profile-copy">
+              <div class="profile-name">Tunmi</div>
+              <div class="profile-meta">Premium member</div>
+            </div>
+            <div class="profile-badge">2022</div>
+          </div>
+
+          <div class="list-card">
+            <button class="list-row" id="profilePicturePicker" type="button" aria-label="Add profile picture">
+              <div class="row-copy">
+                <div class="row-label">Profile picture</div>
+              </div>
+              <div class="avatar-preview" id="avatarPreview">T</div>
+            </button>
+            <input id="profileImageInput" type="file" accept="image/*" hidden />
+            <a class="list-row" href="profile.html">
+              <div class="row-copy">
+                <div class="row-label">Profile</div>
+              </div>
+              <div class="row-arrow">›</div>
+            </a>
+            <a class="list-row" href="account.html">
+              <div class="row-copy">
+                <div class="row-label">Security</div>
+              </div>
+              <div class="row-arrow">›</div>
+            </a>
+            <a class="list-row" href="account.html">
+              <div class="row-copy">
+                <div class="row-label">Notifications</div>
+              </div>
+              <div class="row-arrow">›</div>
+            </a>
+            <button class="list-row" id="themeToggle" type="button" aria-label="Toggle dark mode">
+              <div class="row-copy">
+                <div class="row-label">Appearance</div>
+              </div>
+              <div class="row-arrow" id="themeLabel">Light</div>
+            </button>
+            <a class="list-row" href="account.html">
+              <div class="row-copy">
+                <div class="row-label">Linked banks</div>
+              </div>
+              <div class="row-arrow">›</div>
+            </a>
+            <a class="list-row" href="account.html">
+              <div class="row-copy">
+                <div class="row-label">Help and support</div>
+              </div>
+              <div class="row-arrow">›</div>
+            </a>
+          </div>
+
+          <div class="list-card">
+            <button class="list-row" id="logoutBtn" type="button">
+              <div class="row-copy">
+                <div class="row-label">Log out</div>
+              </div>
+              <div class="row-arrow">›</div>
+            </button>
+          </div>
+        `;
+      }
+
+      themeToggle = document.getElementById('themeToggle');
+      themeLabel = document.getElementById('themeLabel');
+      profileImageInput = document.getElementById('profileImageInput');
+      profilePicturePicker = document.getElementById('profilePicturePicker');
+      avatarPreview = document.getElementById('avatarPreview');
+      accountAvatar = document.getElementById('accountAvatar');
+      logoutBtn = document.getElementById('logoutBtn');
+
+      const savedTheme = localStorage.getItem('split-theme') || 'light';
+      const savedAvatar = localStorage.getItem('split-profile-image');
+      applyTheme(savedTheme);
+      updateAvatarDisplay(savedAvatar);
+
+      themeToggle?.addEventListener('click', () => {
+        const nextTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(nextTheme);
+      });
+
+      profilePicturePicker?.addEventListener('click', () => profileImageInput?.click());
+      profileImageInput?.addEventListener('change', (event) => {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => updateAvatarDisplay(reader.result);
+        reader.readAsDataURL(file);
+      });
+
+      logoutBtn?.addEventListener('click', async () => {
+        try {
+          await requestJson('/api/auth/logout', { method: 'POST' });
+        } catch (_error) {
+          // ignore server-side logout errors and continue to the landing page
+        } finally {
+          setAccountSectionsVisible(false);
+          localStorage.removeItem('split-demo-user');
+          window.location.href = 'index.html';
+        }
+      });
     }
 
     function setAuthMode(mode) {
@@ -442,23 +657,27 @@
         const data = await requestJson('/api/auth/me');
         if (data.user) {
           storeSessionUser(data.user);
-          const firstName = (data.user.fullName || data.user.username || 'User').split(' ')[0];
+          setAccountSectionsVisible(true);
+          const fullName = data.user.fullName || data.user.username || 'User';
+          const firstName = fullName.split(' ')[0];
           const greetName = document.querySelector('.greet-text .name');
           if (greetName) greetName.textContent = firstName;
           const profileName = document.querySelector('.profile-name');
-          if (profileName) profileName.textContent = data.user.fullName || data.user.username || 'User';
+          if (profileName) profileName.textContent = fullName;
           const avatarText = firstName.charAt(0).toUpperCase();
-          if (accountAvatar) {
-            if (!accountAvatar.style.backgroundImage) {
-              accountAvatar.textContent = avatarText;
-            }
+          const renderedAccountAvatar = document.getElementById('accountAvatar');
+          if (renderedAccountAvatar && !renderedAccountAvatar.style.backgroundImage) {
+            renderedAccountAvatar.textContent = avatarText;
           }
           if (document.querySelector('.greet-avatar')) {
             const avatarEl = document.querySelector('.greet-avatar');
             avatarEl.textContent = avatarText;
           }
+          return;
         }
+        setAccountSectionsVisible(false);
       } catch (_error) {
+        setAccountSectionsVisible(false);
         storeSessionUser(null);
       }
     }
@@ -546,23 +765,11 @@
       setAuthStatus('');
     });
 
-    logoutBtn?.addEventListener('click', async () => {
-      try {
-        await requestJson('/api/auth/logout', { method: 'POST' });
-      } catch (_error) {
-        // ignore server-side logout errors and continue to the landing page
-      } finally {
-        localStorage.removeItem('split-demo-user');
-        window.location.href = 'index.html';
-      }
-    });
-
-    setAuthMode('signup');
-
     function applyTheme(theme) {
       body.setAttribute('data-theme', theme);
-      const isDark = theme === 'dark';
-      themeLabel.textContent = isDark ? 'Dark' : 'Light';
+      if (themeLabel) {
+        themeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
+      }
       localStorage.setItem('split-theme', theme);
     }
 
@@ -586,25 +793,9 @@
       }
     }
 
-    const savedTheme = localStorage.getItem('split-theme') || 'light';
-    const savedAvatar = localStorage.getItem('split-profile-image');
-    applyTheme(savedTheme);
-    updateAvatarDisplay(savedAvatar);
+    setAccountSectionsVisible(false);
+    setAuthMode('signup');
     loadSessionUser();
-
-    themeToggle.addEventListener('click', () => {
-      const nextTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(nextTheme);
-    });
-
-    profilePicturePicker?.addEventListener('click', () => profileImageInput?.click());
-    profileImageInput?.addEventListener('change', (event) => {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => updateAvatarDisplay(reader.result);
-      reader.readAsDataURL(file);
-    });
   </script>
 </body>
 </html>
