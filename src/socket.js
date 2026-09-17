@@ -32,7 +32,7 @@ function createSocketServer(server) {
 
       const decoded = verifyToken(token);
       const userResult = await db.query(
-        `SELECT id, username, full_name, is_active FROM users WHERE id = $1`,
+        `SELECT id, username, full_name, is_active FROM split_demo.users WHERE id = $1`,
         [decoded.userId]
       );
 
@@ -51,7 +51,7 @@ function createSocketServer(server) {
     socket.on('join_conversation', async (conversationId) => {
       try {
         const authCheck = await db.query(
-          `SELECT * FROM chat_conversations WHERE id = $1 AND (participant_a_id = $2 OR participant_b_id = $2)`,
+          `SELECT * FROM split_demo.chat_conversations WHERE id = $1 AND (participant_a_id = $2 OR participant_b_id = $2)`,
           [conversationId, socket.user.id]
         );
 
@@ -75,7 +75,7 @@ function createSocketServer(server) {
         }
 
         const authCheck = await db.query(
-          `SELECT * FROM chat_conversations WHERE id = $1 AND (participant_a_id = $2 OR participant_b_id = $2)`,
+          `SELECT * FROM split_demo.chat_conversations WHERE id = $1 AND (participant_a_id = $2 OR participant_b_id = $2)`,
           [conversationId, socket.user.id]
         );
 
@@ -84,14 +84,14 @@ function createSocketServer(server) {
         }
 
         const msgResult = await db.query(
-          `INSERT INTO chat_messages (conversation_id, sender_user_id, message_text)
+          `INSERT INTO split_demo.chat_messages (conversation_id, sender_user_id, message_text)
            VALUES ($1, $2, $3)
-           RETURNING *, (SELECT username FROM users WHERE id = $2) AS sender_username`,
+           RETURNING *, (SELECT username FROM split_demo.users WHERE id = $2) AS sender_username`,
           [conversationId, socket.user.id, message]
         );
 
         await db.query(
-          `UPDATE chat_conversations SET last_message_at = NOW() WHERE id = $1`,
+          `UPDATE split_demo.chat_conversations SET last_message_at = NOW() WHERE id = $1`,
           [conversationId]
         );
 

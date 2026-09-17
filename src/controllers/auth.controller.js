@@ -37,7 +37,7 @@ async function signUp(req, res) {
     }
 
     const existingUser = await db.query(
-      `SELECT id FROM users WHERE LOWER(username) = LOWER($1) OR (email IS NOT NULL AND LOWER(email) = LOWER($2)) OR (phone IS NOT NULL AND phone = $3)`,
+      `SELECT id FROM split_demo.users WHERE LOWER(username) = LOWER($1) OR (email IS NOT NULL AND LOWER(email) = LOWER($2)) OR (phone IS NOT NULL AND phone = $3)`,
       [normalizedUsername, finalEmail || '', finalPhone || '']
     );
 
@@ -48,7 +48,7 @@ async function signUp(req, res) {
     const passwordHash = await bcrypt.hash(password, 10);
 
     const userResult = await db.query(
-      `INSERT INTO users (full_name, username, email, phone, password_hash, is_active)
+      `INSERT INTO split_demo.users (full_name, username, email, phone, password_hash, is_active)
        VALUES ($1, $2, $3, $4, $5, false)
        RETURNING id, full_name, username, email, phone, is_active, created_at`,
       [String(fullName).trim(), normalizedUsername, finalEmail, finalPhone, passwordHash]
@@ -60,7 +60,7 @@ async function signUp(req, res) {
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
     await db.query(
-      `INSERT INTO email_verification_codes (user_id, code_hash, expires_at)
+      `INSERT INTO split_demo.email_verification_codes (user_id, code_hash, expires_at)
        VALUES ($1, $2, $3)`,
       [user.id, codeHash, expiresAt]
     );
@@ -95,7 +95,7 @@ async function verifyEmail(req, res) {
     }
 
     const result = await db.query(
-      `SELECT * FROM email_verification_codes
+      `SELECT * FROM split_demo.email_verification_codes
        WHERE user_id = $1 AND used_at IS NULL AND expires_at > NOW()
        ORDER BY created_at DESC LIMIT 1`,
       [userId]
@@ -113,12 +113,12 @@ async function verifyEmail(req, res) {
     }
 
     await db.query(
-      `UPDATE users SET is_active = true, email_verified_at = NOW() WHERE id = $1`,
+      `UPDATE split_demo.users SET is_active = true, email_verified_at = NOW() WHERE id = $1`,
       [userId]
     );
 
     await db.query(
-      `UPDATE email_verification_codes SET used_at = NOW() WHERE id = $1`,
+      `UPDATE split_demo.email_verification_codes SET used_at = NOW() WHERE id = $1`,
       [stored.id]
     );
 
@@ -139,7 +139,7 @@ async function login(req, res) {
 
     const identifier = String(login).trim();
     const result = await db.query(
-      `SELECT * FROM users
+      `SELECT * FROM split_demo.users
        WHERE LOWER(username) = LOWER($1)
           OR (email IS NOT NULL AND LOWER(email) = LOWER($1))
           OR (phone IS NOT NULL AND phone = $1)

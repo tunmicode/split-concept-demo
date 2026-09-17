@@ -12,7 +12,7 @@ async function requireAuth(req, res, next) {
     const decoded = verifyToken(token);
 
     const userResult = await db.query(
-      'SELECT id, full_name, username, email, phone, is_active, created_at FROM users WHERE id = $1',
+      'SELECT id, full_name, username, email, phone, is_active, created_at FROM split_demo.users WHERE id = $1',
       [decoded.userId]
     );
 

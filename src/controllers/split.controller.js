@@ -22,7 +22,7 @@ async function createSplit(req, res) {
     }
 
     const splitResult = await db.query(
-      `INSERT INTO splits (owner_user_id, project_name, total_amount, currency, status, share_link_token)
+      `INSERT INTO split_demo.splits (owner_user_id, project_name, total_amount, currency, status, share_link_token)
        VALUES ($1, $2, $3, $4, 'ready', $5)
        RETURNING *`,
       [req.user.id, String(projectName).trim(), total, String(currency).toUpperCase(), makeToken()]
@@ -43,7 +43,7 @@ async function createSplit(req, res) {
       }
 
       await db.query(
-        `INSERT INTO split_participants (split_id, user_id, name, percentage, share_amount, status)
+        `INSERT INTO split_demo.split_participants (split_id, user_id, name, percentage, share_amount, status)
          VALUES ($1, $2, $3, $4, $5, 'pending')`,
         [participant.splitId, participant.userId, participant.name, participant.percentage, participant.shareAmount]
       );
@@ -73,8 +73,8 @@ async function getSplits(req, res) {
   try {
     const result = await db.query(
       `SELECT s.*, json_agg(sp) AS participants
-       FROM splits s
-       LEFT JOIN split_participants sp ON sp.split_id = s.id
+       FROM split_demo.splits s
+       LEFT JOIN split_demo.split_participants sp ON sp.split_id = s.id
        WHERE s.owner_user_id = $1
        GROUP BY s.id
        ORDER BY s.created_at DESC`,
@@ -93,7 +93,7 @@ async function getSplitById(req, res) {
     const { id } = req.params;
 
     const splitResult = await db.query(
-      `SELECT * FROM splits WHERE id = $1 AND owner_user_id = $2`,
+      `SELECT * FROM split_demo.splits WHERE id = $1 AND owner_user_id = $2`,
       [id, req.user.id]
     );
 
@@ -102,7 +102,7 @@ async function getSplitById(req, res) {
     }
 
     const participantResult = await db.query(
-      `SELECT * FROM split_participants WHERE split_id = $1 ORDER BY created_at ASC`,
+      `SELECT * FROM split_demo.split_participants WHERE split_id = $1 ORDER BY created_at ASC`,
       [id]
     );
 
@@ -123,7 +123,7 @@ async function confirmSplitParticipant(req, res) {
     }
 
     const participantResult = await db.query(
-      `SELECT * FROM split_participants WHERE id = $1 AND split_id = $2`,
+      `SELECT * FROM split_demo.split_participants WHERE id = $1 AND split_id = $2`,
       [participantId, id]
     );
 
@@ -137,14 +137,14 @@ async function confirmSplitParticipant(req, res) {
     }
 
     await db.query(
-      `UPDATE split_participants
+      `UPDATE split_demo.split_participants
        SET status = 'confirmed', confirmed_at = NOW()
        WHERE id = $1`,
       [participantId]
     );
 
     const allParticipants = await db.query(
-      `SELECT * FROM split_participants WHERE split_id = $1`,
+      `SELECT * FROM split_demo.split_participants WHERE split_id = $1`,
       [id]
     );
 
@@ -152,7 +152,7 @@ async function confirmSplitParticipant(req, res) {
 
     if (allConfirmed) {
       await db.query(
-        `UPDATE splits SET status = 'ready' WHERE id = $1`,
+        `UPDATE split_demo.splits SET status = 'ready' WHERE id = $1`,
         [id]
       );
     }
@@ -170,7 +170,7 @@ async function createShareLink(req, res) {
     const token = makeToken();
 
     await db.query(
-      `UPDATE splits SET share_link_token = $1, status = 'ready' WHERE id = $2 AND owner_user_id = $3`,
+      `UPDATE split_demo.splits SET share_link_token = $1, status = 'ready' WHERE id = $2 AND owner_user_id = $3`,
       [token, id, req.user.id]
     );
 

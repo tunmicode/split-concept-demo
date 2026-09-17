@@ -6,7 +6,7 @@ async function initializeDatabase() {
   const schemaPath = path.join(__dirname, 'schema.sql');
   const schema = fs.readFileSync(schemaPath, 'utf8');
   await db.query(schema);
-  console.log('Database initialized.');
+  console.log('Database initialized in schema split_demo.');
 }
 
 module.exports = { initializeDatabase };
