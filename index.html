@@ -609,12 +609,166 @@
   .share-close {
     width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: rgba(17,24,18,0.04); color: var(--ink); cursor: pointer;
   }
+  .share-form {
+    display: flex; flex-direction: column; gap: 12px; margin-top: 14px;
+  }
+  .share-field {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .share-field label {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+  .share-field input, .share-field select {
+    border: 1px solid rgba(17,24,18,0.08); background: rgba(17,24,18,0.03); border-radius: 12px; padding: 12px 13px; color: var(--ink); font: inherit; font-size: 14px; outline: none;
+  }
+  body[data-theme="dark"] .share-field input, body[data-theme="dark"] .share-field select {
+    background: rgba(255,255,255,0.03);
+    border-color: rgba(255,255,255,0.08);
+  }
+  .split-flow {
+    display: flex; flex-direction: column; gap: 16px; margin-top: 14px;
+  }
+  .split-steps {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px; padding: 4px; background: rgba(17,24,18,0.03); border-radius: 12px;
+  }
+  body[data-theme="dark"] .split-steps {
+    background: rgba(255,255,255,0.03);
+  }
+  .split-step {
+    padding: 8px 6px; border-radius: 10px; text-align: center; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: transparent;
+  }
+  .split-step.active {
+    background: var(--green-tint); color: var(--green);
+  }
+  .split-panel {
+    display: none;
+    flex-direction: column; gap: 12px;
+  }
+  .split-panel.active {
+    display: flex;
+  }
+  .split-title-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .split-title-row h3 {
+    font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600;
+  }
+  .split-chip {
+    display: inline-flex; align-items: center; gap: 8px; background: var(--green-tint); color: var(--green); border-radius: 999px; padding: 7px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .split-field {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .split-field label {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+  .split-field input {
+    border: 1px solid rgba(17,24,18,0.08); background: rgba(17,24,18,0.03); border-radius: 12px; padding: 12px 13px; color: var(--ink); font: inherit; font-size: 14px; outline: none;
+  }
+  body[data-theme="dark"] .split-field input {
+    background: rgba(255,255,255,0.03);
+    border-color: rgba(255,255,255,0.08);
+  }
+  .split-participants {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .participant-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; background: rgba(17,24,18,0.02); border: 1px solid rgba(17,24,18,0.05); border-radius: 12px; padding: 10px 12px;
+  }
+  body[data-theme="dark"] .participant-row {
+    background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);
+  }
+  .participant-row strong {
+    display: block; font-size: 14px; font-weight: 700;
+  }
+  .participant-row small {
+    display: block; font-size: 11px; color: var(--muted); margin-top: 2px;
+  }
+  .participant-right {
+    display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700;
+  }
+  .participant-right input {
+    width: 62px; border: 1px solid rgba(17,24,18,0.08); border-radius: 10px; background: rgba(17,24,18,0.03); padding: 7px 8px; color: var(--ink); font: inherit; text-align: right; outline: none;
+  }
+  body[data-theme="dark"] .participant-right input {
+    background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.08);
+  }
+  .confirm-list, .distribution-list {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .confirm-item, .distribution-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(17,24,18,0.05); background: rgba(17,24,18,0.02);
+  }
+  body[data-theme="dark"] .confirm-item, body[data-theme="dark"] .distribution-row {
+    border-color: rgba(255,255,255,0.06); background: rgba(255,255,255,0.02);
+  }
+  .confirm-item strong, .distribution-row strong {
+    display: block; font-size: 14px; font-weight: 700;
+  }
+  .confirm-item small, .distribution-row small {
+    display: block; font-size: 11px; color: var(--muted); margin-top: 2px;
+  }
+  .confirm-pill {
+    border: none; border-radius: 999px; padding: 7px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; background: var(--green-tint); color: var(--green);
+  }
+  .confirm-copy {
+    font-size: 12px; line-height: 1.5; color: var(--muted);
+  }
+  .split-summary-box {
+    display: flex; flex-direction: column; gap: 8px; background: rgba(17,24,18,0.02); border: 1px solid rgba(17,24,18,0.05); border-radius: 12px; padding: 12px;
+  }
+  body[data-theme="dark"] .split-summary-box {
+    background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);
+  }
+  .summary-line {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--muted);
+  }
+  .summary-line strong {
+    color: var(--ink); font-weight: 700;
+  }
+  .split-hero {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 14px 12px; border-radius: 16px; background: linear-gradient(135deg, rgba(46,125,91,0.12), rgba(17,24,18,0.02)); border: 1px solid rgba(46,125,91,0.14);
+  }
+  .eyebrow {
+    display: block; margin-bottom: 4px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 800;
+  }
+  .split-hero h3 {
+    font-family: 'Fraunces', serif; font-size: 24px; line-height: 1.05; font-weight: 600;
+  }
+  .metric-card {
+    min-width: 116px; padding: 10px 10px 8px; border-radius: 12px; background: rgba(17,24,18,0.04); border: 1px solid rgba(17,24,18,0.06); text-align: right;
+  }
+  body[data-theme="dark"] .metric-card {
+    background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06);
+  }
+  .metric-card .metric-label {
+    display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 800;
+  }
+  .metric-card strong {
+    display: block; margin-top: 4px; font-family: 'Fraunces', serif; font-size: 18px; line-height: 1.1;
+  }
+  .status-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 12px; border-radius: 12px; background: rgba(17,24,18,0.02); border: 1px solid rgba(17,24,18,0.05);
+  }
+  body[data-theme="dark"] .status-row {
+    background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);
+  }
+  .status-row strong {
+    font-size: 14px; font-weight: 700;
+  }
+  .status-row small {
+    display: block; color: var(--muted); font-size: 11px; margin-top: 2px;
+  }
+  .status-pill {
+    display: inline-flex; align-items: center; justify-content: center; padding: 7px 9px; border-radius: 999px; background: var(--green-tint); color: var(--green); font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  }
   .share-chip {
     display: inline-flex; align-items: center; gap: 8px;
     background: var(--green-tint); color: var(--green); border-radius: 999px; padding: 7px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
   }
   .share-link-box {
-    display: flex; align-items: center; gap: 8px; padding: 12px; border-radius: 14px; background: rgba(17,24,18,0.04); border: 1px solid rgba(17,24,18,0.06); margin-top: 16px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px; padding: 12px; border-radius: 14px; background: rgba(17,24,18,0.04); border: 1px solid rgba(17,24,18,0.06); margin-top: 8px; margin-bottom: 4px;
   }
   body[data-theme="dark"] .share-link-box {
     background: rgba(255,255,255,0.04);
@@ -637,6 +791,9 @@
   }
   .share-action.primary {
     background: var(--green); color: white;
+  }
+  .split-actions {
+    display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;
   }
   .share-toast {
     position: fixed; right: 18px; bottom: 180px; z-index: 120; background: rgba(17, 24, 18, 0.9); color: white; border-radius: 999px; padding: 10px 14px; font-size: 12px; font-weight: 700; opacity: 0; transform: translateY(12px); transition: all 0.2s ease; pointer-events: none;
@@ -902,7 +1059,7 @@
 </head>
 <body>
 
-  <div class="welcome-modal visible" id="welcomeModal" aria-live="polite">
+  <div class="welcome-modal" id="welcomeModal" aria-live="polite">
     <div class="welcome-sheet">
       <div class="welcome-badge">Welcome</div>
       <h2>Make money moves, together.</h2>
@@ -922,16 +1079,152 @@
   <div class="share-modal" id="shareModal" aria-live="polite">
     <div class="share-sheet">
       <div class="share-header">
-        <h3>New payment link</h3>
+        <div class="share-chip">Team split</div>
         <button class="share-close" type="button" aria-label="Close share panel">×</button>
       </div>
-      <div class="share-chip">Ready to share</div>
-      <div class="share-link-box">
-        <input id="shareLinkInput" value="https://split.app/pay/DR-24781" readonly />
+
+      <div class="split-flow">
+        <div class="split-steps">
+          <div class="split-step active">Create</div>
+          <div class="split-step">Confirm</div>
+          <div class="split-step">Link</div>
+          <div class="split-step">Distribute</div>
+        </div>
+
+        <div class="split-panel active" data-step-panel="create">
+          <div class="split-hero">
+            <div>
+              <span class="eyebrow">Project payout</span>
+              <h3 id="projectNamePreview">Summer launch campaign</h3>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Total</span>
+              <strong id="createSummaryAmount">₦46,500</strong>
+            </div>
+          </div>
+
+          <div class="split-field">
+            <label for="splitProjectName">Project</label>
+            <input id="splitProjectName" type="text" value="Summer launch campaign" />
+          </div>
+
+          <div class="split-field">
+            <label for="splitTotalAmount">Expected amount</label>
+            <input id="splitTotalAmount" type="number" value="46500" min="1000" step="500" />
+          </div>
+
+          <div class="split-participants">
+            <div class="participant-row">
+              <div>
+                <strong>Yemi</strong>
+                <small>Creative lead</small>
+              </div>
+              <div class="participant-right"><input class="split-percent" type="number" value="40" min="0" max="100" />%</div>
+            </div>
+            <div class="participant-row">
+              <div>
+                <strong>Maya</strong>
+                <small>Production</small>
+              </div>
+              <div class="participant-right"><input class="split-percent" type="number" value="35" min="0" max="100" />%</div>
+            </div>
+            <div class="participant-row">
+              <div>
+                <strong>Dami</strong>
+                <small>Strategy</small>
+              </div>
+              <div class="participant-right"><input class="split-percent" type="number" value="25" min="0" max="100" />%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="split-panel" data-step-panel="confirm">
+          <div class="split-title-row">
+            <h3>Everyone confirms</h3>
+            <span class="split-chip">Trust layer</span>
+          </div>
+
+          <div class="confirm-list">
+            <div class="status-row">
+              <div>
+                <strong>Yemi</strong>
+                <small>40% share</small>
+              </div>
+              <span class="status-pill">Confirmed</span>
+            </div>
+            <div class="status-row">
+              <div>
+                <strong>Maya</strong>
+                <small>35% share</small>
+              </div>
+              <span class="status-pill">Confirmed</span>
+            </div>
+            <div class="status-row">
+              <div>
+                <strong>Dami</strong>
+                <small>25% share</small>
+              </div>
+              <span class="status-pill">Confirmed</span>
+            </div>
+          </div>
+
+          <p class="confirm-copy">No money becomes ready until each person confirms their share. The split is locked before the client pays.</p>
+        </div>
+
+        <div class="split-panel" data-step-panel="link">
+          <div class="split-title-row">
+            <h3>One payment link</h3>
+            <span class="split-chip">Single payout</span>
+          </div>
+
+          <div class="split-summary-box">
+            <div class="summary-line"><span>Project</span><strong id="summaryProject">Summer launch campaign</strong></div>
+            <div class="summary-line"><span>Expected</span><strong id="summaryAmount">₦46,500</strong></div>
+            <div class="summary-line"><span>Who pays</span><strong>Brand / client</strong></div>
+          </div>
+
+          <div class="share-link-box">
+            <input id="shareLinkInput" value="https://split.app/pay/SPR-4821?amount=46500" readonly />
+          </div>
+        </div>
+
+        <div class="split-panel" data-step-panel="distribute">
+          <div class="split-title-row">
+            <h3>Auto distribution</h3>
+            <span class="split-chip">Receipts issued</span>
+          </div>
+
+          <div class="distribution-list">
+            <div class="distribution-row">
+              <div>
+                <strong>Yemi</strong>
+                <small>40%</small>
+              </div>
+              <strong>₦18,600</strong>
+            </div>
+            <div class="distribution-row">
+              <div>
+                <strong>Maya</strong>
+                <small>35%</small>
+              </div>
+              <strong>₦16,275</strong>
+            </div>
+            <div class="distribution-row">
+              <div>
+                <strong>Dami</strong>
+                <small>25%</small>
+              </div>
+              <strong>₦11,625</strong>
+            </div>
+          </div>
+
+          <p class="confirm-copy">Once the payment lands, each person gets a receipt showing exactly what they were owed and received.</p>
+        </div>
       </div>
-      <div class="share-actions">
-        <button class="share-action secondary" type="button" id="copyLinkBtn">Copy link</button>
-        <button class="share-action primary" type="button" id="shareLinkBtn">Share</button>
+
+      <div class="split-actions">
+        <button class="share-action secondary" type="button" id="splitBackBtn">Back</button>
+        <button class="share-action primary" type="button" id="splitNextBtn">Continue</button>
       </div>
     </div>
   </div>
@@ -1200,7 +1493,9 @@
       }
     };
 
-    if (!hasSeenWelcome) {
+    if (hasSeenWelcome) {
+      welcomeModal?.classList.remove('visible');
+    } else {
       welcomeModal?.classList.add('visible');
     }
 
@@ -1210,10 +1505,20 @@
     const shareModal = document.getElementById('shareModal');
     const shareClose = document.querySelector('.share-close');
     const paymentLinkTrigger = document.querySelector('.payment-link-trigger');
-    const copyLinkBtn = document.getElementById('copyLinkBtn');
-    const shareLinkBtn = document.getElementById('shareLinkBtn');
     const shareLinkInput = document.getElementById('shareLinkInput');
     const shareToast = document.getElementById('shareToast');
+    const splitBackBtn = document.getElementById('splitBackBtn');
+    const splitNextBtn = document.getElementById('splitNextBtn');
+    const splitProjectName = document.getElementById('splitProjectName');
+    const splitTotalAmount = document.getElementById('splitTotalAmount');
+    const splitPercentEls = document.querySelectorAll('.split-percent');
+    const summaryProject = document.getElementById('summaryProject');
+    const summaryAmount = document.getElementById('summaryAmount');
+    const createSummaryAmount = document.getElementById('createSummaryAmount');
+    const projectNamePreview = document.getElementById('projectNamePreview');
+
+    let splitStepIndex = 0;
+    const splitSteps = ['create', 'confirm', 'link', 'distribute'];
 
     const showToast = (message) => {
       if (!shareToast) return;
@@ -1222,15 +1527,75 @@
       setTimeout(() => shareToast.classList.remove('visible'), 1800);
     };
 
-    const setShareOpen = (isOpen) => {
-      shareModal?.classList.toggle('visible', isOpen);
+    const renderSplitSummary = () => {
+      const project = splitProjectName?.value?.trim() || 'Summer launch campaign';
+      const amount = Number(splitTotalAmount?.value || 46500);
+      const total = Number.isFinite(amount) && amount > 0 ? amount : 46500;
+      if (summaryProject) summaryProject.textContent = project;
+      if (summaryAmount) summaryAmount.textContent = `₦${total.toLocaleString()}`;
+      if (createSummaryAmount) createSummaryAmount.textContent = `₦${total.toLocaleString()}`;
+      if (projectNamePreview) projectNamePreview.textContent = project;
+      if (shareLinkInput) {
+        const hash = Math.random().toString(36).slice(2, 7).toUpperCase();
+        shareLinkInput.value = `https://split.app/pay/${hash}?project=${encodeURIComponent(project)}&amount=${total}`;
+      }
     };
 
-    paymentLinkTrigger?.addEventListener('click', () => setShareOpen(true));
-    shareClose?.addEventListener('click', () => setShareOpen(false));
-    shareModal?.addEventListener('click', (event) => {
-      if (event.target === shareModal) setShareOpen(false);
-    });
+    const setSplitStep = (index) => {
+      splitStepIndex = Math.max(0, Math.min(index, splitSteps.length - 1));
+      const panels = document.querySelectorAll('[data-step-panel]');
+      const steps = document.querySelectorAll('.split-step');
+
+      panels.forEach((panel) => {
+        const isActive = panel.dataset.stepPanel === splitSteps[splitStepIndex];
+        panel.classList.toggle('active', isActive);
+      });
+
+      steps.forEach((step, stepIndex) => {
+        step.classList.toggle('active', stepIndex === splitStepIndex);
+      });
+
+      splitBackBtn.style.visibility = splitStepIndex === 0 ? 'hidden' : 'visible';
+      splitNextBtn.textContent = splitStepIndex === splitSteps.length - 1 ? 'Close' : 'Continue';
+    };
+
+    const validateSplit = () => {
+      const values = [...splitPercentEls].map((input) => Number(input.value || 0));
+      const total = values.reduce((sum, value) => sum + value, 0);
+      if (total !== 100) {
+        showToast('Percentages must total 100%');
+        return false;
+      }
+      return true;
+    };
+
+    const handleNext = () => {
+      if (splitStepIndex === 0) {
+        if (!validateSplit()) return;
+        renderSplitSummary();
+        setSplitStep(1);
+        return;
+      }
+      if (splitStepIndex === 1) {
+        renderSplitSummary();
+        setSplitStep(2);
+        return;
+      }
+      if (splitStepIndex === 2) {
+        renderSplitSummary();
+        setSplitStep(3);
+        return;
+      }
+      setShareOpen(false);
+    };
+
+    const setShareOpen = (isOpen) => {
+      shareModal?.classList.toggle('visible', isOpen);
+      if (isOpen) {
+        renderSplitSummary();
+        setSplitStep(0);
+      }
+    };
 
     const copyLink = async () => {
       if (shareLinkInput) {
@@ -1246,11 +1611,19 @@
       }
     };
 
-    copyLinkBtn?.addEventListener('click', copyLink);
-    shareLinkBtn?.addEventListener('click', async () => {
-      await copyLink();
-      setShareOpen(false);
+    paymentLinkTrigger?.addEventListener('click', () => setShareOpen(true));
+    shareClose?.addEventListener('click', () => setShareOpen(false));
+    shareModal?.addEventListener('click', (event) => {
+      if (event.target === shareModal) setShareOpen(false);
     });
+    splitBackBtn?.addEventListener('click', () => setSplitStep(splitStepIndex - 1));
+    splitNextBtn?.addEventListener('click', handleNext);
+    splitProjectName?.addEventListener('input', renderSplitSummary);
+    splitTotalAmount?.addEventListener('input', renderSplitSummary);
+    splitPercentEls.forEach((percent) => percent.addEventListener('input', renderSplitSummary));
+    shareLinkInput?.addEventListener('click', copyLink);
+
+    setSplitStep(0);
 
     const balanceToggle = document.querySelector('.balance-toggle');
     const totalAmount = document.getElementById('totalAmount');
