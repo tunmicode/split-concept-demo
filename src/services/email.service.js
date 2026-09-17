@@ -7,7 +7,7 @@ const resend = hasRealApiKey ? new Resend(apiKey) : null;
 async function sendVerificationCode({ email, code }) {
   if (!hasRealApiKey) {
     console.warn(`RESEND_API_KEY missing or demo mode. Verification code for ${email}: ${code}`);
-    return { skipped: true };
+    return { skipped: true, code };
   }
 
   const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
@@ -26,7 +26,7 @@ async function sendVerificationCode({ email, code }) {
     `,
   });
 
-  return { skipped: false };
+  return { skipped: false, code };
 }
 
 module.exports = { sendVerificationCode };

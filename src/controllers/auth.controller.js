@@ -65,12 +65,16 @@ async function signUp(req, res) {
       [user.id, codeHash, expiresAt]
     );
 
+    let verificationResult = { skipped: true, code };
     if (user.email) {
-      await sendVerificationCode({ email: user.email, code });
+      verificationResult = await sendVerificationCode({ email: user.email, code });
     }
 
     res.status(201).json({
-      message: 'Account created. Check your email for a verification code.',
+      message: verificationResult.skipped
+        ? 'Account created. Demo mode is active, so the verification code is shown below for testing.'
+        : 'Account created. Check your email for a verification code.',
+      verificationCode: verificationResult.skipped ? code : undefined,
       user: {
         id: user.id,
         fullName: user.full_name,
@@ -224,12 +228,16 @@ async function resendVerificationCode(req, res) {
       [user.id, codeHash, expiresAt]
     );
 
+    let verificationResult = { skipped: true, code };
     if (user.email) {
-      await sendVerificationCode({ email: user.email, code });
+      verificationResult = await sendVerificationCode({ email: user.email, code });
     }
 
     res.json({
-      message: 'A new verification code has been sent to your email.',
+      message: verificationResult.skipped
+        ? 'A new demo verification code was generated for testing.'
+        : 'A new verification code has been sent to your email.',
+      verificationCode: verificationResult.skipped ? code : undefined,
       userId: user.id,
     });
   } catch (error) {
@@ -247,4 +255,4 @@ async function me(req, res) {
   res.json({ user: req.user });
 }
 
-module.exports = { signUp, verifyEmail, login, logout, me };
+module.exports = { signUp, verifyEmail, login, logout, me, resendVerificationCode };

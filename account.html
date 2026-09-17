@@ -785,7 +785,12 @@
         });
 
         pendingUserId = response.userId || pendingUserId;
-        setAuthStatus(response.message || 'A new verification code was sent.');
+        if (response.verificationCode && authVerification) {
+          authVerification.value = response.verificationCode;
+        }
+        setAuthStatus(response.verificationCode
+          ? `Demo verification code: ${response.verificationCode}`
+          : (response.message || 'A new verification code was sent.'));
         setAuthMode('verify');
       } catch (error) {
         setAuthStatus(error.message, true);
@@ -837,7 +842,12 @@
           });
 
           pendingUserId = signupResponse.user?.id || null;
-          setAuthStatus('Account created. Enter the 6-digit code we sent to your email to verify your account.');
+          if (signupResponse.verificationCode && authVerification) {
+            authVerification.value = signupResponse.verificationCode;
+          }
+          setAuthStatus(signupResponse.verificationCode
+            ? `Account created. Demo verification code: ${signupResponse.verificationCode}`
+            : 'Account created. Enter the 6-digit code we sent to your email to verify your account.');
           authPassword.value = '';
           setAuthMode('verify');
           return;
