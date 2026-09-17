@@ -111,6 +111,36 @@
     animation: cardFloat 6s ease-in-out infinite alternate;
     will-change: transform;
   }
+  .slogan-wrap {
+    margin-top: 10px;
+    border-top: 1px solid rgba(17,17,17,0.08);
+    padding-top: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+  .slogan-track {
+    display: flex; align-items: center; gap: 20px;
+    white-space: nowrap;
+    min-width: max-content;
+    font-family: 'Manrope', 'Inter', sans-serif;
+    font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    font-size: 11px;
+    color: rgba(17,17,17,0.48);
+    animation: sloganScroll 14s linear infinite;
+  }
+  .slogan-track span {
+    position: relative;
+    display: inline-flex; align-items: center;
+  }
+  .slogan-track span::before {
+    content: "•";
+    margin-right: 10px;
+    color: rgba(17,17,17,0.32);
+  }
+  @keyframes sloganScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
   @keyframes cardFloat {
     0% { transform: translateY(0px) rotateX(0deg); }
     50% { transform: translateY(-3px) rotateX(1deg); }
@@ -342,6 +372,20 @@
         </form>
         <div class="auth-status" id="authStatus"></div>
         <button class="support-cta" id="helpSigninBtn" type="button">Need help signing in?</button>
+
+        <div class="slogan-wrap" aria-label="Split slogan banner">
+          <div class="slogan-track">
+            <span>Pay together</span>
+            <span>Settle faster</span>
+            <span>Split smarter</span>
+            <span>Pay together</span>
+            <span>Settle faster</span>
+            <span>Split smarter</span>
+            <span>Pay together</span>
+            <span>Settle faster</span>
+            <span>Split smarter</span>
+          </div>
+        </div>
 
         <div class="support-shell" id="supportShell" aria-live="polite">
           <div class="support-header">
