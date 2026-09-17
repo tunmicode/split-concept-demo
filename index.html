@@ -287,6 +287,43 @@
     padding: 18px 8px;
     display: flex; justify-content: space-between;
   }
+
+  .activity-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px 18px 8px;
+  }
+  .activity-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .activity-title {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .activity-link {
+    border: none; background: none; color: var(--green); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
+  }
+  .activity-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+  }
+  .activity-item:first-of-type { border-top: none; }
+  .activity-icon {
+    width: 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700; flex-shrink: 0;
+  }
+  .activity-copy { flex: 1; min-width: 0; }
+  .activity-name { font-size: 14px; font-weight: 700; }
+  .activity-meta { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .activity-amount {
+    font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; text-align: right; flex-shrink: 0;
+  }
+  .activity-amount.incoming { color: var(--green); }
+  .activity-amount.outgoing { color: var(--ink); }
   .action-item {
     display: flex; flex-direction: column; align-items: center; gap: 8px;
     flex: 1; background: none; border: none; cursor: pointer; font-family: inherit;
@@ -473,6 +510,139 @@
   .detail-label { font-size: 12px; color: var(--muted); }
   .detail-value {
     font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; text-align: right;
+  }
+
+  .welcome-modal {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; align-items: end; justify-content: center; padding: 20px;
+    background: rgba(12, 16, 14, 0.34);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+  }
+  .welcome-modal.visible {
+    opacity: 1; visibility: visible; pointer-events: auto;
+  }
+  .welcome-sheet {
+    width: min(420px, 100%);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(17, 24, 18, 0.08);
+    border-radius: 24px 24px 20px 20px;
+    box-shadow: 0 24px 44px rgba(17, 24, 18, 0.12);
+    padding: 22px 18px 18px;
+  }
+  body[data-theme="dark"] .welcome-sheet {
+    background: rgba(14, 18, 15, 0.8);
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.2);
+  }
+  .welcome-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-tint); color: var(--green); border-radius: 999px;
+    padding: 7px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .welcome-sheet h2 {
+    font-family: 'Fraunces', serif; font-size: clamp(26px, 7vw, 34px); line-height: 1.05; margin-top: 14px; margin-bottom: 8px;
+  }
+  .welcome-sheet p {
+    color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 18px;
+  }
+  .welcome-features {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
+  }
+  .feature-pill {
+    background: rgba(17, 24, 18, 0.04); border: 1px solid rgba(17, 24, 18, 0.06); border-radius: 999px;
+    padding: 7px 10px; font-size: 10.5px; font-weight: 700; color: var(--ink);
+  }
+  body[data-theme="dark"] .feature-pill {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.06);
+  }
+  .welcome-actions {
+    display: flex; gap: 10px; justify-content: flex-end;
+  }
+  .welcome-btn {
+    border: none; border-radius: 999px; padding: 11px 16px; font: inherit; font-weight: 800; cursor: pointer;
+  }
+  .welcome-btn.secondary {
+    background: rgba(17, 24, 18, 0.05); color: var(--ink);
+  }
+  body[data-theme="dark"] .welcome-btn.secondary {
+    background: rgba(255,255,255,0.06);
+  }
+  .welcome-btn.primary {
+    background: var(--green); color: #fff;
+  }
+
+  .share-modal {
+    position: fixed; inset: 0; z-index: 110;
+    display: flex; align-items: end; justify-content: center; padding: 20px;
+    background: rgba(12, 16, 14, 0.34);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+  }
+  .share-modal.visible {
+    opacity: 1; visibility: visible; pointer-events: auto;
+  }
+  .share-sheet {
+    width: min(420px, 100%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(17, 24, 18, 0.08);
+    border-radius: 24px 24px 20px 20px;
+    box-shadow: 0 24px 44px rgba(17, 24, 18, 0.12);
+    padding: 22px 18px 18px;
+  }
+  body[data-theme="dark"] .share-sheet {
+    background: rgba(15, 20, 16, 0.82);
+    border-color: rgba(255,255,255,0.08);
+  }
+  .share-header {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-bottom: 12px;
+  }
+  .share-header h3 {
+    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;
+  }
+  .share-close {
+    width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: rgba(17,24,18,0.04); color: var(--ink); cursor: pointer;
+  }
+  .share-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-tint); color: var(--green); border-radius: 999px; padding: 7px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .share-link-box {
+    display: flex; align-items: center; gap: 8px; padding: 12px; border-radius: 14px; background: rgba(17,24,18,0.04); border: 1px solid rgba(17,24,18,0.06); margin-top: 16px; margin-bottom: 16px;
+  }
+  body[data-theme="dark"] .share-link-box {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.06);
+  }
+  .share-link-box input {
+    flex: 1; border: none; background: transparent; color: var(--ink); font: inherit; font-size: 13px; outline: none;
+  }
+  .share-actions {
+    display: flex; gap: 10px; justify-content: flex-end;
+  }
+  .share-action {
+    border: none; border-radius: 999px; padding: 10px 14px; font: inherit; font-weight: 800; cursor: pointer;
+  }
+  .share-action.secondary {
+    background: rgba(17,24,18,0.05); color: var(--ink);
+  }
+  body[data-theme="dark"] .share-action.secondary {
+    background: rgba(255,255,255,0.06);
+  }
+  .share-action.primary {
+    background: var(--green); color: white;
+  }
+  .share-toast {
+    position: fixed; right: 18px; bottom: 180px; z-index: 120; background: rgba(17, 24, 18, 0.9); color: white; border-radius: 999px; padding: 10px 14px; font-size: 12px; font-weight: 700; opacity: 0; transform: translateY(12px); transition: all 0.2s ease; pointer-events: none;
+  }
+  .share-toast.visible {
+    opacity: 1; transform: translateY(0);
   }
 
   .support-fab {
@@ -732,6 +902,42 @@
 </head>
 <body>
 
+  <div class="welcome-modal visible" id="welcomeModal" aria-live="polite">
+    <div class="welcome-sheet">
+      <div class="welcome-badge">Welcome</div>
+      <h2>Make money moves, together.</h2>
+      <p>Track your balances, create a split, and send a payment link in seconds. It’s built for quick cash flow and easy sharing.</p>
+      <div class="welcome-features">
+        <span class="feature-pill">Bank sync</span>
+        <span class="feature-pill">Shareable links</span>
+        <span class="feature-pill">Smart support</span>
+      </div>
+      <div class="welcome-actions">
+        <button class="welcome-btn secondary" type="button" id="welcomeLater">Later</button>
+        <button class="welcome-btn primary" type="button" id="welcomeContinue">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="share-modal" id="shareModal" aria-live="polite">
+    <div class="share-sheet">
+      <div class="share-header">
+        <h3>New payment link</h3>
+        <button class="share-close" type="button" aria-label="Close share panel">×</button>
+      </div>
+      <div class="share-chip">Ready to share</div>
+      <div class="share-link-box">
+        <input id="shareLinkInput" value="https://split.app/pay/DR-24781" readonly />
+      </div>
+      <div class="share-actions">
+        <button class="share-action secondary" type="button" id="copyLinkBtn">Copy link</button>
+        <button class="share-action primary" type="button" id="shareLinkBtn">Share</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="share-toast" id="shareToast">Link copied</div>
+
   <div class="page">
     <div class="content">
       <div class="greet-row">
@@ -799,7 +1005,7 @@
           </div>
           <div class="action-label">Add Bank</div>
         </button>
-        <a class="action-item" href="split-create.html" style="text-decoration:none;" aria-label="Create payment link">
+        <button class="action-item payment-link-trigger" type="button" aria-label="Create payment link" style="text-decoration:none;">
           <div class="action-icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M9 7.5 6.5 10l2.5 2.5"/>
@@ -809,7 +1015,7 @@
             </svg>
           </div>
           <div class="action-label">Payment Link</div>
-        </a>
+        </button>
         <button class="action-item" aria-label="Open insights">
           <div class="action-icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -865,6 +1071,40 @@
             <div class="bank-acct">•••• 2458</div>
           </div>
           <div class="bank-bal">₦24,750</div>
+        </div>
+      </div>
+
+      <div class="activity-card">
+        <div class="activity-head">
+          <div class="activity-title">Recent activity</div>
+          <button class="activity-link" type="button">View all</button>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-icon" style="background:#EAF7F0; color: var(--green);">⇄</div>
+          <div class="activity-copy">
+            <div class="activity-name">Split paid to Yemi</div>
+            <div class="activity-meta">Today · 2:14 PM</div>
+          </div>
+          <div class="activity-amount outgoing">-₦8,400</div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-icon" style="background:#EAF7F0; color: var(--green);">↗</div>
+          <div class="activity-copy">
+            <div class="activity-name">Transfer received</div>
+            <div class="activity-meta">Yesterday · 7:05 PM</div>
+          </div>
+          <div class="activity-amount incoming">+₦15,000</div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-icon" style="background:#F4F1E9; color: #6B6A62;">◌</div>
+          <div class="activity-copy">
+            <div class="activity-name">Card payment</div>
+            <div class="activity-meta">Mon · 10:42 AM</div>
+          </div>
+          <div class="activity-amount outgoing">-₦2,150</div>
         </div>
       </div>
 
@@ -947,6 +1187,70 @@
   <script>
     const savedTheme = localStorage.getItem('split-theme') || 'light';
     document.body.setAttribute('data-theme', savedTheme);
+
+    const welcomeModal = document.getElementById('welcomeModal');
+    const welcomeContinue = document.getElementById('welcomeContinue');
+    const welcomeLater = document.getElementById('welcomeLater');
+    const hasSeenWelcome = localStorage.getItem('split-demo-welcome') === 'true';
+
+    const hideWelcome = () => {
+      localStorage.setItem('split-demo-welcome', 'true');
+      if (welcomeModal) {
+        welcomeModal.classList.remove('visible');
+      }
+    };
+
+    if (!hasSeenWelcome) {
+      welcomeModal?.classList.add('visible');
+    }
+
+    welcomeContinue?.addEventListener('click', hideWelcome);
+    welcomeLater?.addEventListener('click', hideWelcome);
+
+    const shareModal = document.getElementById('shareModal');
+    const shareClose = document.querySelector('.share-close');
+    const paymentLinkTrigger = document.querySelector('.payment-link-trigger');
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    const shareLinkBtn = document.getElementById('shareLinkBtn');
+    const shareLinkInput = document.getElementById('shareLinkInput');
+    const shareToast = document.getElementById('shareToast');
+
+    const showToast = (message) => {
+      if (!shareToast) return;
+      shareToast.textContent = message;
+      shareToast.classList.add('visible');
+      setTimeout(() => shareToast.classList.remove('visible'), 1800);
+    };
+
+    const setShareOpen = (isOpen) => {
+      shareModal?.classList.toggle('visible', isOpen);
+    };
+
+    paymentLinkTrigger?.addEventListener('click', () => setShareOpen(true));
+    shareClose?.addEventListener('click', () => setShareOpen(false));
+    shareModal?.addEventListener('click', (event) => {
+      if (event.target === shareModal) setShareOpen(false);
+    });
+
+    const copyLink = async () => {
+      if (shareLinkInput) {
+        try {
+          await navigator.clipboard.writeText(shareLinkInput.value);
+          showToast('Link copied');
+        } catch (error) {
+          shareLinkInput.focus();
+          shareLinkInput.select();
+          document.execCommand('copy');
+          showToast('Link copied');
+        }
+      }
+    };
+
+    copyLinkBtn?.addEventListener('click', copyLink);
+    shareLinkBtn?.addEventListener('click', async () => {
+      await copyLink();
+      setShareOpen(false);
+    });
 
     const balanceToggle = document.querySelector('.balance-toggle');
     const totalAmount = document.getElementById('totalAmount');
