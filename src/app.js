@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
 const splitRoutes = require('./routes/split.routes');
 const chatRoutes = require('./routes/chat.routes');
+const { verifyToken } = require('./utils/jwt');
 
 const app = express();
 const rootDir = path.resolve(__dirname, '..');
@@ -25,20 +26,41 @@ app.get('/api/health', (_req, res) => {
   res.json({ ok: true, service: 'split-demo-api' });
 });
 
-app.use(express.static(rootDir));
-
-app.get(['/', '/index.html', '/account.html', '/profile.html', '/split-create.html', '/split-link.html', '/split-review.html'], (req, res) => {
-  const requestedFile = req.path === '/' ? 'index.html' : req.path.replace(/^\//, '');
-  const targetPath = path.join(rootDir, requestedFile);
+function sendFileIfExists(req, res, fileName) {
+  const targetPath = path.join(rootDir, fileName);
   res.sendFile(targetPath);
+}
+
+const protectedPages = ['/', '/index.html', '/profile.html', '/split-create.html', '/split-link.html', '/split-review.html'];
+
+app.get(protectedPages, (req, res) => {
+  const token = req.cookies?.jwt;
+  if (!token) {
+    return res.redirect('/account.html');
+  }
+
+  try {
+    verifyToken(token);
+  } catch (_error) {
+    return res.redirect('/account.html');
+  }
+
+  const requestedFile = req.path === '/' ? 'index.html' : req.path.replace(/^\//, '');
+  return sendFileIfExists(req, res, requestedFile);
 });
+
+app.get('/account.html', (req, res) => {
+  return sendFileIfExists(req, res, 'account.html');
+});
+
+app.use(express.static(rootDir));
 
 app.use((req, res) => {
   if (req.path.startsWith('/api/')) {
     return res.status(404).json({ error: 'Not found' });
   }
 
-  res.sendFile(path.join(rootDir, 'index.html'));
+  res.sendFile(path.join(rootDir, 'account.html'));
 });
 
 module.exports = app;

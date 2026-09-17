@@ -1482,8 +1482,23 @@
   </div>
 
   <script>
+    async function requireAuth() {
+      try {
+        const response = await fetch('/api/auth/me', { credentials: 'include' });
+        if (!response.ok) {
+          throw new Error('Not authenticated');
+        }
+        return true;
+      } catch (_error) {
+        window.location.replace('account.html');
+        return false;
+      }
+    }
+
     const savedTheme = localStorage.getItem('split-theme') || 'light';
     document.body.setAttribute('data-theme', savedTheme);
+
+    requireAuth();
 
     const homeAvatar = document.querySelector('.greet-avatar');
 

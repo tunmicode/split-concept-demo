@@ -18,6 +18,7 @@
     --muted: #6B6A62;
     --white: #FFFFFF;
     --font-ui: 'Manrope', 'Inter', sans-serif;
+    --hero-glow: rgba(46, 125, 91, 0.12);
   }
   body[data-theme="dark"] {
     --ink: #EEF3EE;
@@ -29,6 +30,7 @@
     --amber: #C77B3D;
     --muted: #AAB5AD;
     --white: #1A221E;
+    --hero-glow: rgba(124, 232, 164, 0.16);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -40,16 +42,19 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background:
+      radial-gradient(circle at top, var(--hero-glow), transparent 42%),
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-dim) 100%);
   }
   .page {
     width: 100%;
-    max-width: 480px;
+    max-width: 520px;
     margin: 0 auto;
     flex: 1;
     display: flex;
     flex-direction: column;
   }
-  .content { padding: 20px 20px 32px; flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .content { padding: 20px 20px 32px; flex: 1; display: flex; flex-direction: column; gap: 18px; }
   .screen-header {
     display: flex; align-items: center; justify-content: space-between;
     padding-top: 4px;
@@ -63,13 +68,69 @@
     font-family: 'Fraunces', serif; font-size: 21px; font-weight: 600;
     flex: 1; text-align: center; margin-right: 36px;
   }
+  .brand-hero {
+    background: linear-gradient(180deg, rgba(17,24,19,0.96), rgba(17,24,19,0.9));
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 22px;
+    padding: 20px 18px 18px;
+    box-shadow: 0 18px 40px rgba(17,24,19,0.12);
+  }
+  .brand-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-bottom: 18px;
+  }
+  .brand-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.9);
+    border-radius: 999px;
+    padding: 7px 10px;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+  }
+  .brand-pill::before {
+    content: "";
+    width: 8px; height: 8px; border-radius: 50%; background: #7FE0A9; box-shadow: 0 0 18px rgba(127,224,169,0.8);
+  }
+  .brand-logo {
+    color: rgba(255,255,255,0.96);
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800;
+  }
+  .brand-hero h2 {
+    color: #F4F7F3;
+    font-family: 'Fraunces', serif; font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.05;
+    letter-spacing: -0.05em;
+    margin-bottom: 10px;
+  }
+  .brand-hero p {
+    color: rgba(255,255,255,0.72);
+    line-height: 1.6;
+    font-size: 13px;
+  }
+  .brand-features {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+  }
+  .feature-pill {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.8);
+    border-radius: 999px;
+    padding: 7px 10px;
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+  }
   .auth-card {
-    background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+    background: rgba(255,255,255,0.78);
+    border: 1px solid var(--line); border-radius: 22px;
     padding: 18px;
-    display: flex; flex-direction: column; gap: 12px;
+    display: flex; flex-direction: column; gap: 14px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 18px 32px rgba(17,24,19,0.05);
   }
   .auth-card h3 {
-    font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600;
+    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;
+    letter-spacing: -0.03em;
   }
   .auth-card .auth-sub {
     font-size: 12px; color: var(--muted);
@@ -79,16 +140,22 @@
     display: flex; flex-direction: column; gap: 10px;
   }
   .auth-form input {
-    width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--paper);
-    padding: 12px 14px; font: inherit; color: var(--ink); outline: none;
+    width: 100%; border: 1px solid var(--line); border-radius: 12px; background: rgba(247,245,240,0.92);
+    padding: 13px 14px; font: inherit; color: var(--ink); outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
-  .auth-form input:focus { border-color: var(--green); }
+  .auth-form input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(46,125,91,0.08);
+  }
   .auth-form button, .inline-btn {
     border: none; border-radius: 12px; background: var(--ink); color: var(--white);
-    padding: 12px 14px; font: inherit; font-weight: 700; cursor: pointer;
+    padding: 13px 14px; font: inherit; font-weight: 700; cursor: pointer;
+    transition: transform 0.14s ease, opacity 0.14s ease;
   }
+  .auth-form button:hover, .inline-btn:hover { transform: translateY(-1px); }
   .inline-btn {
-    background: var(--green); margin-top: 6px;
+    background: linear-gradient(180deg, #2d815f, #246d51); margin-top: 6px;
   }
   .auth-status {
     min-height: 18px; font-size: 12px; color: var(--green);
@@ -191,9 +258,23 @@
         <div style="width: 36px;"></div>
       </div>
 
+      <div class="brand-hero">
+        <div class="brand-head">
+          <span class="brand-pill">Secure</span>
+          <div class="brand-logo">Split</div>
+        </div>
+        <h2>Make money moves together.</h2>
+        <p>Track balances, split costs in seconds, and keep every payment aligned across your team.</p>
+        <div class="brand-features">
+          <span class="feature-pill">Bank sync</span>
+          <span class="feature-pill">Smart splits</span>
+          <span class="feature-pill">Real-time payouts</span>
+        </div>
+      </div>
+
       <div class="auth-card" id="authCard">
         <h3>Account access</h3>
-        <div class="auth-sub">Sign up for a real account or log in to continue using the app.</div>
+        <div class="auth-sub">Create your account to see the full Split experience and unlock your dashboard.</div>
         <form class="auth-form" id="authForm">
           <input id="authFullName" name="fullName" type="text" placeholder="Full name" />
           <input id="authUsername" name="username" type="text" placeholder="Username" />

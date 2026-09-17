@@ -249,8 +249,20 @@
   </div>
 
   <script>
+    async function requireAuth() {
+      try {
+        const response = await fetch('/api/auth/me', { credentials: 'include' });
+        if (!response.ok) {
+          throw new Error('Not authenticated');
+        }
+      } catch (_error) {
+        window.location.replace('account.html');
+      }
+    }
+
     const savedTheme = localStorage.getItem('split-theme') || 'light';
     document.body.setAttribute('data-theme', savedTheme);
+    requireAuth();
   </script>
 </body>
 </html>
