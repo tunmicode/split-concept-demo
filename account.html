@@ -117,15 +117,18 @@
     padding-top: 14px;
     overflow: hidden;
     position: relative;
+    background: linear-gradient(180deg, rgba(17,17,17,0.02), rgba(17,17,17,0.06));
+    border-radius: 14px;
   }
   .slogan-track {
     display: flex; align-items: center; gap: 20px;
     white-space: nowrap;
     min-width: max-content;
     font-family: 'Manrope', 'Inter', sans-serif;
-    font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
-    font-size: 11px;
-    color: rgba(17,17,17,0.48);
+    font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase;
+    font-size: 10px;
+    color: rgba(17,17,17,0.88);
+    text-shadow: 0 0 12px rgba(17,17,17,0.08);
     animation: sloganScroll 14s linear infinite;
   }
   .slogan-track span {
@@ -135,7 +138,16 @@
   .slogan-track span::before {
     content: "•";
     margin-right: 10px;
-    color: rgba(17,17,17,0.32);
+    color: rgba(17,17,17,0.56);
+  }
+  .slogan-footer {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(17,17,17,0.54);
+    font-weight: 700;
   }
   @keyframes sloganScroll {
     0% { transform: translateX(0); }
@@ -386,6 +398,7 @@
             <span>Split smarter</span>
           </div>
         </div>
+        <div class="slogan-footer">© 2026 — Rights reserved by NextGenDevs</div>
 
         <div class="support-shell" id="supportShell" aria-live="polite">
           <div class="support-header">
