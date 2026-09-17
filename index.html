@@ -163,17 +163,19 @@
   .invite-card {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, #1d5a3f 0%, #103b2b 100%);
-    border: 1px solid rgba(150, 232, 185, 0.18);
+    background: rgba(16, 20, 18, 0.36);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     padding: 10px 12px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 20px rgba(20, 58, 42, 0.18);
+    box-shadow: 0 8px 18px rgba(14, 18, 15, 0.1), inset 0 1px 0 rgba(255,255,255,0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .invite-card::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(255,255,255,0.05), rgba(255,255,255,0) 40%, rgba(255,255,255,0.03));
+    background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0) 40%, rgba(255,255,255,0.03));
     pointer-events: none;
   }
   .invite-marquee {
@@ -188,6 +190,7 @@
     display: inline-flex; align-items: center; gap: 10px;
     min-width: max-content;
     animation: inviteSlide 16s linear infinite;
+    will-change: transform;
   }
   @keyframes inviteSlide {
     0% { transform: translateX(0); }
@@ -205,18 +208,18 @@
   }
   .invite-badge {
     font-size: 7.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
-    color: #DBF7E7; background: rgba(139, 226, 173, 0.16);
-    border: 1px solid rgba(139, 226, 173, 0.22); border-radius: 999px; padding: 4px 6px;
+    color: rgba(255,255,255,0.94); background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; padding: 4px 6px;
   }
   .invite-copy {
     position: relative; z-index: 1;
-    font-family: 'Fraunces', serif; font-size: 15px; line-height: 1.12; color: #F2F9F4;
+    font-family: 'Fraunces', serif; font-size: 15px; line-height: 1.12; color: rgba(255,255,255,0.96);
     letter-spacing: -0.03em;
     margin-bottom: 0;
   }
   .invite-copy .mini {
     display: block; font-size: 9px; font-family: 'Manrope', sans-serif; letter-spacing: 0.08em;
-    text-transform: uppercase; margin-bottom: 3px; color: rgba(215, 232, 221, 0.8);
+    text-transform: uppercase; margin-bottom: 3px; color: rgba(255,255,255,0.72);
   }
   .invite-row {
     position: relative; z-index: 1;
@@ -224,10 +227,10 @@
     margin-top: 6px;
   }
   .invite-meta {
-    font-size: 10px; color: rgba(230, 241, 232, 0.8);
+    font-size: 10px; color: rgba(255,255,255,0.78);
   }
   .invite-cta {
-    background: #F2F9F4; color: #0F1210; border: none; border-radius: 999px;
+    background: rgba(255,255,255,0.92); color: #0F1210; border: none; border-radius: 999px;
     padding: 7px 10px; font: inherit; font-size: 9px; font-weight: 800;
     letter-spacing: 0.06em; text-transform: uppercase;
   }
