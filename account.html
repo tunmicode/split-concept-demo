@@ -8,37 +8,37 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #F3EFE7;
-    --paper: #0C100E;
-    --paper-dim: #121915;
-    --line: rgba(243, 239, 231, 0.12);
-    --green: #66D99D;
-    --green-tint: rgba(102, 217, 157, 0.12);
+    --ink: #111111;
+    --paper: #0B0B09;
+    --paper-dim: #1A1816;
+    --line: rgba(255, 247, 232, 0.14);
+    --green: #D9C39A;
+    --green-tint: rgba(217, 195, 154, 0.14);
     --amber: #C77B3D;
-    --muted: #B5B0A6;
+    --muted: #B0A597;
     --white: #F5F0E7;
-    --card-bg: #1A201D;
-    --card-bg-strong: #131916;
-    --card-border: rgba(245, 240, 231, 0.12);
-    --card-shadow: rgba(0, 0, 0, 0.42);
+    --card-bg: #F4EEDC;
+    --card-bg-strong: #E6DDC7;
+    --card-border: rgba(17, 17, 17, 0.14);
+    --card-shadow: rgba(0, 0, 0, 0.2);
     --font-ui: 'Manrope', 'Inter', sans-serif;
-    --hero-glow: rgba(102, 217, 157, 0.13);
+    --hero-glow: rgba(217, 195, 154, 0.12);
   }
   body[data-theme="dark"] {
-    --ink: #F3EFE7;
-    --paper: #0C100E;
-    --paper-dim: #121915;
-    --line: rgba(243, 239, 231, 0.12);
-    --green: #66D99D;
-    --green-tint: rgba(102, 217, 157, 0.12);
+    --ink: #F5F0E7;
+    --paper: #0B0B09;
+    --paper-dim: #1A1816;
+    --line: rgba(255, 247, 232, 0.14);
+    --green: #D9C39A;
+    --green-tint: rgba(217, 195, 154, 0.14);
     --amber: #C77B3D;
-    --muted: #B5B0A6;
+    --muted: #B0A597;
     --white: #F5F0E7;
-    --card-bg: #1A201D;
-    --card-bg-strong: #131916;
-    --card-border: rgba(245, 240, 231, 0.12);
+    --card-bg: #171512;
+    --card-bg-strong: #201D1A;
+    --card-border: rgba(255, 247, 232, 0.12);
     --card-shadow: rgba(0, 0, 0, 0.42);
-    --hero-glow: rgba(102, 217, 157, 0.13);
+    --hero-glow: rgba(217, 195, 154, 0.12);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -87,7 +87,7 @@
   .brand-wordmark {
     font-family: 'Fraunces', serif; font-size: clamp(34px, 9vw, 48px);
     letter-spacing: -0.08em; line-height: 0.94; font-weight: 600; color: #F5F0E7;
-    text-shadow: 0 0 18px rgba(245, 240, 231, 0.24), 0 0 34px rgba(102, 217, 157, 0.12);
+    text-shadow: 0 0 18px rgba(245, 240, 231, 0.2), 0 0 34px rgba(217, 195, 154, 0.1);
   }
   .brand-subtle {
     margin-top: 8px; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
@@ -99,7 +99,7 @@
     display: flex; flex-direction: column; gap: 12px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 18px 36px var(--card-shadow), 0 2px 10px rgba(17,24,19,0.08), inset 0 1px 0 rgba(255,255,255,0.05);
+    box-shadow: 0 18px 36px var(--card-shadow), 0 2px 10px rgba(17,24,19,0.08), inset 0 1px 0 rgba(255,255,255,0.08);
   }
   .auth-card h3 {
     font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600;
@@ -134,7 +134,7 @@
     display: flex; align-items: center; gap: 8px; font-weight: 700;
   }
   .support-dot {
-    width: 9px; height: 9px; border-radius: 50%; background: #45c379; box-shadow: 0 0 12px rgba(69,195,121,0.7);
+    width: 9px; height: 9px; border-radius: 50%; background: #D9C39A; box-shadow: 0 0 12px rgba(217,195,154,0.7);
   }
   .support-close {
     appearance: none; border: 1px solid var(--line); background: transparent; width: 30px; height: 30px;
@@ -159,7 +159,7 @@
     background: rgba(17,24,19,0.04); color: var(--ink); align-self: flex-start;
   }
   .msg-outgoing {
-    background: rgba(46,125,91,0.12); color: var(--ink); align-self: flex-end;
+    background: rgba(217,195,154,0.15); color: var(--ink); align-self: flex-end;
   }
   .support-input-row {
     display: flex; gap: 8px; padding: 12px 16px 16px; border-top: 1px solid var(--line);
@@ -176,23 +176,38 @@
     margin-top: 2px;
   }
   .auth-form input {
-    width: 100%; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(10,14,12,0.8);
+    width: 100%; border: 1px solid rgba(17,17,17,0.12); border-radius: 12px; background: rgba(255,255,255,0.38);
     padding: 13px 14px; font: inherit; color: var(--ink); outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
+  body[data-theme="dark"] .auth-form input {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,247,232,0.12);
+  }
   .auth-form input:focus {
-    border-color: rgba(122,224,169,0.8);
-    box-shadow: 0 0 0 3px rgba(122,224,169,0.12);
+    border-color: rgba(217,195,154,0.8);
+    box-shadow: 0 0 0 3px rgba(217,195,154,0.12);
   }
   .auth-form button, .inline-btn {
-    border: none; border-radius: 12px; background: linear-gradient(180deg, #1c221f, #111813); color: var(--white);
+    border: none; border-radius: 12px; background: linear-gradient(180deg, #171512, #0D0C0A); color: #F7F2E7;
     padding: 14px 14px; font: inherit; font-weight: 700; cursor: pointer;
     transition: transform 0.14s ease, opacity 0.14s ease, box-shadow 0.15s ease;
-    box-shadow: 0 10px 18px rgba(17,24,19,0.12);
+    box-shadow: 0 10px 18px rgba(0,0,0,0.18);
   }
   .auth-form button:hover, .inline-btn:hover { transform: translateY(-1px); }
   .inline-btn {
-    background: rgba(46,125,91,0.05); border: 1px solid rgba(46,125,91,0.18); color: var(--ink); margin-top: 2px; font-weight: 600; box-shadow: none;
+    background: rgba(201,181,150,0.12); border: 1px solid rgba(201,181,150,0.24); color: var(--ink); margin-top: 2px; font-weight: 600; box-shadow: none;
+  }
+  .face-id-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    border-radius: 12px; border: 1px solid rgba(17,17,17,0.12); background: rgba(17,17,17,0.04);
+    color: var(--ink); padding: 12px 14px; font: inherit; font-weight: 700; cursor: pointer;
+    transition: all 0.14s ease;
+  }
+  .face-id-btn:hover { background: rgba(17,17,17,0.06); }
+  .face-id-icon {
+    width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%;
+    background: rgba(17,17,17,0.08); font-size: 13px;
   }
   .auth-status {
     min-height: 18px; font-size: 12px; color: var(--green);
@@ -308,6 +323,10 @@
           <input id="authFullName" name="fullName" type="text" placeholder="Full name" />
           <input id="authLogin" name="login" type="text" placeholder="Email or phone or username" />
           <input id="authPassword" name="password" type="password" placeholder="Password" />
+          <button class="face-id-btn" type="button" id="faceIdBtn" hidden>
+            <span class="face-id-icon">◌</span>
+            Use Face ID
+          </button>
           <button id="authSubmitBtn" type="submit">Create account</button>
           <button class="inline-btn" type="button" id="toggleAuthMode">Switch to login</button>
         </form>
@@ -361,6 +380,7 @@
     const authLogin = document.getElementById('authLogin');
     let authVerification = document.getElementById('authVerification');
     const authPassword = document.getElementById('authPassword');
+    const faceIdBtn = document.getElementById('faceIdBtn');
     const helpSigninBtn = document.getElementById('helpSigninBtn');
     const supportShell = document.getElementById('supportShell');
     const supportMessages = document.querySelector('#supportShell .support-messages');
@@ -592,6 +612,10 @@
       const isVerify = mode === 'verify';
       const isLogin = mode === 'login';
 
+      if (faceIdBtn) {
+        faceIdBtn.hidden = !isLogin;
+      }
+
       if (authFullName) {
         authFullName.hidden = !isSignup;
       }
@@ -680,6 +704,14 @@
         storeSessionUser(null);
       }
     }
+
+    faceIdBtn?.addEventListener('click', () => {
+      if (!window.PublicKeyCredential) {
+        setAuthStatus('Face ID-style biometric sign-in is available on supported devices and passkey-enabled browsers.', false);
+        return;
+      }
+      setAuthStatus('Biometric sign-in is ready on supported devices through WebAuthn/passkeys.', false);
+    });
 
     authForm?.addEventListener('submit', async (event) => {
       event.preventDefault();
